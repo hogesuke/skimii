@@ -6,7 +6,7 @@ require 'net/http'
 require 'xmlsimple'
 require 'json'
 
-get '/entry' do
+get '/user/my/entry' do
   # todo エントリーを取得する
   url = URI.parse('http://b.hatena.ne.jp/search/tag?q=ruby&mode=rss')
   req = Net::HTTP::Get.new(url.path + '?' + url.query)
@@ -20,34 +20,42 @@ get '/entry' do
   entries.to_json
 end
 
-post '/entry/checked' do
-  # todo エントリー確認済み
-end
-
-delete '/entry/checked' do
-  # todo エントリー確認済みの解除
-end
-
-get '/entry/later' do
-  # todo エントリーあとで読むの取得
-end
-
-post '/entry/later' do
-  # todo エントリーあとで読むの追加
-end
-
-delete '/entry/later' do
-  # todo エントリーあとで読むの削除
+get '/user/me' do
+  # todo ログインユーザ情報の取得
 end
 
 get '/field' do
   # todo ウォッチ対象分野の取得
 end
 
-post '/field' do
+get '/user/my/field' do
+  # todo ウォッチ対象分野の取得
+end
+
+post '/user/my/field' do
   # todo ウォッチ対象分野の追加
 end
 
-delete '/field' do
+delete '/user/my/field' do
   # todo ウォッチ対象分野の削除
+end
+
+post '/user/my/checked' do
+  # todo エントリー確認済み
+end
+
+delete '/user/my/checked' do
+  # todo エントリー確認済みの解除
+end
+
+get '/user/my/later' do
+  # todo エントリーあとで読むの取得
+end
+
+post '/user/my/later' do
+  # todo エントリーあとで読むの追加
+end
+
+delete '/user/my/later' do
+  # todo エントリーあとで読むの削除
 end
