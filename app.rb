@@ -5,6 +5,12 @@ require 'sinatra/reloader'
 require 'net/http'
 require 'xmlsimple'
 require 'json'
+require 'active_record'
+
+ActiveRecord::Base.establish_connection(
+                      "adapter" => "mysql",
+                      "database" => "testdb"
+)
 
 get '/user/my/entry' do
   # todo エントリーを取得する
