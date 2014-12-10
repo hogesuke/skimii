@@ -24,6 +24,10 @@ post '/entry/checked' do
   # todo エントリー確認済み
 end
 
+delete '/entry/checked' do
+  # todo エントリー確認済みの解除
+end
+
 get '/entry/later' do
   # todo エントリーあとで読むの取得
 end
