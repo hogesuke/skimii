@@ -7,10 +7,11 @@ require 'xmlsimple'
 require 'json'
 require 'active_record'
 
-ActiveRecord::Base.establish_connection(
-                      "adapter" => "mysql",
-                      "database" => "testdb"
-)
+ActiveRecord::Base.configurations = YAML.load_file('./db/database.yml')
+ActiveRecord::Base.establish_connection('development')
+
+class Field < ActiveRecord::Base
+end
 
 get '/user/my/entry' do
   # todo エントリーを取得する
@@ -32,6 +33,10 @@ end
 
 get '/field' do
   # todo ウォッチ対象分野の取得
+  field = Field.all
+
+  headers({'Content-Type' => 'application/json'})
+  field.to_json
 end
 
 get '/user/my/field' do
