@@ -10,9 +10,6 @@ require 'active_record'
 ActiveRecord::Base.configurations = YAML.load_file('./db/database.yml')
 ActiveRecord::Base.establish_connection('development')
 
-class Field < ActiveRecord::Base
-end
-
 get '/user/my/entry' do
   # todo エントリーを取得する
   url = URI.parse('http://b.hatena.ne.jp/search/tag?q=ruby&mode=rss')
