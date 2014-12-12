@@ -11,8 +11,9 @@ ActiveRecord::Base.configurations = YAML.load_file('./db/database.yml')
 ActiveRecord::Base.establish_connection('development')
 
 get '/user/my/entry' do
-  # todo エントリーを取得する
-  url = URI.parse('http://b.hatena.ne.jp/search/tag?q=ruby&mode=rss')
+  tag = params[:tag]
+
+  url = URI.parse("http://b.hatena.ne.jp/search/tag?q=#{tag}&mode=rss")
   req = Net::HTTP::Get.new(url.path + '?' + url.query)
   res = Net::HTTP.start(url.host, url.port) {|http|
     http.request(req)
