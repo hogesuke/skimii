@@ -43,7 +43,11 @@ get '/field' do
 end
 
 get '/user/my/field' do
-  # todo ウォッチ対象分野の取得
+  # todo OAuthを実装したらログインユーザで絞るように修正
+  fields = User.find(1).fields
+
+  headers({'Content-Type' => 'application/json'})
+  fields.to_json
 end
 
 post '/user/my/field' do
