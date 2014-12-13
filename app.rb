@@ -75,7 +75,39 @@ get '/user/my/check' do
 end
 
 post '/user/my/check' do
-  # todo エントリー確認済み
+  params = JSON.parse(request.body.read)
+  entry_url = params['url']
+
+  url = URI.parse("http://b.hatena.ne.jp/entry/jsonlite/?url=#{entry_url}")
+  req = Net::HTTP::Get.new(url.path + '?' + url.query)
+  res = Net::HTTP.start(url.host, url.port) {|http|
+    http.request(req)
+  }
+
+  if res.body == 'null' then
+    status(400)
+    headers({'Content-Type' => 'application/json'})
+    return {:err_msg => 'エントリーが存在しません。'}.to_json
+  end
+
+  entry_info = JSON.parse(res.body)
+  if Entry.exists?(:url => entry_info['url']) then
+    entry = Entry.where(:url => entry_info['url']).first
+  else
+    entry = Entry.new
+    entry.url = entry_info['url']
+    entry.title = entry_info['title']
+    entry.save
+  end
+
+  p entry
+  check = Check.new
+  check.user_id = 1 # todo OAuthを実装したらログインユーザで絞るように修正
+  check.entry_id = entry.id
+  check.save
+
+  headers({'Content-Type' => 'application/json'})
+  entry.to_json
 end
 
 delete '/user/my/check' do
