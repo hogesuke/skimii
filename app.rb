@@ -31,7 +31,7 @@ end
 
 get '/field' do
   # todo ウォッチ対象分野の取得
-  field = Field.all
+  field = Fields.all
 
   headers({'Content-Type' => 'application/json'})
   field.to_json

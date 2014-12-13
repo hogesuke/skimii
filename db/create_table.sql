@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS users_fields (
   PRIMARY KEY (user_id, field_id)
 );
 
-CREATE TABLE IF NOT EXISTS checks (
+CREATE TABLE IF NOT EXISTS entries (
   id INT NOT NULL AUTO_INCREMENT,
   url NVARCHAR(1024) NOT NULL,
   title NVARCHAR(512),
@@ -33,24 +33,16 @@ CREATE TABLE IF NOT EXISTS checks (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS users_checks (
+CREATE TABLE IF NOT EXISTS checks (
   user_id INT,
-  check_id INT,
+  entry_id INT,
   created_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (user_id, check_id)
+  PRIMARY KEY (user_id, entry_id)
 );
 
 CREATE TABLE IF NOT EXISTS laters (
-  id INT NOT NULL AUTO_INCREMENT,
-  url NVARCHAR(1024) NOT NULL,
-  title NVARCHAR(512),
-  created_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (id)
-);
-
-CREATE TABLE IF NOT EXISTS users_laters (
   user_id INT,
-  laters_id INT,
+  entry_id INT,
   created_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (user_id, laters_id)
+  PRIMARY KEY (user_id, entry_id)
 );
