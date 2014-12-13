@@ -9,6 +9,9 @@ require 'json'
 require 'active_record'
 require_relative './model/user'
 require_relative './model/field'
+require_relative './model/check'
+require_relative './model/later'
+require_relative './model/entry'
 
 ActiveRecord::Base.configurations = YAML.load_file('./db/database.yml')
 ActiveRecord::Base.establish_connection('development')
@@ -58,16 +61,38 @@ delete '/user/my/field' do
   # todo ウォッチ対象分野の削除
 end
 
-post '/user/my/checked' do
+get '/user/my/check' do
+  # todo OAuthを実装したらログインユーザで絞るように修正
+  checks = User.find(1).checks
+
+  entries = []
+  checks.each{|check|
+    entries.push(check.entry)
+  }
+
+  headers({'Content-Type' => 'application/json'})
+  entries.to_json
+end
+
+post '/user/my/check' do
   # todo エントリー確認済み
 end
 
-delete '/user/my/checked' do
+delete '/user/my/check' do
   # todo エントリー確認済みの解除
 end
 
 get '/user/my/later' do
-  # todo エントリーあとで読むの取得
+  # todo OAuthを実装したらログインユーザで絞るように修正
+  laters = User.find(1).laters
+
+  entries = []
+  laters.each{|later|
+    entries.push(later.entry)
+  }
+
+  headers({'Content-Type' => 'application/json'})
+  entries.to_json
 end
 
 post '/user/my/later' do
