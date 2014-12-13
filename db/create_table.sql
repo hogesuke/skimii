@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS fields (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS users_fields (
+CREATE TABLE IF NOT EXISTS fields_users (
   user_id INT,
   field_id INT,
   created_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
