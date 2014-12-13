@@ -39,7 +39,7 @@ get '/user/me' do
 end
 
 get '/field' do
-  fields = Field.where(:official => 1)
+  fields = Field.where(:official => '1')
 
   headers({'Content-Type' => 'application/json'})
   fields.to_json
@@ -55,6 +55,30 @@ end
 
 post '/user/my/field' do
   # todo ウォッチ対象分野の追加
+  params = JSON.parse(request.body.read)
+  field_name = params['name']
+
+  # todo OAuthを実装したらログインユーザで絞るように修正
+  user = User.find(1)
+
+  if Field.exists?(:name => field_name) then
+    field = Field.where(:name => field_name).first
+
+    if user.fields.exists?(:id => field.id) then
+      status(400)
+      return {:err_msg => '既に登録されています。'}.to_json
+    end
+  else
+    field = Field.new
+    field.name = field_name
+    field.official = '1'
+    field.save
+  end
+
+  user.fields<<field
+
+  headers({'Content-Type' => 'application/json'})
+  user.fields.to_json
 end
 
 delete '/user/my/field' do
@@ -75,6 +99,7 @@ get '/user/my/check' do
 end
 
 post '/user/my/check' do
+  # todo 既にチェック済みの場合でないかのチェック要実装
   params = JSON.parse(request.body.read)
   entry_url = params['url']
 
@@ -100,7 +125,6 @@ post '/user/my/check' do
     entry.save
   end
 
-  p entry
   check = Check.new
   check.user_id = 1 # todo OAuthを実装したらログインユーザで絞るように修正
   check.entry_id = entry.id
