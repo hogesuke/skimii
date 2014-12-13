@@ -36,11 +36,10 @@ get '/user/me' do
 end
 
 get '/field' do
-  # todo ウォッチ対象分野の取得
-  field = Field.all
+  fields = Field.where(:official => 1)
 
   headers({'Content-Type' => 'application/json'})
-  field.to_json
+  fields.to_json
 end
 
 get '/user/my/field' do
