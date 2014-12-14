@@ -99,9 +99,17 @@ get '/user/my/check' do
 end
 
 post '/user/my/check' do
-  # todo 既にチェック済みの場合でないかのチェック要実装
   params = JSON.parse(request.body.read)
   entry_url = params['url']
+
+  entry = Entry.where(:url => entry_url).first
+  if entry != nil then
+    if Check.exists?({:user_id => 1, :entry_id => entry.id}) then
+      status(400)
+      headers({'Content-Type' => 'application/json'})
+      return {:err_msg => 'このエントリーは既にチェック済みとして登録されています。'}.to_json
+    end
+  end
 
   url = URI.parse("http://b.hatena.ne.jp/entry/jsonlite/?url=#{entry_url}")
   req = Net::HTTP::Get.new(url.path + '?' + url.query)
@@ -117,21 +125,19 @@ post '/user/my/check' do
 
   entry_info = JSON.parse(res.body)
   if Entry.exists?(:url => entry_info['url']) then
-    entry = Entry.where(:url => entry_info['url']).first
+    new_entry = Entry.where(:url => entry_info['url']).first
   else
-    entry = Entry.new
-    entry.url = entry_info['url']
-    entry.title = entry_info['title']
-    entry.save
+    new_entry = Entry.new
+    new_entry.url = entry_info['url']
+    new_entry.title = entry_info['title']
+    new_entry.save
   end
 
-  check = Check.new
-  check.user_id = 1 # todo OAuthを実装したらログインユーザで絞るように修正
-  check.entry_id = entry.id
-  check.save
+  # todo OAuthを実装したらログインユーザで絞るように修正
+  User.find(1).checks.create(:entry_id => new_entry.id)
 
   headers({'Content-Type' => 'application/json'})
-  entry.to_json
+  new_entry.to_json
 end
 
 delete '/user/my/check' do
