@@ -158,7 +158,45 @@ get '/user/my/later' do
 end
 
 post '/user/my/later' do
-  # todo エントリーあとで読むの追加
+  params = JSON.parse(request.body.read)
+  entry_url = params['url']
+
+  entry = Entry.where(:url => entry_url).first
+  if entry != nil then
+    if Later.exists?({:user_id => 1, :entry_id => entry.id}) then
+      status(400)
+      headers({'Content-Type' => 'application/json'})
+      return {:err_msg => 'このエントリーは既にあとで読むとして登録されています。'}.to_json
+    end
+  end
+
+  url = URI.parse("http://b.hatena.ne.jp/entry/jsonlite/?url=#{entry_url}")
+  req = Net::HTTP::Get.new(url.path + '?' + url.query)
+  res = Net::HTTP.start(url.host, url.port) {|http|
+    http.request(req)
+  }
+
+  if res.body == 'null' then
+    status(400)
+    headers({'Content-Type' => 'application/json'})
+    return {:err_msg => 'エントリーが存在しません。'}.to_json
+  end
+
+  entry_info = JSON.parse(res.body)
+  if Entry.exists?(:url => entry_info['url']) then
+    new_entry = Entry.where(:url => entry_info['url']).first
+  else
+    new_entry = Entry.new
+    new_entry.url = entry_info['url']
+    new_entry.title = entry_info['title']
+    new_entry.save
+  end
+
+  # todo OAuthを実装したらログインユーザで絞るように修正
+  User.find(1).laters.create(:entry_id => new_entry.id)
+
+  headers({'Content-Type' => 'application/json'})
+  new_entry.to_json
 end
 
 delete '/user/my/later' do
