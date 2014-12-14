@@ -200,5 +200,26 @@ post '/user/my/later' do
 end
 
 delete '/user/my/later' do
-  # todo エントリーあとで読むの削除
+  params = JSON.parse(request.body.read)
+  entry_url = params['url']
+  user = User.find(1)
+
+  entry = Entry.where(:url => entry_url).first
+  if entry == nil then
+    status(400)
+    headers({'Content-Type' => 'application/json'})
+    return {:err_msg => 'エントリーが存在しません。'}.to_json
+  end
+
+  later = user.laters.where(:entry_id => entry.id).first
+  if later == nil then
+    headers({'Content-Type' => 'application/json'})
+    return user.laters.to_json
+  end
+
+  # todo 削除時エラーになる。要修正。
+  later.destroy
+
+  headers({'Content-Type' => 'application/json'})
+  entry.to_json
 end
