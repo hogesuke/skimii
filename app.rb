@@ -193,7 +193,7 @@ post '/user/my/later' do
   end
 
   # todo OAuthを実装したらログインユーザで絞るように修正
-  User.find(1).laters.create(:entry_id => new_entry.id)
+  User.find(1).entries<<new_entry
 
   headers({'Content-Type' => 'application/json'})
   new_entry.to_json
@@ -217,8 +217,7 @@ delete '/user/my/later' do
     return user.laters.to_json
   end
 
-  # todo 削除時エラーになる。要修正。
-  later.destroy
+  user.entries.destroy(entry)
 
   headers({'Content-Type' => 'application/json'})
   entry.to_json
