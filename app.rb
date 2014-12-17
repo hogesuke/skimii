@@ -71,7 +71,7 @@ post '/user/my/tag' do
   else
     tag = Tag.new
     tag.name = tag_name
-    tag.official = '1'
+    tag.official = '0'
     tag.save
   end
 
