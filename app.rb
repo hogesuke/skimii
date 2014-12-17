@@ -8,7 +8,7 @@ require 'xmlsimple'
 require 'json'
 require 'active_record'
 require_relative './model/user'
-require_relative './model/field'
+require_relative './model/tag'
 require_relative './model/check'
 require_relative './model/later'
 require_relative './model/entry'
@@ -18,11 +18,11 @@ ActiveRecord::Base.establish_connection('development')
 
 get '/user/my/entry' do
   # todo OAuthを実装したらログインユーザで絞るように修正
-  fields = User.find(1).fields
+  tags = User.find(1).tags
 
   entries = []
-  fields.each{|field|
-    url = URI.parse("http://b.hatena.ne.jp/search/tag?q=#{field.name}&mode=rss")
+  tags.each{|tag|
+    url = URI.parse("http://b.hatena.ne.jp/search/tag?q=#{tag.name}&mode=rss")
     req = Net::HTTP::Get.new(url.path + '?' + url.query)
     res = Net::HTTP.start(url.host, url.port) {|http|
       http.request(req)
@@ -38,50 +38,50 @@ get '/user/me' do
   # todo ログインユーザ情報の取得
 end
 
-get '/field' do
-  fields = Field.where(:official => '1')
+get '/tag' do
+  tags = Tag.where(:official => '1')
 
   headers({'Content-Type' => 'application/json'})
-  fields.to_json
+  tags.to_json
 end
 
-get '/user/my/field' do
+get '/user/my/tag' do
   # todo OAuthを実装したらログインユーザで絞るように修正
-  fields = User.find(1).fields
+  tags = User.find(1).tags
 
   headers({'Content-Type' => 'application/json'})
-  fields.to_json
+  tags.to_json
 end
 
-post '/user/my/field' do
+post '/user/my/tag' do
   # todo ウォッチ対象分野の追加
   params = JSON.parse(request.body.read)
-  field_name = params['name']
+  tag_name = params['name']
 
   # todo OAuthを実装したらログインユーザで絞るように修正
   user = User.find(1)
 
-  if Field.exists?(:name => field_name) then
-    field = Field.where(:name => field_name).first
+  if Tag.exists?(:name => tag_name) then
+    tag = Tag.where(:name => tag_name).first
 
-    if user.fields.exists?(:id => field.id) then
+    if user.tags.exists?(:id => tag.id) then
       status(400)
       return {:err_msg => '既に登録されています。'}.to_json
     end
   else
-    field = Field.new
-    field.name = field_name
-    field.official = '1'
-    field.save
+    tag = Tag.new
+    tag.name = tag_name
+    tag.official = '1'
+    tag.save
   end
 
-  user.fields<<field
+  user.tags<<tag
 
   headers({'Content-Type' => 'application/json'})
-  user.fields.to_json
+  user.tags.to_json
 end
 
-delete '/user/my/field' do
+delete '/user/my/tag' do
   # todo ウォッチ対象分野の削除
 end
 

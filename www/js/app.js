@@ -12,8 +12,8 @@ techBooksApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
 			when('/', {
 				templateUrl: '../templates/entry_list.tmpl.html'
 			}).
-			when('/field', {
-				templateUrl: '../templates/field_select.tmpl.html'
+			when('/tag', {
+				templateUrl: '../templates/tag_select.tmpl.html'
 			}).
 			otherwise({
 				redirectTo: '/'

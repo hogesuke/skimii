@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS users (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS fields (
+CREATE TABLE IF NOT EXISTS tags (
   id INT NOT NULL AUTO_INCREMENT,
   name NVARCHAR(32) UNIQUE,
   official CHAR(1), -- 0: ユーザ 1: 公式
@@ -18,11 +18,11 @@ CREATE TABLE IF NOT EXISTS fields (
   PRIMARY KEY (id)
 );
 
-CREATE TABLE IF NOT EXISTS fields_users (
+CREATE TABLE IF NOT EXISTS tags_users (
   user_id INT,
-  field_id INT,
+  tag_id INT,
   created_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (user_id, field_id)
+  PRIMARY KEY (user_id, tag_id)
 );
 
 CREATE TABLE IF NOT EXISTS entries (
