@@ -1,7 +1,8 @@
 'use strict';
 
 var techBookApp = angular.module('TechBookApp', [
-  'ngRoute'
+  'ngRoute',
+  'techBookControllers'
 ]);
 
 techBookApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
