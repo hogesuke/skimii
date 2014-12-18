@@ -16,6 +16,8 @@ require_relative './model/entry'
 ActiveRecord::Base.configurations = YAML.load_file('./db/database.yml')
 ActiveRecord::Base.establish_connection('development')
 
+# todo パラメータがちゃんと渡されてるかバリデーションすること
+
 get '/user/my/entry' do
   # todo OAuthを実装したらログインユーザで絞るように修正
   tags = User.find(1).tags
@@ -86,16 +88,9 @@ delete '/user/my/tag' do
 end
 
 get '/user/my/check' do
-  # todo OAuthを実装したらログインユーザで絞るように修正
-  checks = User.find(1).checks
-
-  entries = []
-  checks.each{|check|
-    entries.push(check.entry)
-  }
-
   headers({'Content-Type' => 'application/json'})
-  entries.to_json
+  # todo OAuthを実装したらログインユーザで絞るように修正
+  User.find(1).check_entries.to_json
 end
 
 post '/user/my/check' do
@@ -105,6 +100,7 @@ post '/user/my/check' do
   entry = Entry.where(:url => entry_url).first
   if entry != nil then
     if Check.exists?({:user_id => 1, :entry_id => entry.id}) then
+      # todo こんときのreturnはerrとするか要検討
       status(400)
       headers({'Content-Type' => 'application/json'})
       return {:err_msg => 'このエントリーは既にチェック済みとして登録されています。'}.to_json
@@ -134,36 +130,53 @@ post '/user/my/check' do
   end
 
   # todo OAuthを実装したらログインユーザで絞るように修正
-  User.find(1).checks.create(:entry_id => new_entry.id)
-
-  headers({'Content-Type' => 'application/json'})
-  new_entry.to_json
-end
-
-delete '/user/my/check' do
-  # todo エントリー確認済みの解除
-end
-
-get '/user/my/later' do
-  # todo OAuthを実装したらログインユーザで絞るように修正
-  laters = User.find(1).laters
-
-  entries = []
-  laters.each{|later|
-    entries.push(later.entry)
-  }
+  entries = User.find(1).check_entries<<new_entry
 
   headers({'Content-Type' => 'application/json'})
   entries.to_json
 end
 
+delete '/user/my/check' do
+  params = JSON.parse(request.body.read)
+  entry_url = params['url']
+  user = User.find(1)
+
+  entry = Entry.where(:url => entry_url).first
+  if entry == nil then
+    status(400)
+    headers({'Content-Type' => 'application/json'})
+    return {:err_msg => 'エントリーが存在しません。'}.to_json
+  end
+
+  check = user.checks.where(:entry_id => entry.id).first
+  if check == nil then
+    headers({'Content-Type' => 'application/json'})
+    return user.check_entries.to_json
+
+  end
+
+  user.check_entries.destroy(entry)
+
+  headers({'Content-Type' => 'application/json'})
+  user.check_entries.to_json
+end
+
+get '/user/my/later' do
+  headers({'Content-Type' => 'application/json'})
+  # todo OAuthを実装したらログインユーザで絞るように修正
+  User.find(1).later_entries.to_json
+end
+
 post '/user/my/later' do
   params = JSON.parse(request.body.read)
   entry_url = params['url']
+  # todo OAuthを実装したらログインユーザで絞るように修正
+  user = User.find(1)
 
   entry = Entry.where(:url => entry_url).first
   if entry != nil then
     if Later.exists?({:user_id => 1, :entry_id => entry.id}) then
+      # todo こんときのreturnはerrとするか要検討
       status(400)
       headers({'Content-Type' => 'application/json'})
       return {:err_msg => 'このエントリーは既にあとで読むとして登録されています。'}.to_json
@@ -192,16 +205,16 @@ post '/user/my/later' do
     new_entry.save
   end
 
-  # todo OAuthを実装したらログインユーザで絞るように修正
-  User.find(1).entries<<new_entry
+  entries = user.later_entries<<new_entry
 
   headers({'Content-Type' => 'application/json'})
-  new_entry.to_json
+  entries.to_json
 end
 
 delete '/user/my/later' do
   params = JSON.parse(request.body.read)
   entry_url = params['url']
+  # todo OAuthを実装したらログインユーザで絞るように修正
   user = User.find(1)
 
   entry = Entry.where(:url => entry_url).first
@@ -214,11 +227,11 @@ delete '/user/my/later' do
   later = user.laters.where(:entry_id => entry.id).first
   if later == nil then
     headers({'Content-Type' => 'application/json'})
-    return user.laters.to_json
+    return user.later_entries.to_json
   end
 
-  user.entries.destroy(entry)
+  user.later_entries.destroy(entry)
 
   headers({'Content-Type' => 'application/json'})
-  entry.to_json
+  user.later_entries.to_json
 end
