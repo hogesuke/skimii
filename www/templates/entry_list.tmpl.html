@@ -1,2 +1,9 @@
 <div id="sidebar" class="col-lg-2 col-md-3 col-sm-3" style="background-color: #204d74">side</div>
-<div id="main-content" class="col-lg-10 col-md-9 col-sm-9">entry list</div>
+<div id="main-content" class="col-lg-10 col-md-9 col-sm-9" ng-controller="EntryController">
+  <div ng-repeat="(tag, entry) in entries">
+    <div style="font-size: 24px; margin-bottom: 5px;">{{tag}}</div>
+    <div ng-repeat="e in entry" style="margin-bottom: 10px;">
+      <div><a href="{{e.link[0]}}" target="_blank">{{e.title[0]}}</a><span> {{e.bookmarkcount[0]}}</span></div>
+    </div>
+  </div>
+</div>

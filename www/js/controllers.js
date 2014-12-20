@@ -28,7 +28,17 @@ techBookControllers.controller('TagController', ['$scope', 'TagService',
       var checkedTags = $scope.tags.filter(function(tag) {
         return !!tag.checked;
       });
+      // todo save中の表示・save後の表示
       TagService.save(checkedTags);
     };
   }]
+);
+
+techBookControllers.controller('EntryController', ['$scope', 'EntryService',
+    function($scope, EntryService) {
+      EntryService.all().then(function(entries) {
+        // todo 取得中の表示
+        $scope.entries = entries;
+      })
+    }]
 );

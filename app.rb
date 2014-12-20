@@ -18,19 +18,20 @@ ActiveRecord::Base.establish_connection('development')
 
 # todo パラメータがちゃんと渡されてるかバリデーションすること
 # todo saveはsave!に変更すること
+# todo tagの登録個数制限を付けること
 
 get '/user/my/entry' do
   # todo OAuthを実装したらログインユーザで絞るように修正
   tags = User.find(1).tags
 
-  entries = []
+  entries = {}
   tags.each{|tag|
     url = URI.parse("http://b.hatena.ne.jp/search/tag?q=#{tag.name}&mode=rss")
     req = Net::HTTP::Get.new(url.path + '?' + url.query)
     res = Net::HTTP.start(url.host, url.port) {|http|
       http.request(req)
     }
-    entries.concat(XmlSimple.xml_in(res.body)['item'])
+    entries[tag.name] = XmlSimple.xml_in(res.body)['item']
   }
 
   headers({'Content-Type' => 'application/json'})
