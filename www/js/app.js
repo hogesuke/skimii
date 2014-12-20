@@ -11,7 +11,7 @@ techBookApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
     // $locationProvider.html5Mode(true);
     $routeProvider.
       when('/', {
-        templateUrl: '../templates/entry_list.tmpl.html'
+        templateUrl: '../templates/entry_dashboard.tmpl.html'
       }).
       when('/tag', {
         templateUrl: '../templates/tag_select.tmpl.html'
