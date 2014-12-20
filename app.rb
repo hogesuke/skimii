@@ -17,6 +17,7 @@ ActiveRecord::Base.configurations = YAML.load_file('./db/database.yml')
 ActiveRecord::Base.establish_connection('development')
 
 # todo パラメータがちゃんと渡されてるかバリデーションすること
+# todo saveはsave!に変更すること
 
 get '/user/my/entry' do
   # todo OAuthを実装したらログインユーザで絞るように修正
@@ -58,26 +59,24 @@ end
 post '/user/my/tag' do
   # todo ウォッチ対象分野の追加
   params = JSON.parse(request.body.read)
-  tag_name = params['name']
+  param_tags = params['tags']
 
   # todo OAuthを実装したらログインユーザで絞るように修正
   user = User.find(1)
+  user.tags.delete_all
 
-  if Tag.exists?(:name => tag_name) then
-    tag = Tag.where(:name => tag_name).first
-
-    if user.tags.exists?(:id => tag.id) then
-      status(400)
-      return {:err_msg => '既に登録されています。'}.to_json
+  param_tags.each{|param_tag|
+    if Tag.exists?(:name => param_tag['name']) then
+      tag = Tag.where(:name => param_tag['name']).first
+    else
+      tag = Tag.new
+      tag.name = param_tag['name']
+      tag.official = '0'
+      tag.save
     end
-  else
-    tag = Tag.new
-    tag.name = tag_name
-    tag.official = '0'
-    tag.save
-  end
 
-  user.tags<<tag
+    user.tags<<tag
+  }
 
   headers({'Content-Type' => 'application/json'})
   user.tags.to_json

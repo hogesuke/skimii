@@ -1,7 +1,26 @@
 <div id="sidebar" class="col-lg-2 col-md-3 col-sm-3" style="background-color: #204d74">side</div>
 <div id="main-content" class="col-lg-10 col-md-9 col-sm-9" ng-controller="TagController">
 <!--<div id="main-content" class="col-lg-10 col-md-9 col-sm-9">-->
-  <div ng-repeat="tag in tags">
-    {{tag.name}}
-  </div>
+  <p>タグ選択</p>
+  <div>ウォッチするタグを選択してください</div>
+  <form novalidate name="selectTags" ng-submit="save()">
+    <div class="form-group">
+      <div id="tag-select-list" ng-repeat="tag in tags">
+        <label><input type="checkbox" ng-checked="!tag.official" ng-model="tag.checked"> {{tag.name}}</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <input type="submit" class="btn btn-default" value="save">
+    </div>
+  </form>
+  <div>タグを追加</div>
+  <form novalidate name="addOriginalTag" class="form-inline" ng-submit="add(tag)">
+    <div class="form-group">
+      <input type="text" name="tagName" class="form-control" placeholder="Enter tag" ng-model="tag.name" required ng-maxlength="30">
+      <input type="submit" class="btn btn-default" value="add" ng-disabled="addOriginalTag.$invalid">
+      <div class="error-msg">
+        <span ng-show="addOriginalTag.tagName.$error.maxlength">タグは30文字以内で入力してください</span>
+      </div>
+    </div>
+  </form>
 </div>
