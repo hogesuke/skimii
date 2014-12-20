@@ -57,7 +57,6 @@ get '/user/my/tag' do
 end
 
 post '/user/my/tag' do
-  # todo ウォッチ対象分野の追加
   params = JSON.parse(request.body.read)
   param_tags = params['tags']
 
@@ -83,7 +82,16 @@ post '/user/my/tag' do
 end
 
 delete '/user/my/tag' do
-  # todo ウォッチ対象分野の削除
+  params = JSON.parse(request.body.read)
+  tag_name = params['name']
+  # todo OAuthを実装したらログインユーザで絞るように修正
+  user = User.find(1)
+
+  tag = Tag.where(:name => tag_name)
+  user.tags.destroy(tag)
+
+  headers({'Content-Type' => 'application/json'})
+  user.tags.to_json
 end
 
 get '/user/my/check' do
