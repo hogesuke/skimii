@@ -38,7 +38,7 @@ techBookControllers.controller('EntryController', ['$scope', 'EntryService',
     function($scope, EntryService) {
       EntryService.all().then(function(entries) {
         // todo 取得中の表示
-        $scope.entries = entries;
+        $scope.entriesPack = entries;
       })
     }]
 );

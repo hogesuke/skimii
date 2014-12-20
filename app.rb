@@ -24,18 +24,36 @@ get '/user/my/entry' do
   # todo OAuthを実装したらログインユーザで絞るように修正
   tags = User.find(1).tags
 
-  entries = {}
+  all_entries = {}
   tags.each{|tag|
     url = URI.parse("http://b.hatena.ne.jp/search/tag?q=#{tag.name}&mode=rss")
     req = Net::HTTP::Get.new(url.path + '?' + url.query)
     res = Net::HTTP.start(url.host, url.port) {|http|
       http.request(req)
     }
-    entries[tag.name] = XmlSimple.xml_in(res.body)['item']
+    # entries[tag.name] = XmlSimple.xml_in(res.body)['item']
+    entries = []
+    items = XmlSimple.xml_in(res.body)['item']
+    items.each{|item|
+      thumbnail_url = ''
+      if /http:\/\/cdn-ak\.b\.st-hatena\.com\/entryimage\/[0-9\-]+\.jpg/ =~ item['encoded'][0] then
+        thumbnail_url = $&
+      end
+      entries.push({
+          :title         => item['title'][0],
+          :link          => item['link'][0],
+          :description   => item['description'][0],
+          :date          => item['date'][0],
+          :bookmarkcount => item['bookmarkcount'][0],
+          :thumbnail_url => thumbnail_url
+      })
+    }
+
+    all_entries[tag.name] = entries
   }
 
   headers({'Content-Type' => 'application/json'})
-  entries.to_json
+  all_entries.to_json
 end
 
 get '/user/me' do
