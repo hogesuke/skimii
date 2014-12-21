@@ -1,11 +1,8 @@
 var techBookControllers = angular.module('techBookControllers', ['ui.bootstrap']);
 
-techBookControllers.controller('TagController', ['$scope', 'TagService',
-  function($scope, TagService) {
-
-    TagService.all().then(function(tags) {
-      $scope.tags = tags;
-    });
+techBookControllers.controller('TagController', ['$scope', 'TagService', 'tags',
+  function($scope, TagService, tags) {
+    $scope.tags = tags;
 
     $scope.add = function(originalTag) {
       var isDuplicated = false;
@@ -34,11 +31,8 @@ techBookControllers.controller('TagController', ['$scope', 'TagService',
   }]
 );
 
-techBookControllers.controller('DashboardController', ['$scope', 'EntryService',
-    function($scope, EntryService) {
-      EntryService.all().then(function(entries) {
-        // todo 取得中の表示
-        $scope.entriesPack = entries;
-      })
+techBookControllers.controller('DashboardController', ['$scope', 'entries',
+    function($scope, entries) {
+      $scope.entriesPack = entries;
     }]
 );

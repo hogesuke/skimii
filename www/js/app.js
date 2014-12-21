@@ -11,10 +11,26 @@ techBookApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
     // $locationProvider.html5Mode(true);
     $routeProvider.
       when('/', {
-        templateUrl: '../templates/entry_dashboard.tmpl.html'
+        templateUrl: '../templates/entry_dashboard.tmpl.html',
+        controller: 'DashboardController',
+        resolve: {
+          EntryService: 'EntryService',
+          entries: function(EntryService) {
+            // todo ロード中の画面表示どうしようね…
+            return EntryService.all();
+          }
+        }
       }).
       when('/tag', {
-        templateUrl: '../templates/tag_select.tmpl.html'
+        templateUrl: '../templates/tag_select.tmpl.html',
+        controller: 'TagController',
+        resolve: {
+          TagService: 'TagService',
+          tags: function(TagService) {
+            // todo ロード中の画面表示どうしようね…
+            return TagService.all();
+          }
+        }
       }).
       otherwise({
         redirectTo: '/'
