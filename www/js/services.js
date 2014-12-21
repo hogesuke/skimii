@@ -1,5 +1,10 @@
 angular.module('TechBookApp').
-  factory('TagService', ['$http', '$q', function($http, $q) {
+  factory('currentTag', [function() {
+    return {
+      name: ''
+    };
+  }]).
+  factory('TagService', ['$http', '$q', 'currentTag', function($http, $q, currentTag) {
     return {
       all: function() {
         var deferred = $q.defer();
@@ -38,6 +43,12 @@ angular.module('TechBookApp').
           deferred.reject();
         });
         return deferred.promise;
+      },
+      setCurrentTag: function(tagName) {
+        currentTag.name = tagName;
+      },
+      getCurrentTag: function() {
+        return currentTag;
       }
     }
   }]).

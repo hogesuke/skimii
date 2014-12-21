@@ -10,7 +10,25 @@
   position: absolute;
   top: 45px;
   left: 0;
+  padding-left: 15px;
   background-color: #204d74;
+  color: #ffffff;
+  font-size: 16px;
+
+  .tag-list {
+    #tags-header {
+      font-size: 18px;
+    }
+
+    ul {
+      padding-left: 15px;
+      list-style-type: none;
+
+      li a {
+        color: #ffffff;
+      }
+    }
+  }
 }
 
 #content {

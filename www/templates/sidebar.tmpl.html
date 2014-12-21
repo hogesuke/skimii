@@ -1,0 +1,10 @@
+<div ng-controller="SidebarController">
+  <div class="tag-list">
+    <h2 id="tags-header">Tags</h2>
+    <ul>
+      <li ng-repeat="tag in tags">
+        <a href="#/entry" ng-click="setCurrentTag(tag.name)">{{tag.name}}</a>
+      </li>
+    </ul>
+  </div>
+</div>

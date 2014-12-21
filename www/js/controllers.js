@@ -37,11 +37,25 @@ techBookControllers.controller('DashboardController', ['$scope', 'entries',
     }]
 );
 
-techBookControllers.controller('EntryListController', ['$scope', 'tags', 'entries',
-    function($scope, tags, entries) {
+techBookControllers.controller('EntryListController', ['$scope', 'TagService', 'tags', 'entries',
+    function($scope, TagService, tags, entries) {
       $scope.tags = tags;
       $scope.allTagEntries = entries;
+      $scope.currentTag = TagService.getCurrentTag();
 
-      $scope.currentTag = tags[0].name;
+      if (!$scope.currentTag.name) {
+        TagService.setCurrentTag(tags[0].name)
+      }
+    }]
+);
+
+techBookControllers.controller('SidebarController', ['$scope', 'TagService',
+    function($scope, TagService) {
+      TagService.mine().then(function(tags) {
+        $scope.tags = tags;
+      });
+
+      $scope.currentTag = TagService.getCurrentTag();
+      $scope.setCurrentTag = TagService.setCurrentTag
     }]
 );
