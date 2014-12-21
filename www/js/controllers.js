@@ -1,9 +1,22 @@
 var techBookControllers = angular.module('techBookControllers', ['ui.bootstrap']);
 
-techBookControllers.controller('TagController', ['$scope', 'TagService', 'tags',
-  function($scope, TagService, tags) {
-    $scope.tags = tags;
+techBookControllers.controller('TagController', ['$scope', 'TagService', 'officialTags', 'mineTags',
+  function($scope, TagService, officialTags, mineTags) {
+    var originalTags = mineTags.filter(function(tag) {
+      return tag.official === "0";
+    });
+    $scope.tags = officialTags.concat(originalTags);
 
+    $scope.tags.forEach(function(tag) {
+      mineTags.forEach(function(mineTag) {
+        if (mineTag.name === tag.name) {
+          tag.checked = true;
+          return false;
+        }
+      });
+    });
+
+    // タグの追加
     $scope.add = function(originalTag) {
       var isDuplicated = false;
       $scope.tags.forEach(function(tag) {
@@ -21,6 +34,7 @@ techBookControllers.controller('TagController', ['$scope', 'TagService', 'tags',
       }
     };
 
+    // タグの登録
     $scope.save = function() {
       var checkedTags = $scope.tags.filter(function(tag) {
         return !!tag.checked;

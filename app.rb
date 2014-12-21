@@ -19,6 +19,7 @@ ActiveRecord::Base.establish_connection('development')
 # todo パラメータがちゃんと渡されてるかバリデーションすること
 # todo saveはsave!に変更すること
 # todo tagの登録個数制限を付けること
+# todo tagは小文字変換して登録するようにすること
 
 get '/user/my/entry' do
   # todo OAuthを実装したらログインユーザで絞るように修正

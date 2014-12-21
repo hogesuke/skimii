@@ -26,9 +26,13 @@ techBookApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
         controller: 'TagController',
         resolve: {
           TagService: 'TagService',
-          tags: function(TagService) {
+          officialTags: function(TagService) {
             // todo ロード中の画面表示どうしようね…
             return TagService.all();
+          },
+          mineTags: function(TagService) {
+            // todo ロード中の画面表示どうしようね…
+            return TagService.mine();
           }
         }
       }).
