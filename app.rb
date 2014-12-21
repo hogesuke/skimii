@@ -33,33 +33,6 @@ get '/user/my/entry' do
   all_entries.to_json
 end
 
-def get_entries(tag_name)
-  url = URI.parse("http://b.hatena.ne.jp/search/tag?q=#{tag_name}&mode=rss")
-  req = Net::HTTP::Get.new(url.path + '?' + url.query)
-  res = Net::HTTP.start(url.host, url.port) {|http|
-    http.request(req)
-  }
-
-  entries = []
-  items = XmlSimple.xml_in(res.body)['item']
-  items.each{|item|
-    thumbnail_url = ''
-    if /http:\/\/cdn-ak\.b\.st-hatena\.com\/entryimage\/[0-9\-]+\.jpg/ =~ item['encoded'][0] then
-      thumbnail_url = $&
-    end
-    entries.push({
-                     :title         => item['title'][0],
-                     :link          => item['link'][0],
-                     :description   => item['description'][0],
-                     :date          => item['date'][0],
-                     :bookmarkcount => item['bookmarkcount'][0],
-                     :thumbnail_url => thumbnail_url
-                 })
-  }
-
-  return entries
-end
-
 get '/user/me' do
   # todo ログインユーザ情報の取得
 end
@@ -264,4 +237,31 @@ delete '/user/my/later' do
 
   headers({'Content-Type' => 'application/json'})
   user.later_entries.to_json
+end
+
+def get_entries(tag_name)
+  url = URI.parse("http://b.hatena.ne.jp/search/tag?q=#{tag_name}&mode=rss")
+  req = Net::HTTP::Get.new(url.path + '?' + url.query)
+  res = Net::HTTP.start(url.host, url.port) {|http|
+    http.request(req)
+  }
+
+  entries = []
+  items = XmlSimple.xml_in(res.body)['item']
+  items.each{|item|
+    thumbnail_url = ''
+    if /http:\/\/cdn-ak\.b\.st-hatena\.com\/entryimage\/[0-9\-]+\.jpg/ =~ item['encoded'][0] then
+      thumbnail_url = $&
+    end
+    entries.push({
+                     :title         => item['title'][0],
+                     :link          => item['link'][0],
+                     :description   => item['description'][0],
+                     :date          => item['date'][0],
+                     :bookmarkcount => item['bookmarkcount'][0],
+                     :thumbnail_url => thumbnail_url
+                 })
+  }
+
+  return entries
 end
