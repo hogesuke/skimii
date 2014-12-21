@@ -2,19 +2,23 @@
 <html lang="ja" ng-app="TechBookApp">
 <head>
   <meta charset="UTF-8">
-  <script src="./js/lib/angular.min.js"></script>
-  <script src="./js/lib/angular-route.min.js"></script>
-  <script src="./js/lib/ui-bootstrap-0.12.0.min.js"></script>
-  <script src="./js/app.js"></script>
-  <script src="./js/controllers.js"></script>
-  <script src="./js/services.js"></script>
-  <link rel="stylesheet" href="./css/bootstrap.min.css">
+  <script src="js/lib/angular.min.js"></script>
+  <script src="js/lib/angular-route.min.js"></script>
+  <script src="js/lib/ui-bootstrap-0.12.0.min.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/controllers.js"></script>
+  <script src="js/services.js"></script>
+  <link rel="stylesheet" href="css/lib/bootstrap.min.css">
+  <link rel="stylesheet" href="css/ui.css">
   <title>tech-book</title>
   <base href="/">
 </head>
 <body>
-<div id="header" class="container-fluid" style="background-color: #204d74">header</div>
-<div class="container-fluid row" ng-view></div>
+<div id="header" class="container-fluid" style="background-color: #204d74; height: 45px;">header</div>
+<div>
+  <div id="sidebar" style="background-color: #204d74; position: absolute; top: 45px; left: 0; width: 250px; height: 100%; min-height: 100%;">side</div>
+  <div id="content" ng-view style="padding-left: 250px;"></div>
+</div>
 <div id="footer" class="container-fluid" style="background-color: #101010">footer</div>
 </body>
 </html>
