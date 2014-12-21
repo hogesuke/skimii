@@ -33,6 +33,15 @@ techBookControllers.controller('TagController', ['$scope', 'TagService', 'tags',
 
 techBookControllers.controller('DashboardController', ['$scope', 'entries',
     function($scope, entries) {
-      $scope.entriesPack = entries;
+      $scope.allTagEntries = entries;
+    }]
+);
+
+techBookControllers.controller('EntryListController', ['$scope', 'tags', 'entries',
+    function($scope, tags, entries) {
+      $scope.tags = tags;
+      $scope.allTagEntries = entries;
+
+      $scope.currentTag = tags[0].name;
     }]
 );

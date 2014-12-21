@@ -13,6 +13,18 @@ angular.module('TechBookApp').
         });
         return deferred.promise;
       },
+      mine: function() {
+        var deferred = $q.defer();
+        $http({
+          method: 'get',
+          url: '/api/user/my/tag'
+        }).success(function (res) {
+          deferred.resolve(res);
+        }).error(function () {
+          deferred.reject();
+        });
+        return deferred.promise;
+      },
       save: function(tags) {
         var deferred = $q.defer();
         console.debug(tags);
