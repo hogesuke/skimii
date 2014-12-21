@@ -1,7 +1,9 @@
-<div style="padding-left: 15px;">
-  <div style="font-size: 24px; margin-bottom: 5px;">{{currentTag}}</div>
-  <div ng-repeat="entry in allTagEntries[currentTag]" style="margin-bottom: 10px;">
-    <div><a href="{{entry.link}}" target="_blank">{{entry.title}}</a><span> {{entry.bookmarkcount}}</span></div>
-    <div ng-if="entry.thumbnail_url"><img src="{{entry.thumbnail_url}}"></div>
+<div id="entryboard">
+  <div class="entry-list">
+    <div class="tag-name">{{currentTag}}</div>
+    <div class="entry" ng-repeat="entry in allTagEntries[currentTag]">
+      <div><a href="{{entry.link}}" target="_blank">{{entry.title}}</a><span> {{entry.bookmarkcount}}</span></div>
+      <div ng-if="entry.thumbnail_url"><img src="{{entry.thumbnail_url}}"></div>
+    </div>
   </div>
 </div>

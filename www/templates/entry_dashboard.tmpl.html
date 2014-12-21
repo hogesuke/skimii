@@ -1,7 +1,8 @@
-<div style="padding-left: 15px;">
-  <div ng-repeat="(tag, entries) in allTagEntries">
-    <div style="font-size: 24px; margin-bottom: 5px;">{{tag}}</div>
-    <div ng-repeat="entry in entries" style="margin-bottom: 10px;">
+<div id="dashboard">
+  <p>Dashboard</p>
+  <div class="entry-list" ng-repeat="(tag, entries) in allTagEntries">
+    <div class="tag-name">{{tag}}</div>
+    <div class="entry" ng-repeat="entry in entries">
       <div><a href="{{entry.link}}" target="_blank">{{entry.title}}</a><span> {{entry.bookmarkcount}}</span></div>
       <div ng-if="entry.thumbnail_url"><img src="{{entry.thumbnail_url}}"></div>
     </div>

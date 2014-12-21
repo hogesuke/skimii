@@ -1,0 +1,25 @@
+/* line 1, ../../sass/ui.scss */
+#header { height: 45px; background-color: #204d74; }
+
+/* line 6, ../../sass/ui.scss */
+#sidebar { width: 250px; height: 100%; min-height: 100%; position: absolute; top: 45px; left: 0; background-color: #204d74; }
+
+/* line 16, ../../sass/ui.scss */
+#content { padding-left: 250px; }
+/* line 19, ../../sass/ui.scss */
+#content #dashboard { padding-left: 15px; }
+/* line 23, ../../sass/ui.scss */
+#content #dashboard .entry-list .tag-name { margin-bottom: 5px; font-size: 24px; }
+/* line 27, ../../sass/ui.scss */
+#content #dashboard .entry-list .entry { margin-bottom: 10px; }
+/* line 33, ../../sass/ui.scss */
+#content #entryboard { padding-left: 15px; }
+/* line 37, ../../sass/ui.scss */
+#content #entryboard .entry-list .tag-name { margin-bottom: 5px; font-size: 24px; }
+/* line 41, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry { margin-bottom: 10px; }
+/* line 47, ../../sass/ui.scss */
+#content #tag-select { padding-left: 15px; }
+
+/* line 52, ../../sass/ui.scss */
+#footer { background-color: #101010; }
