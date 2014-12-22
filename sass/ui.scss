@@ -52,12 +52,37 @@
     padding-left: 15px;
 
     .entry-list {
+      min-width: 600px;
+      max-width: 900px;
+
       .tag-name {
-        margin-bottom: 5px;
-        font-size: 24px;
+        margin-bottom: 10px;
+        font-size: 28px;
       }
       .entry {
-        margin-bottom: 10px;
+        overflow: hidden;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: solid 1px #dddddd;
+
+        .entry-title {
+          margin-bottom: 6px;
+          font-size: 16px;
+        }
+        .entry-thumbnail {
+          float: right;
+          width: 130px;
+          height: 100px;
+        }
+        .entry-body {
+          .description {
+            color: gray;
+            font-size: 14px;
+          }
+          &.visible-thumbnail {
+            margin-right: 135px;
+          }
+        }
       }
     }
   }

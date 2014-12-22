@@ -2,8 +2,14 @@
   <div class="entry-list">
     <div class="tag-name">{{currentTag.name}}</div>
     <div class="entry" ng-repeat="entry in allTagEntries[currentTag.name]">
-      <div><a href="{{entry.link}}" target="_blank">{{entry.title}}</a><span> {{entry.bookmarkcount}}</span></div>
-      <div ng-if="entry.thumbnail_url"><img src="{{entry.thumbnail_url}}"></div>
+      <div class="entry-title"><a href="{{entry.link}}" target="_blank">{{entry.title}}</a></div>
+      <div class="entry-thumbnail" ng-if="entry.thumbnail_url">
+        <img src="{{entry.thumbnail_url}}" class="thumbnail">
+      </div>
+      <div class="entry-body" ng-class="{'visible-thumbnail': entry.thumbnail_url}">
+        <div class="description">{{entry.description}}</div>
+        <div class="controller">controller</div>
+      </div>
     </div>
   </div>
 </div>
