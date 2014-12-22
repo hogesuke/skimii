@@ -1,5 +1,16 @@
 var techBookControllers = angular.module('techBookControllers', ['ui.bootstrap']);
 
+techBookControllers.controller('BaseController', ['$scope', 'TagService',
+  function($scope, TagService) {
+    TagService.mine().then(function(tags) {
+      TagService.setTags(tags);
+      $scope.tags = TagService.getTags();
+      $scope.currentTag = TagService.getCurrentTag();
+      TagService.setCurrentTag(tags[0].name);
+    });
+  }]
+);
+
 techBookControllers.controller('TagController', ['$scope', 'TagService', 'officialTags', 'mineTags',
   function($scope, TagService, officialTags, mineTags) {
     var originalTags = mineTags.filter(function(tag) {
@@ -40,7 +51,10 @@ techBookControllers.controller('TagController', ['$scope', 'TagService', 'offici
         return !!tag.checked;
       });
       // todo save中の表示・save後の表示
-      TagService.save(checkedTags);
+      // todo 登録に失敗した場合の実装
+      TagService.save(checkedTags).then(function(tags) {
+        TagService.setTags(tags);
+      });
     };
   }]
 );
@@ -51,24 +65,14 @@ techBookControllers.controller('DashboardController', ['$scope', 'entries',
     }]
 );
 
-techBookControllers.controller('EntryListController', ['$scope', 'TagService', 'tags', 'entries',
-    function($scope, TagService, tags, entries) {
-      $scope.tags = tags;
+techBookControllers.controller('EntryListController', ['$scope', 'TagService', 'entries',
+    function($scope, TagService, entries) {
       $scope.allTagEntries = entries;
-      $scope.currentTag = TagService.getCurrentTag();
-
-      if (!$scope.currentTag.name) {
-        TagService.setCurrentTag(tags[0].name)
-      }
     }]
 );
 
 techBookControllers.controller('SidebarController', ['$scope', 'TagService',
     function($scope, TagService) {
-      TagService.mine().then(function(tags) {
-        $scope.tags = tags;
-      });
-
       $scope.currentTag = TagService.getCurrentTag();
       $scope.setCurrentTag = TagService.setCurrentTag
     }]

@@ -40,12 +40,7 @@ techBookApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
         templateUrl: '../templates/entry_list.tmpl.html',
         controller: 'EntryListController',
         resolve: {
-          TagService  : 'TagService',
           EntryService: 'EntryService',
-          tags: function(TagService) {
-            // todo ロード中の画面表示どうしようね…
-            return TagService.mine();
-          },
           entries: function(EntryService) {
             // todo ロード中の画面表示どうしようね…
             return EntryService.all();
