@@ -62,7 +62,7 @@
       .entry {
         overflow: hidden;
         margin-bottom: 15px;
-        padding-bottom: 15px;
+        padding-bottom: 5px;
         border-bottom: solid 1px #dddddd;
 
         .entry-title {
@@ -75,12 +75,25 @@
           height: 100px;
         }
         .entry-body {
+          height: 100%;
+
+          &.visible-thumbnail {
+            margin-right: 135px;
+          }
           .description {
             color: gray;
             font-size: 14px;
           }
-          &.visible-thumbnail {
-            margin-right: 135px;
+          .controller {
+            .bookmarkcount {
+              float: left;
+              font-size: 20px;
+
+              &::after {
+                content: " users";
+                font-size: 14px;
+              }
+            }
           }
         }
       }

@@ -25,17 +25,23 @@
 /* line 58, ../../sass/ui.scss */
 #content #entryboard .entry-list .tag-name { margin-bottom: 10px; font-size: 28px; }
 /* line 62, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry { overflow: hidden; margin-bottom: 15px; padding-bottom: 15px; border-bottom: solid 1px #dddddd; }
+#content #entryboard .entry-list .entry { overflow: hidden; margin-bottom: 15px; padding-bottom: 5px; border-bottom: solid 1px #dddddd; }
 /* line 68, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-title { margin-bottom: 6px; font-size: 16px; }
 /* line 72, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-thumbnail { float: right; width: 130px; height: 100px; }
-/* line 78, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry .entry-body .description { color: gray; font-size: 14px; }
-/* line 82, ../../sass/ui.scss */
+/* line 77, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-body { height: 100%; }
+/* line 80, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-body.visible-thumbnail { margin-right: 135px; }
-/* line 90, ../../sass/ui.scss */
+/* line 83, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-body .description { color: gray; font-size: 14px; }
+/* line 88, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-body .controller .bookmarkcount { float: left; font-size: 20px; }
+/* line 92, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-body .controller .bookmarkcount::after { content: " users"; font-size: 14px; }
+/* line 103, ../../sass/ui.scss */
 #content #tag-select { padding-left: 15px; }
 
-/* line 95, ../../sass/ui.scss */
+/* line 108, ../../sass/ui.scss */
 #footer { background-color: #101010; }
