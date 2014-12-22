@@ -2,7 +2,10 @@
   <div class="entry-list">
     <div class="tag-name">{{currentTag.name}}</div>
     <div class="entry" ng-repeat="entry in allTagEntries[currentTag.name]">
-      <div class="entry-title"><a href="{{entry.link}}" target="_blank">{{entry.title}}</a></div>
+      <div class="entry-header">
+        <img src="{{entry.favicon_url}}" class="favicon" ng-if="entry.favicon_url">
+        <a href="{{entry.link}}" class="title" target="_blank">{{entry.title}}</a>
+      </div>
       <div class="entry-thumbnail" ng-if="entry.thumbnail_url">
         <img src="{{entry.thumbnail_url}}" class="thumbnail">
       </div>

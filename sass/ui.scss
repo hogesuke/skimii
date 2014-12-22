@@ -65,9 +65,19 @@
         padding-bottom: 5px;
         border-bottom: solid 1px #dddddd;
 
-        .entry-title {
+        .entry-header {
+          position: relative;
           margin-bottom: 6px;
           font-size: 16px;
+          .title {
+            padding-left: 20px;
+          }
+          .favicon {
+            position: absolute;
+            top: 2px;
+            height: 16px;
+            width: 16px;
+          }
         }
         .entry-thumbnail {
           float: right;

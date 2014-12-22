@@ -254,13 +254,20 @@ def get_entries(tag_name)
     if /http:\/\/cdn-ak\.b\.st-hatena\.com\/entryimage\/[0-9\-]+\.jpg/ =~ item['encoded'][0] then
       thumbnail_url = $&
     end
+
+    favicon_url = ''
+    if /http:\/\/cdn-ak\.favicon\.st-hatena\.com\/\?url=.+?"/ =~ item['encoded'][0] then
+      favicon_url = $&
+    end
+
     entries.push({
                      :title         => item['title'][0],
                      :link          => item['link'][0],
                      :description   => item['description'][0],
                      :date          => item['date'][0],
                      :bookmarkcount => item['bookmarkcount'][0],
-                     :thumbnail_url => thumbnail_url
+                     :thumbnail_url => thumbnail_url,
+                     :favicon_url   => favicon_url
                  })
   }
 
