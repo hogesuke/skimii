@@ -3,8 +3,10 @@
   <div class="entry-list" ng-repeat="(tag, entries) in allTagEntries">
     <div class="tag-name">{{tag}}</div>
     <div class="entry" ng-repeat="entry in entries">
-      <div><a href="{{entry.link}}" target="_blank">{{entry.title}}</a><span> {{entry.bookmarkcount}}</span></div>
-      <div ng-if="entry.thumbnail_url"><img src="{{entry.thumbnail_url}}"></div>
+      <a href="{{entry.link}}" class="title" target="_blank">{{entry.title}}</a>
+      <div class="entry-footer">
+        <span class="bookmarkcount">{{entry.bookmarkcount}}</span>
+      </div>
     </div>
   </div>
 </div>

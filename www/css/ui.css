@@ -13,39 +13,49 @@
 /* line 34, ../../sass/ui.scss */
 #content { padding-left: 250px; }
 /* line 37, ../../sass/ui.scss */
-#content #dashboard { padding-left: 15px; }
+#content #dashboard { overflow: hidden; padding-left: 15px; }
 /* line 41, ../../sass/ui.scss */
-#content #dashboard .entry-list .tag-name { margin-bottom: 5px; font-size: 24px; }
-/* line 45, ../../sass/ui.scss */
-#content #dashboard .entry-list .entry { margin-bottom: 10px; }
-/* line 51, ../../sass/ui.scss */
-#content #entryboard { padding-left: 15px; }
-/* line 54, ../../sass/ui.scss */
-#content #entryboard .entry-list { min-width: 600px; max-width: 900px; }
+#content #dashboard .entry-list { float: left; margin: 0 10px 10px 0; padding: 10px; box-sizing: border-box; border: solid 1px #dddddd; }
+@media screen and (max-width: 1000px) { /* line 41, ../../sass/ui.scss */
+  #content #dashboard .entry-list { width: 100%; } }
+@media screen and (min-width: 1000px) { /* line 41, ../../sass/ui.scss */
+  #content #dashboard .entry-list { width: 48%; } }
+@media screen and (min-width: 1500px) { /* line 41, ../../sass/ui.scss */
+  #content #dashboard .entry-list { width: 32%; } }
 /* line 58, ../../sass/ui.scss */
-#content #entryboard .entry-list .tag-name { margin-bottom: 10px; font-size: 28px; }
+#content #dashboard .entry-list .tag-name { margin-bottom: 5px; font-size: 24px; }
 /* line 62, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry { overflow: hidden; margin-bottom: 15px; padding-bottom: 5px; border-bottom: solid 1px #dddddd; }
-/* line 68, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry .entry-header { position: relative; margin-bottom: 6px; font-size: 16px; }
-/* line 72, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry .entry-header .title { padding-left: 20px; }
+#content #dashboard .entry-list .entry { margin-bottom: 10px; border-bottom: solid 1px #dddddd; }
+/* line 67, ../../sass/ui.scss */
+#content #dashboard .entry-list .entry .bookmarkcount::after { content: " users"; }
 /* line 75, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry .entry-header .favicon { position: absolute; top: 2px; height: 16px; width: 16px; }
+#content #entryboard { padding-left: 15px; }
+/* line 78, ../../sass/ui.scss */
+#content #entryboard .entry-list { min-width: 600px; max-width: 900px; }
 /* line 82, ../../sass/ui.scss */
+#content #entryboard .entry-list .tag-name { margin-bottom: 10px; font-size: 28px; }
+/* line 86, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry { overflow: hidden; margin-bottom: 15px; padding-bottom: 5px; border-bottom: solid 1px #dddddd; }
+/* line 92, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-header { position: relative; margin-bottom: 6px; font-size: 16px; }
+/* line 96, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-header .title { padding-left: 20px; }
+/* line 99, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-header .favicon { position: absolute; top: 2px; height: 16px; width: 16px; }
+/* line 106, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-thumbnail { float: right; width: 130px; height: 100px; }
-/* line 87, ../../sass/ui.scss */
+/* line 111, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-body { height: 100%; }
-/* line 90, ../../sass/ui.scss */
+/* line 114, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-body.visible-thumbnail { margin-right: 135px; }
-/* line 93, ../../sass/ui.scss */
+/* line 117, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-body .description { color: gray; font-size: 14px; }
-/* line 98, ../../sass/ui.scss */
+/* line 122, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-body .controller .bookmarkcount { float: left; font-size: 20px; }
-/* line 102, ../../sass/ui.scss */
+/* line 126, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-body .controller .bookmarkcount::after { content: " users"; font-size: 14px; }
-/* line 113, ../../sass/ui.scss */
+/* line 137, ../../sass/ui.scss */
 #content #tag-select { padding-left: 15px; }
 
-/* line 118, ../../sass/ui.scss */
+/* line 142, ../../sass/ui.scss */
 #footer { background-color: #101010; }
