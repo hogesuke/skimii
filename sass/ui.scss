@@ -43,7 +43,6 @@
       margin: 0 10px 10px 0;
       padding: 10px;
       box-sizing: border-box;
-      border: solid 1px #dddddd;
 
       @media screen and (max-width: 1000px) {
         width: 100%;
@@ -65,8 +64,23 @@
         border-bottom: solid 1px #dddddd;
 
         .entry-header {
+          position: relative;
+
           &.visible-thumbnail {
             margin-right: 70px;
+          }
+          .favicon {
+            position: absolute;
+            top: 2px;
+            height: 16px;
+            width: 16px;
+          }
+          .title {
+            width: 100%;
+            height: 3em;
+            padding-left: 20px;
+            display: block;
+            overflow: hidden;
           }
         }
         .entry-thumbnail {

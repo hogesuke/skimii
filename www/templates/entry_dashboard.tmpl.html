@@ -7,6 +7,7 @@
         <img src="{{entry.thumbnail_url}}" class="thumbnail">
       </div>
       <div class="entry-header" ng-class="{'visible-thumbnail': entry.thumbnail_url}">
+        <img src="{{entry.favicon_url}}" class="favicon" ng-if="entry.favicon_url">
         <a href="{{entry.link}}" class="title" target="_blank">{{entry.title}}</a>
       </div>
       <div class="entry-footer">
