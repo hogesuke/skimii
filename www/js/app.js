@@ -21,6 +21,17 @@ techBookApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
           }
         }
       }).
+      when('/entry', {
+        templateUrl: '../templates/entry_list.tmpl.html',
+        controller: 'EntryListController',
+        resolve: {
+          EntryService: 'EntryService',
+          entries: function(EntryService) {
+            // todo ロード中の画面表示どうしようね…
+            return EntryService.all();
+          }
+        }
+      }).
       when('/tag', {
         templateUrl: '../templates/tag_select.tmpl.html',
         controller: 'TagController',
@@ -33,17 +44,6 @@ techBookApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
           mineTags: function(TagService) {
             // todo ロード中の画面表示どうしようね…
             return TagService.mine();
-          }
-        }
-      }).
-      when('/entry', {
-        templateUrl: '../templates/entry_list.tmpl.html',
-        controller: 'EntryListController',
-        resolve: {
-          EntryService: 'EntryService',
-          entries: function(EntryService) {
-            // todo ロード中の画面表示どうしようね…
-            return EntryService.all();
           }
         }
       }).
