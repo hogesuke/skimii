@@ -43,7 +43,7 @@
 /* line 105, ../../sass/ui.scss */
 #content #entryboard { padding-left: 15px; }
 /* line 108, ../../sass/ui.scss */
-#content #entryboard .entry-list { min-width: 600px; max-width: 900px; }
+#content #entryboard .entry-list { min-width: 600px; max-width: 1100px; }
 /* line 112, ../../sass/ui.scss */
 #content #entryboard .entry-list .tag-name { margin-bottom: 10px; font-size: 28px; }
 /* line 116, ../../sass/ui.scss */
@@ -55,19 +55,21 @@
 /* line 129, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-header .favicon { position: absolute; top: 2px; height: 16px; width: 16px; }
 /* line 136, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry .entry-thumbnail { float: right; width: 130px; height: 100px; }
-/* line 141, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry .entry-body { height: 100%; }
+#content #entryboard .entry-list .entry .entry-thumbnail { float: right; }
+/* line 139, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-thumbnail .thumbnail { width: 130px; height: 100px; }
 /* line 144, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry .entry-body.visible-thumbnail { margin-right: 135px; }
+#content #entryboard .entry-list .entry .entry-body { height: 100%; }
 /* line 147, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-body.visible-thumbnail { margin-right: 135px; }
+/* line 150, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-body .description { color: gray; font-size: 14px; }
-/* line 152, ../../sass/ui.scss */
+/* line 155, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-body .controller .bookmarkcount { float: left; font-size: 20px; }
-/* line 156, ../../sass/ui.scss */
+/* line 159, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-body .controller .bookmarkcount::after { content: " users"; font-size: 14px; }
-/* line 167, ../../sass/ui.scss */
+/* line 170, ../../sass/ui.scss */
 #content #tag-select { padding-left: 15px; }
 
-/* line 172, ../../sass/ui.scss */
+/* line 175, ../../sass/ui.scss */
 #footer { background-color: #101010; }

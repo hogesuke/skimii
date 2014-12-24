@@ -107,7 +107,7 @@
 
     .entry-list {
       min-width: 600px;
-      max-width: 900px;
+      max-width: 1100px;
 
       .tag-name {
         margin-bottom: 10px;
@@ -135,8 +135,11 @@
         }
         .entry-thumbnail {
           float: right;
-          width: 130px;
-          height: 100px;
+
+          .thumbnail {
+            width: 130px;
+            height: 100px;
+          }
         }
         .entry-body {
           height: 100%;
