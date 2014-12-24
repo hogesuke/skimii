@@ -22,7 +22,7 @@ ActiveRecord::Base.establish_connection('development')
 # todo tagは小文字変換して登録するようにすること
 
 get '/entry/:tag' do
-  entries = { params[:tag] => get_entries(params[:tag]) }
+  entries = get_entries(params[:tag])
 
   headers({'Content-Type' => 'application/json'})
   entries.to_json

@@ -1,7 +1,7 @@
 <div id="entryboard">
   <div class="entry-list">
-    <div class="tag-name">{{currentTag.name}}</div>
-    <div class="entry" ng-repeat="entry in allTagEntries[currentTag.name]">
+    <div class="tag-name">{{tag}}</div>
+    <div class="entry" ng-repeat="entry in entries">
       <div class="entry-header">
         <img src="{{entry.favicon_url}}" class="favicon" ng-if="entry.favicon_url">
         <a href="{{entry.link}}" class="title" target="_blank">{{entry.title}}</a>

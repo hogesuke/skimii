@@ -5,8 +5,6 @@ techBookControllers.controller('BaseController', ['$scope', 'TagService',
     TagService.mine().then(function(tags) {
       TagService.setTags(tags);
       $scope.tags = TagService.getTags();
-      $scope.currentTag = TagService.getCurrentTag();
-      TagService.setCurrentTag(tags[0].name);
     });
   }]
 );
@@ -65,15 +63,18 @@ techBookControllers.controller('DashboardController', ['$scope', 'entries',
     }]
 );
 
-techBookControllers.controller('EntryListController', ['$scope', 'TagService', 'entries',
-    function($scope, TagService, entries) {
-      $scope.allTagEntries = entries;
+techBookControllers.controller('EntryListController', ['$scope', '$routeParams', 'EntryService',
+    function($scope, $routeParams, EntryService) {
+      $scope.tag = $routeParams.tag;
+
+      EntryService.one($routeParams.tag).then(function(entries) {
+        $scope.entries = entries;
+        console.debug(entries);
+      })
     }]
 );
 
 techBookControllers.controller('SidebarController', ['$scope', 'TagService',
     function($scope, TagService) {
-      $scope.currentTag = TagService.getCurrentTag();
-      $scope.setCurrentTag = TagService.setCurrentTag
     }]
 );

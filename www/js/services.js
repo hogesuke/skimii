@@ -4,12 +4,7 @@ angular.module('TechBookApp').
       mine: []
     };
   }]).
-  factory('CurrentTag', [function() {
-    return {
-      name: ''
-    };
-  }]).
-  factory('TagService', ['$http', '$q', 'Tags', 'CurrentTag', function($http, $q, Tags, CurrentTag) {
+  factory('TagService', ['$http', '$q', 'Tags', function($http, $q, Tags) {
     return {
       all: function() {
         var deferred = $q.defer();
@@ -54,12 +49,6 @@ angular.module('TechBookApp').
       },
       getTags: function() {
         return Tags;
-      },
-      setCurrentTag: function(tagName) {
-        CurrentTag.name = tagName;
-      },
-      getCurrentTag: function() {
-        return CurrentTag;
       }
     }
   }]).
@@ -70,6 +59,18 @@ angular.module('TechBookApp').
         $http({
           method: 'get',
           url: '/api/user/my/entry'
+        }).success(function (res) {
+          deferred.resolve(res);
+        }).error(function () {
+          deferred.reject();
+        });
+        return deferred.promise;
+      },
+      one: function(tag) {
+        var deferred = $q.defer();
+        $http({
+          method: 'get',
+          url: '/api/entry/' + tag
         }).success(function (res) {
           deferred.resolve(res);
         }).error(function () {

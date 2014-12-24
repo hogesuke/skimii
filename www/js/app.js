@@ -21,16 +21,9 @@ techBookApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
           }
         }
       }).
-      when('/entry', {
+      when('/entry/:tag', {
         templateUrl: '../templates/entry_list.tmpl.html',
-        controller: 'EntryListController',
-        resolve: {
-          EntryService: 'EntryService',
-          entries: function(EntryService) {
-            // todo ロード中の画面表示どうしようね…
-            return EntryService.all();
-          }
-        }
+        controller: 'EntryListController'
       }).
       when('/tag', {
         templateUrl: '../templates/tag_select.tmpl.html',
