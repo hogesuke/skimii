@@ -21,6 +21,13 @@ ActiveRecord::Base.establish_connection('development')
 # todo tagの登録個数制限を付けること
 # todo tagは小文字変換して登録するようにすること
 
+get '/entry/:tag' do
+  entries = { params[:tag] => get_entries(params[:tag]) }
+
+  headers({'Content-Type' => 'application/json'})
+  entries.to_json
+end
+
 get '/user/my/entry' do
   # todo OAuthを実装したらログインユーザで絞るように修正
   tags = User.find(1).tags
