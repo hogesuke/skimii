@@ -25,6 +25,10 @@ techBookApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
         templateUrl: '../templates/entry_list.tmpl.html',
         controller: 'EntryListController'
       }).
+      when('/later', {
+        templateUrl: '../templates/later_list.tmpl.html',
+        controller: 'LaterListController'
+      }).
       when('/tag', {
         templateUrl: '../templates/tag_select.tmpl.html',
         controller: 'TagController',

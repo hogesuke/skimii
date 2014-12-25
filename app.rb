@@ -175,6 +175,7 @@ end
 get '/user/my/later' do
   headers({'Content-Type' => 'application/json'})
   # todo OAuthを実装したらログインユーザで絞るように修正
+  # todo 指定件数取得とするように修正。一定期間経過後のlaterは取得しないように修正。
   User.find(1).later_entries.to_json
 end
 

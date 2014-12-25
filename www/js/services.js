@@ -79,4 +79,33 @@ angular.module('TechBookApp').
         return deferred.promise;
       }
     }
+  }]).
+  factory('LaterService', ['$http', '$q', function($http, $q) {
+    return {
+      all: function() {
+        var deferred = $q.defer();
+        $http({
+          method: 'get',
+          url: '/api/user/my/later'
+        }).success(function (res) {
+          deferred.resolve(res);
+        }).error(function () {
+          deferred.reject();
+        });
+        return deferred.promise;
+      },
+      save: function(url) {
+        var deferred = $q.defer();
+        $http({
+          method: 'post',
+          url: '/api/user/my/later',
+          data: { url: url }
+        }).success(function (res) {
+          deferred.resolve(res);
+        }).error(function () {
+          deferred.reject();
+        });
+        return deferred.promise;
+      }
+    }
   }]);

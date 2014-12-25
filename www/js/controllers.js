@@ -57,9 +57,10 @@ techBookControllers.controller('TagController', ['$scope', 'TagService', 'offici
   }]
 );
 
-techBookControllers.controller('DashboardController', ['$scope', 'entries',
-    function($scope, entries) {
+techBookControllers.controller('DashboardController', ['$scope', 'LaterService', 'entries',
+    function($scope, LaterService, entries) {
       $scope.allTagEntries = entries;
+      $scope.saveLater = LaterService.save;
     }]
 );
 
@@ -69,7 +70,14 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
 
       EntryService.one($routeParams.tag).then(function(entries) {
         $scope.entries = entries;
-        console.debug(entries);
+      })
+    }]
+);
+
+techBookControllers.controller('LaterListController', ['$scope', 'LaterService',
+    function($scope, LaterService) {
+      LaterService.all().then(function(entries) {
+        $scope.entries = entries;
       })
     }]
 );
