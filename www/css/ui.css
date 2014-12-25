@@ -25,7 +25,7 @@
 /* line 57, ../../sass/ui.scss */
 #content #dashboard .entry-list .tag-name { margin-bottom: 5px; font-size: 24px; }
 /* line 61, ../../sass/ui.scss */
-#content #dashboard .entry-list .entry { min-height: 60px; margin-bottom: 10px; border-bottom: solid 1px #dddddd; }
+#content #dashboard .entry-list .entry { min-height: 60px; margin-bottom: 15px; border-bottom: solid 1px #dfdfdf; }
 /* line 66, ../../sass/ui.scss */
 #content #dashboard .entry-list .entry .entry-header { position: relative; }
 /* line 69, ../../sass/ui.scss */
@@ -38,38 +38,42 @@
 #content #dashboard .entry-list .entry .entry-thumbnail { float: right; }
 /* line 89, ../../sass/ui.scss */
 #content #dashboard .entry-list .entry .entry-thumbnail .thumbnail { width: 65px; height: 50px; }
-/* line 96, ../../sass/ui.scss */
+/* line 94, ../../sass/ui.scss */
+#content #dashboard .entry-list .entry .entry-footer { padding: 5px 0 10px 0; }
+/* line 97, ../../sass/ui.scss */
 #content #dashboard .entry-list .entry .entry-footer .bookmarkcount::after { content: " users"; }
-/* line 105, ../../sass/ui.scss */
+/* line 101, ../../sass/ui.scss */
+#content #dashboard .entry-list .entry .entry-footer button { height: 28px; width: 28px; margin-right: 5px; background-color: #ffffff; border: solid 1px #dfdfdf; border-radius: 14px; color: #b2b2b2; }
+/* line 117, ../../sass/ui.scss */
 #content #entryboard { padding-left: 15px; }
-/* line 108, ../../sass/ui.scss */
+/* line 120, ../../sass/ui.scss */
 #content #entryboard .entry-list { min-width: 600px; max-width: 1100px; }
-/* line 112, ../../sass/ui.scss */
+/* line 124, ../../sass/ui.scss */
 #content #entryboard .entry-list .tag-name { margin-bottom: 10px; font-size: 28px; }
-/* line 116, ../../sass/ui.scss */
+/* line 128, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry { overflow: hidden; margin-bottom: 15px; padding-bottom: 5px; border-bottom: solid 1px #dddddd; }
-/* line 122, ../../sass/ui.scss */
+/* line 134, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-header { position: relative; margin-bottom: 6px; font-size: 16px; }
-/* line 126, ../../sass/ui.scss */
+/* line 138, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-header .title { padding-left: 20px; }
-/* line 129, ../../sass/ui.scss */
+/* line 141, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-header .favicon { position: absolute; top: 2px; height: 16px; width: 16px; }
-/* line 136, ../../sass/ui.scss */
+/* line 148, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-thumbnail { float: right; }
-/* line 139, ../../sass/ui.scss */
+/* line 151, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-thumbnail .thumbnail { width: 130px; height: 100px; }
-/* line 144, ../../sass/ui.scss */
+/* line 156, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-body { height: 100%; }
-/* line 147, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry .entry-body.visible-thumbnail { margin-right: 135px; }
-/* line 150, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry .entry-body .description { color: gray; font-size: 14px; }
-/* line 155, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry .entry-body .controller .bookmarkcount { float: left; font-size: 20px; }
 /* line 159, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-body.visible-thumbnail { margin-right: 135px; }
+/* line 162, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-body .description { color: gray; font-size: 14px; }
+/* line 167, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-body .controller .bookmarkcount { float: left; font-size: 20px; }
+/* line 171, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-body .controller .bookmarkcount::after { content: " users"; font-size: 14px; }
-/* line 170, ../../sass/ui.scss */
+/* line 182, ../../sass/ui.scss */
 #content #tag-select { padding-left: 15px; }
 
-/* line 175, ../../sass/ui.scss */
+/* line 187, ../../sass/ui.scss */
 #footer { background-color: #101010; }
