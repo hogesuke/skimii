@@ -34,6 +34,7 @@
 #content {
   padding-left: 250px;
 
+  // todo 幅を極端に狭めたときの表示
   #dashboard {
     overflow: hidden;
     padding-left: 15px;
@@ -98,7 +99,7 @@
               content: " users";
             }
           }
-          button {
+          .controll-button {
             height: 28px;
             width: 28px;
             margin-right: 5px;
@@ -106,10 +107,12 @@
             border: solid 1px #dfdfdf;
             border-radius: 14px;
             color: #b2b2b2;
-          }
-          button:hover {
-            background-color: #949494;
-            color: #ffffff;
+
+            &:hover {
+              background-color: #acacac;
+              border-color: #acacac;
+              color: #ffffff;
+            }
           }
           .checked-button {
           }
@@ -118,6 +121,7 @@
     }
   }
 
+  // todo 幅を狭めたときの表示が崩れる
   #entryboard {
     padding-left: 15px;
 
@@ -131,14 +135,29 @@
       }
       .entry {
         overflow: hidden;
+        position: relative;
+        height: 150px;
         margin-bottom: 15px;
         padding-bottom: 5px;
         border-bottom: solid 1px #dddddd;
 
+        .entry-thumbnail {
+          float: right;
+
+          .thumbnail {
+            width: 130px;
+            height: 100px;
+            margin-bottom: 10px;
+          }
+        }
         .entry-header {
           position: relative;
           margin-bottom: 6px;
           font-size: 16px;
+
+          &.visible-thumbnail {
+            margin-right: 140px;
+          }
           .title {
             padding-left: 20px;
           }
@@ -149,33 +168,28 @@
             width: 16px;
           }
         }
-        .entry-thumbnail {
-          float: right;
-
-          .thumbnail {
-            width: 130px;
-            height: 100px;
-          }
-        }
         .entry-body {
-          height: 100%;
 
           &.visible-thumbnail {
-            margin-right: 135px;
+            margin-right: 140px;
           }
           .description {
             color: gray;
             font-size: 14px;
           }
-          .controller {
-            .bookmarkcount {
-              float: left;
-              font-size: 20px;
+        }
+        .entry-footer {
+          position: absolute;
+          bottom: 0;
+          margin-bottom: 5px;
 
-              &::after {
-                content: " users";
-                font-size: 14px;
-              }
+          .bookmarkcount {
+            float: left;
+            font-size: 20px;
+
+            &::after {
+              content: " users";
+              font-size: 14px;
             }
           }
         }

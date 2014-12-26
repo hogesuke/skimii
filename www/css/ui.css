@@ -12,70 +12,72 @@
 
 /* line 34, ../../sass/ui.scss */
 #content { padding-left: 250px; }
-/* line 37, ../../sass/ui.scss */
+/* line 38, ../../sass/ui.scss */
 #content #dashboard { overflow: hidden; padding-left: 15px; }
-/* line 41, ../../sass/ui.scss */
+/* line 42, ../../sass/ui.scss */
 #content #dashboard .entry-list { float: left; margin: 0 10px 10px 0; padding: 10px; box-sizing: border-box; }
-@media screen and (max-width: 1000px) { /* line 41, ../../sass/ui.scss */
+@media screen and (max-width: 1000px) { /* line 42, ../../sass/ui.scss */
   #content #dashboard .entry-list { width: 100%; } }
-@media screen and (min-width: 1000px) { /* line 41, ../../sass/ui.scss */
+@media screen and (min-width: 1000px) { /* line 42, ../../sass/ui.scss */
   #content #dashboard .entry-list { width: 48%; } }
-@media screen and (min-width: 1500px) { /* line 41, ../../sass/ui.scss */
+@media screen and (min-width: 1500px) { /* line 42, ../../sass/ui.scss */
   #content #dashboard .entry-list { width: 32%; } }
-/* line 57, ../../sass/ui.scss */
+/* line 58, ../../sass/ui.scss */
 #content #dashboard .entry-list .tag-name { margin-bottom: 5px; font-size: 24px; }
-/* line 61, ../../sass/ui.scss */
+/* line 62, ../../sass/ui.scss */
 #content #dashboard .entry-list .entry { min-height: 60px; margin-bottom: 15px; border-bottom: solid 1px #dfdfdf; }
-/* line 66, ../../sass/ui.scss */
+/* line 67, ../../sass/ui.scss */
 #content #dashboard .entry-list .entry .entry-header { position: relative; }
-/* line 69, ../../sass/ui.scss */
+/* line 70, ../../sass/ui.scss */
 #content #dashboard .entry-list .entry .entry-header.visible-thumbnail { margin-right: 70px; }
-/* line 72, ../../sass/ui.scss */
+/* line 73, ../../sass/ui.scss */
 #content #dashboard .entry-list .entry .entry-header .favicon { position: absolute; top: 2px; height: 16px; width: 16px; }
-/* line 78, ../../sass/ui.scss */
+/* line 79, ../../sass/ui.scss */
 #content #dashboard .entry-list .entry .entry-header .title { width: 100%; height: 3em; padding-left: 20px; display: block; overflow: hidden; }
-/* line 86, ../../sass/ui.scss */
+/* line 87, ../../sass/ui.scss */
 #content #dashboard .entry-list .entry .entry-thumbnail { float: right; }
-/* line 89, ../../sass/ui.scss */
+/* line 90, ../../sass/ui.scss */
 #content #dashboard .entry-list .entry .entry-thumbnail .thumbnail { width: 65px; height: 50px; }
-/* line 94, ../../sass/ui.scss */
+/* line 95, ../../sass/ui.scss */
 #content #dashboard .entry-list .entry .entry-footer { padding: 5px 0 10px 0; }
-/* line 97, ../../sass/ui.scss */
+/* line 98, ../../sass/ui.scss */
 #content #dashboard .entry-list .entry .entry-footer .bookmarkcount::after { content: " users"; }
-/* line 101, ../../sass/ui.scss */
-#content #dashboard .entry-list .entry .entry-footer button { height: 28px; width: 28px; margin-right: 5px; background-color: #ffffff; border: solid 1px #dfdfdf; border-radius: 14px; color: #b2b2b2; }
-/* line 110, ../../sass/ui.scss */
-#content #dashboard .entry-list .entry .entry-footer button:hover { background-color: #949494; color: #ffffff; }
-/* line 121, ../../sass/ui.scss */
+/* line 102, ../../sass/ui.scss */
+#content #dashboard .entry-list .entry .entry-footer .controll-button { height: 28px; width: 28px; margin-right: 5px; background-color: #ffffff; border: solid 1px #dfdfdf; border-radius: 14px; color: #b2b2b2; }
+/* line 111, ../../sass/ui.scss */
+#content #dashboard .entry-list .entry .entry-footer .controll-button:hover { background-color: #acacac; border-color: #acacac; color: #ffffff; }
+/* line 125, ../../sass/ui.scss */
 #content #entryboard { padding-left: 15px; }
-/* line 124, ../../sass/ui.scss */
-#content #entryboard .entry-list { min-width: 600px; max-width: 1100px; }
 /* line 128, ../../sass/ui.scss */
-#content #entryboard .entry-list .tag-name { margin-bottom: 10px; font-size: 28px; }
+#content #entryboard .entry-list { min-width: 600px; max-width: 1100px; }
 /* line 132, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry { overflow: hidden; margin-bottom: 15px; padding-bottom: 5px; border-bottom: solid 1px #dddddd; }
-/* line 138, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry .entry-header { position: relative; margin-bottom: 6px; font-size: 16px; }
-/* line 142, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry .entry-header .title { padding-left: 20px; }
-/* line 145, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry .entry-header .favicon { position: absolute; top: 2px; height: 16px; width: 16px; }
-/* line 152, ../../sass/ui.scss */
+#content #entryboard .entry-list .tag-name { margin-bottom: 10px; font-size: 28px; }
+/* line 136, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry { overflow: hidden; position: relative; height: 150px; margin-bottom: 15px; padding-bottom: 5px; border-bottom: solid 1px #dddddd; }
+/* line 144, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-thumbnail { float: right; }
-/* line 155, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry .entry-thumbnail .thumbnail { width: 130px; height: 100px; }
-/* line 160, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry .entry-body { height: 100%; }
-/* line 163, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry .entry-body.visible-thumbnail { margin-right: 135px; }
-/* line 166, ../../sass/ui.scss */
+/* line 147, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-thumbnail .thumbnail { width: 130px; height: 100px; margin-bottom: 10px; }
+/* line 153, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-header { position: relative; margin-bottom: 6px; font-size: 16px; }
+/* line 158, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-header.visible-thumbnail { margin-right: 140px; }
+/* line 161, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-header .title { padding-left: 20px; }
+/* line 164, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-header .favicon { position: absolute; top: 2px; height: 16px; width: 16px; }
+/* line 173, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-body.visible-thumbnail { margin-right: 140px; }
+/* line 176, ../../sass/ui.scss */
 #content #entryboard .entry-list .entry .entry-body .description { color: gray; font-size: 14px; }
-/* line 171, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry .entry-body .controller .bookmarkcount { float: left; font-size: 20px; }
-/* line 175, ../../sass/ui.scss */
-#content #entryboard .entry-list .entry .entry-body .controller .bookmarkcount::after { content: " users"; font-size: 14px; }
+/* line 181, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-footer { position: absolute; bottom: 0; margin-bottom: 5px; }
 /* line 186, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-footer .bookmarkcount { float: left; font-size: 20px; }
+/* line 190, ../../sass/ui.scss */
+#content #entryboard .entry-list .entry .entry-footer .bookmarkcount::after { content: " users"; font-size: 14px; }
+/* line 200, ../../sass/ui.scss */
 #content #tag-select { padding-left: 15px; }
 
-/* line 191, ../../sass/ui.scss */
+/* line 205, ../../sass/ui.scss */
 #footer { background-color: #101010; }
