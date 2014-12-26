@@ -47,7 +47,7 @@
 /* line 111, ../../sass/ui.scss */
 #content #dashboard .entry-list .entry .entry-footer .controll-button:hover { background-color: #acacac; border-color: #acacac; color: #ffffff; }
 /* line 124, ../../sass/ui.scss */
-#content #entryboard { padding-left: 15px; }
+#content #entryboard { padding-left: 20px; }
 /* line 127, ../../sass/ui.scss */
 #content #entryboard .entry-list { min-width: 600px; max-width: 1100px; }
 /* line 131, ../../sass/ui.scss */
