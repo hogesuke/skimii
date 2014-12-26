@@ -121,7 +121,6 @@
     }
   }
 
-  // todo 幅を狭めたときの表示が崩れる
   #entryboard {
     padding-left: 15px;
 
@@ -136,7 +135,7 @@
       .entry {
         overflow: hidden;
         position: relative;
-        height: 150px;
+        min-height: 150px;
         margin-bottom: 15px;
         padding-bottom: 5px;
         border-bottom: solid 1px #dddddd;
@@ -174,6 +173,7 @@
             margin-right: 140px;
           }
           .description {
+            margin-bottom: 30px;
             color: gray;
             font-size: 14px;
           }
