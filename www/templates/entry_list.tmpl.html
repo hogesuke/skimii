@@ -13,7 +13,9 @@
         <div class="description">{{entry.description}}</div>
       </div>
       <div class="entry-footer">
-        <div class="bookmarkcount">{{entry.bookmarkcount}}</div>
+        <button class="controll-button checked-button"><i class="fa fa-check"></i></button>
+        <button class="controll-button later-button" ng-click="saveLater(entry.link)"><i class="fa fa-archive"></i></button>
+        <span class="bookmarkcount">{{entry.bookmarkcount}}</span>
       </div>
     </div>
   </div>

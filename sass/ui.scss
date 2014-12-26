@@ -173,7 +173,7 @@
             margin-right: 140px;
           }
           .description {
-            margin-bottom: 30px;
+            margin-bottom: 38px;
             color: gray;
             font-size: 14px;
           }
@@ -181,15 +181,29 @@
         .entry-footer {
           position: absolute;
           bottom: 0;
-          margin-bottom: 5px;
+          margin-bottom: 8px;
 
           .bookmarkcount {
-            float: left;
             font-size: 20px;
 
             &::after {
               content: " users";
               font-size: 14px;
+            }
+          }
+          .controll-button {
+            height: 32px;
+            width: 32px;
+            margin-right: 5px;
+            background-color: #ffffff;
+            border: solid 1px #dfdfdf;
+            border-radius: 16px;
+            color: #b2b2b2;
+
+            &:hover {
+              background-color: #acacac;
+              border-color: #acacac;
+              color: #ffffff;
             }
           }
         }
