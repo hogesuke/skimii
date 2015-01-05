@@ -91,13 +91,38 @@ techBookControllers.controller('DashboardController', ['$scope', 'LaterService',
     }]
 );
 
-techBookControllers.controller('EntryListController', ['$scope', '$routeParams', 'EntryService',
-    function($scope, $routeParams, EntryService) {
+techBookControllers.controller('EntryListController', ['$scope', '$routeParams', 'EntryService', 'LaterService', 'CheckService',
+    function($scope, $routeParams, EntryService, LaterService, CheckService) {
       $scope.tag = $routeParams.tag;
 
       EntryService.one($routeParams.tag).then(function(entries) {
         $scope.entries = entries;
-      })
+      });
+
+      $scope.switchLater = function(url, activate) {
+        angular.forEach($scope.entries, function(entry) {
+          if (entry.link === url) {
+            entry.latered = activate ? true : false;
+          }
+        });
+        if (activate) {
+          LaterService.save(url);
+        } else {
+          LaterService.remove(url);
+        }
+      };
+      $scope.switchCheck = function(url, activate) {
+        angular.forEach($scope.entries, function(entry) {
+          if (entry.link === url) {
+            entry.checked = activate ? true : false;
+          }
+        });
+        if (activate) {
+          CheckService.save(url);
+        } else {
+          CheckService.remove(url);
+        }
+      };
     }]
 );
 

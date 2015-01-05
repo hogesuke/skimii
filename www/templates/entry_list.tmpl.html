@@ -13,8 +13,12 @@
         <div class="description">{{entry.description}}</div>
       </div>
       <div class="entry-footer">
-        <button class="controll-button checked-button"><i class="fa fa-check"></i></button>
-        <button class="controll-button later-button" ng-click="saveLater(entry.link)"><i class="fa fa-archive"></i></button>
+        <button class="controll-button check-button" ng-click="switchCheck(entry.link, !entry.checked)" ng-class="{ active: entry.checked }">
+          <i class="fa fa-check"></i>
+        </button>
+        <button class="controll-button later-button" ng-click="switchLater(entry.link, !entry.latered)" ng-class="{ active: entry.latered }">
+          <i class="fa fa-archive"></i>
+        </button>
         <span class="bookmarkcount">{{entry.bookmarkcount}}</span>
       </div>
     </div>
