@@ -36,13 +36,15 @@ CREATE TABLE IF NOT EXISTS entries (
 CREATE TABLE IF NOT EXISTS checks (
   user_id INT,
   entry_id INT,
+  hotentry_date DATE,
   created_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (user_id, entry_id)
+  PRIMARY KEY (user_id, entry_id, hotentry_date)
 );
 
 CREATE TABLE IF NOT EXISTS laters (
   user_id INT,
   entry_id INT,
+  hotentry_date DATE,
   created_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (user_id, entry_id)
+  PRIMARY KEY (user_id, entry_id, hotentry_date)
 );
