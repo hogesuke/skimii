@@ -106,6 +106,61 @@ angular.module('TechBookApp').
           deferred.reject();
         });
         return deferred.promise;
+      },
+      remove: function(url) {
+        var deferred = $q.defer();
+        $http({
+          method: 'delete',
+          url: '/api/user/my/later',
+          data: { url: url }
+        }).success(function (res) {
+          deferred.resolve(res);
+        }).error(function () {
+          deferred.reject();
+        });
+        return deferred.promise;
+      }
+    }
+  }]).
+  factory('CheckService', ['$http', '$q', function($http, $q) {
+    return {
+      all: function () {
+        var deferred = $q.defer();
+        $http({
+          method: 'get',
+          url: '/api/user/my/check'
+        }).success(function (res) {
+          deferred.resolve(res);
+        }).error(function () {
+          deferred.reject();
+        });
+        return deferred.promise;
+      },
+      save: function (url) {
+        var deferred = $q.defer();
+        $http({
+          method: 'post',
+          url: '/api/user/my/check',
+          data: {url: url}
+        }).success(function (res) {
+          deferred.resolve(res);
+        }).error(function () {
+          deferred.reject();
+        });
+        return deferred.promise;
+      },
+      remove: function (url) {
+        var deferred = $q.defer();
+        $http({
+          method: 'delete',
+          url: '/api/user/my/check',
+          data: {url: url}
+        }).success(function (res) {
+          deferred.resolve(res);
+        }).error(function () {
+          deferred.reject();
+        });
+        return deferred.promise;
       }
     }
   }]);

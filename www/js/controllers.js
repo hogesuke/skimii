@@ -57,10 +57,37 @@ techBookControllers.controller('TagController', ['$scope', 'TagService', 'offici
   }]
 );
 
-techBookControllers.controller('DashboardController', ['$scope', 'LaterService', 'entries',
-    function($scope, LaterService, entries) {
+techBookControllers.controller('DashboardController', ['$scope', 'LaterService', 'CheckService', 'entries',
+    function($scope, LaterService, CheckService, entries) {
       $scope.allTagEntries = entries;
-      $scope.saveLater = LaterService.save;
+      $scope.switchLater = function(url, activate) {
+        angular.forEach($scope.allTagEntries, function(tagEntries) {
+          angular.forEach(tagEntries, function(entry) {
+            if (entry.link === url) {
+              entry.latered = activate ? true : false;
+            }
+          });
+        });
+        if (activate) {
+          LaterService.save(url);
+        } else {
+          LaterService.remove(url);
+        }
+      };
+      $scope.switchCheck = function(url, activate) {
+        angular.forEach($scope.allTagEntries, function(tagEntries) {
+          angular.forEach(tagEntries, function(entry) {
+            if (entry.link === url) {
+              entry.checked = activate ? true : false;
+            }
+          });
+        });
+        if (activate) {
+          CheckService.save(url);
+        } else {
+          CheckService.remove(url);
+        }
+      };
     }]
 );
 

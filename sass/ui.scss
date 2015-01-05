@@ -113,8 +113,16 @@
               border-color: #acacac;
               color: #ffffff;
             }
-          }
-          .checked-button {
+            &.check-button.active {
+              background-color: #94a4e2;
+              border-color: #94a4e2;
+              color: #ffffff;
+            }
+            &.later-button.active {
+              background-color: #eb8692;
+              border-color: #eb8692;
+              color: #ffffff;
+            }
           }
         }
       }
