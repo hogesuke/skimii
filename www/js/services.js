@@ -94,12 +94,15 @@ angular.module('TechBookApp').
         });
         return deferred.promise;
       },
-      save: function(url) {
+      save: function(url, hotentryDate) {
         var deferred = $q.defer();
         $http({
           method: 'post',
           url: '/api/user/my/later',
-          data: { url: url }
+          data: {
+            url: url,
+            hotentry_date: hotentryDate
+          }
         }).success(function (res) {
           deferred.resolve(res);
         }).error(function () {
@@ -107,12 +110,15 @@ angular.module('TechBookApp').
         });
         return deferred.promise;
       },
-      remove: function(url) {
+      remove: function(url, hotentryDate) {
         var deferred = $q.defer();
         $http({
           method: 'delete',
           url: '/api/user/my/later',
-          data: { url: url }
+          data: {
+            url: url,
+            hotentry_date: hotentryDate
+          }
         }).success(function (res) {
           deferred.resolve(res);
         }).error(function () {
@@ -136,12 +142,15 @@ angular.module('TechBookApp').
         });
         return deferred.promise;
       },
-      save: function (url) {
+      save: function (url, hotentryDate) {
         var deferred = $q.defer();
         $http({
           method: 'post',
           url: '/api/user/my/check',
-          data: {url: url}
+          data: {
+            url: url,
+            hotentry_date: hotentryDate
+          }
         }).success(function (res) {
           deferred.resolve(res);
         }).error(function () {
@@ -149,12 +158,15 @@ angular.module('TechBookApp').
         });
         return deferred.promise;
       },
-      remove: function (url) {
+      remove: function (url, hotentryDate) {
         var deferred = $q.defer();
         $http({
           method: 'delete',
           url: '/api/user/my/check',
-          data: {url: url}
+          data: {
+            url: url,
+            hotentry_date: hotentryDate
+          }
         }).success(function (res) {
           deferred.resolve(res);
         }).error(function () {

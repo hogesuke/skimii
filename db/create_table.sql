@@ -34,17 +34,19 @@ CREATE TABLE IF NOT EXISTS entries (
 );
 
 CREATE TABLE IF NOT EXISTS checks (
+  id INT NOT NULL AUTO_INCREMENT,
   user_id INT,
   entry_id INT,
   hotentry_date DATE,
   created_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (user_id, entry_id, hotentry_date)
+  PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS laters (
+  id INT NOT NULL AUTO_INCREMENT,
   user_id INT,
   entry_id INT,
   hotentry_date DATE,
   created_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (user_id, entry_id, hotentry_date)
+  PRIMARY KEY (id)
 );

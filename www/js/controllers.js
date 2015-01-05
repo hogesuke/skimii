@@ -60,32 +60,32 @@ techBookControllers.controller('TagController', ['$scope', 'TagService', 'offici
 techBookControllers.controller('DashboardController', ['$scope', 'LaterService', 'CheckService', 'entries',
     function($scope, LaterService, CheckService, entries) {
       $scope.allTagEntries = entries;
-      $scope.switchLater = function(url, activate) {
+      $scope.switchLater = function(url, hotentryDate, activate) {
         angular.forEach($scope.allTagEntries, function(tagEntries) {
           angular.forEach(tagEntries, function(entry) {
-            if (entry.link === url) {
+            if (entry.link === url && entry.date === hotentryDate) {
               entry.latered = activate ? true : false;
             }
           });
         });
         if (activate) {
-          LaterService.save(url);
+          LaterService.save(url, hotentryDate);
         } else {
-          LaterService.remove(url);
+          LaterService.remove(url, hotentryDate);
         }
       };
-      $scope.switchCheck = function(url, activate) {
+      $scope.switchCheck = function(url, hotentryDate, activate) {
         angular.forEach($scope.allTagEntries, function(tagEntries) {
           angular.forEach(tagEntries, function(entry) {
-            if (entry.link === url) {
+            if (entry.link === url && entry.date === hotentryDate) {
               entry.checked = activate ? true : false;
             }
           });
         });
         if (activate) {
-          CheckService.save(url);
+          CheckService.save(url, hotentryDate);
         } else {
-          CheckService.remove(url);
+          CheckService.remove(url, hotentryDate);
         }
       };
     }]
@@ -99,28 +99,28 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
         $scope.entries = entries;
       });
 
-      $scope.switchLater = function(url, activate) {
+      $scope.switchLater = function(url, hotentryDate, activate) {
         angular.forEach($scope.entries, function(entry) {
-          if (entry.link === url) {
+          if (entry.link === url && entry.date === hotentryDate) {
             entry.latered = activate ? true : false;
           }
         });
         if (activate) {
-          LaterService.save(url);
+          LaterService.save(url, hotentryDate);
         } else {
-          LaterService.remove(url);
+          LaterService.remove(url, hotentryDate);
         }
       };
-      $scope.switchCheck = function(url, activate) {
+      $scope.switchCheck = function(url, hotentryDate, activate) {
         angular.forEach($scope.entries, function(entry) {
-          if (entry.link === url) {
+          if (entry.link === url && entry.date === hotentryDate) {
             entry.checked = activate ? true : false;
           }
         });
         if (activate) {
-          CheckService.save(url);
+          CheckService.save(url, hotentryDate);
         } else {
-          CheckService.remove(url);
+          CheckService.remove(url, hotentryDate);
         }
       };
     }]

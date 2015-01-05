@@ -107,6 +107,7 @@ end
 post '/user/my/check' do
   params = JSON.parse(request.body.read)
   entry_url = params['url']
+  hotentry_date = params['hotentry_date']
 
   entry = Entry.where(:url => entry_url).first
   if entry != nil then
@@ -141,15 +142,21 @@ post '/user/my/check' do
   end
 
   # todo OAuthを実装したらログインユーザで絞るように修正
-  entries = User.find(1).check_entries<<new_entry
+  new_check = Check.new
+  new_check.user_id = 1
+  new_check.entry_id = new_entry.id
+  new_check.hotentry_date = hotentry_date
+  new_check.save
 
   headers({'Content-Type' => 'application/json'})
-  entries.to_json
+  User.find(1).check_entries.to_json
 end
 
 delete '/user/my/check' do
   params = JSON.parse(request.body.read)
   entry_url = params['url']
+  hotentry_date = params['hotentry_date']
+  # todo OAuthを実装したらログインユーザで絞るように修正
   user = User.find(1)
 
   entry = Entry.where(:url => entry_url).first
@@ -159,14 +166,13 @@ delete '/user/my/check' do
     return {:err_msg => 'エントリーが存在しません。'}.to_json
   end
 
-  check = user.checks.where(:entry_id => entry.id).first
+  check = user.checks.where({:entry_id => entry.id, :hotentry_date => hotentry_date}).first
   if check == nil then
     headers({'Content-Type' => 'application/json'})
     return user.check_entries.to_json
-
   end
 
-  user.check_entries.destroy(entry)
+  check.destroy
 
   headers({'Content-Type' => 'application/json'})
   user.check_entries.to_json
@@ -182,8 +188,7 @@ end
 post '/user/my/later' do
   params = JSON.parse(request.body.read)
   entry_url = params['url']
-  # todo OAuthを実装したらログインユーザで絞るように修正
-  user = User.find(1)
+  hotentry_date = params['hotentry_date']
 
   entry = Entry.where(:url => entry_url).first
   if entry != nil then
@@ -217,15 +222,21 @@ post '/user/my/later' do
     new_entry.save
   end
 
-  entries = user.later_entries<<new_entry
+  # todo OAuthを実装したらログインユーザで絞るように修正
+  new_later = Later.new
+  new_later.user_id = 1
+  new_later.entry_id = new_entry.id
+  new_later.hotentry_date = hotentry_date
+  new_later.save
 
   headers({'Content-Type' => 'application/json'})
-  entries.to_json
+  User.find(1).later_entries.to_json
 end
 
 delete '/user/my/later' do
   params = JSON.parse(request.body.read)
   entry_url = params['url']
+  hotentry_date = params['hotentry_date']
   # todo OAuthを実装したらログインユーザで絞るように修正
   user = User.find(1)
 
@@ -236,13 +247,13 @@ delete '/user/my/later' do
     return {:err_msg => 'エントリーが存在しません。'}.to_json
   end
 
-  later = user.laters.where(:entry_id => entry.id).first
+  later = user.laters.where({:entry_id => entry.id, :hotentry_date => hotentry_date}).first
   if later == nil then
     headers({'Content-Type' => 'application/json'})
     return user.later_entries.to_json
   end
 
-  user.later_entries.destroy(entry)
+  later.destroy
 
   headers({'Content-Type' => 'application/json'})
   user.later_entries.to_json
@@ -269,13 +280,13 @@ def get_entries(tag_name)
     end
 
     entries.push({
-                     :title         => item['title'][0],
-                     :link          => item['link'][0],
-                     :description   => item['description'][0],
-                     :date          => item['date'][0],
-                     :bookmarkcount => item['bookmarkcount'][0],
-                     :thumbnail_url => thumbnail_url,
-                     :favicon_url   => favicon_url
+                   :title         => item['title'][0],
+                   :link          => item['link'][0],
+                   :description   => item['description'][0],
+                   :date          => item['date'][0].sub(/T.+$/, ''),
+                   :bookmarkcount => item['bookmarkcount'][0],
+                   :thumbnail_url => thumbnail_url,
+                   :favicon_url   => favicon_url
                  })
   }
 
