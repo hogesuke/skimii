@@ -12,6 +12,7 @@ require_relative './model/tag'
 require_relative './model/check'
 require_relative './model/later'
 require_relative './model/entry'
+require_relative './model/setting'
 
 ActiveRecord::Base.configurations = YAML.load_file('./db/database.yml')
 ActiveRecord::Base.establish_connection('development')
@@ -260,7 +261,12 @@ delete '/user/my/later' do
 end
 
 def get_entries(tag_name)
-  url = URI.parse("http://b.hatena.ne.jp/search/tag?q=#{tag_name}&mode=rss")
+  user = User.find(1)
+  setting = user.setting
+  date_begin = (Date.today - setting.days - 1).strftime("%Y-%m-%d")
+  date_end = Date.today.strftime("%Y-%m-%d")
+
+  url = URI.parse("http://b.hatena.ne.jp/search/tag?q=#{tag_name}&date_begin=#{date_begin}&date_end=#{date_end}&mode=rss")
   req = Net::HTTP::Get.new(url.path + '?' + url.query)
   res = Net::HTTP.start(url.host, url.port) {|http|
     http.request(req)
@@ -268,6 +274,11 @@ def get_entries(tag_name)
 
   entries = []
   items = XmlSimple.xml_in(res.body)['item']
+
+  if items.nil? then
+    return []
+  end
+
   items.each{|item|
     thumbnail_url = ''
     if /http:\/\/cdn-ak\.b\.st-hatena\.com\/entryimage\/[0-9\-]+\.jpg/ =~ item['encoded'][0] then
