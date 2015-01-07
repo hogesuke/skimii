@@ -279,6 +279,19 @@ def get_entries(tag_name)
     return []
   end
 
+  check_entries = user.check_entries.where('checks.hotentry_date >= ?', date_begin).select('url')
+  later_entries = user.later_entries.where('laters.hotentry_date >= ?', date_begin).select('url')
+
+  checked_urls = []
+  check_entries.each do |c|
+    checked_urls.push(c.url)
+  end
+
+  latered_urls = []
+  later_entries.each do |l|
+    latered_urls.push(l.url)
+  end
+
   items.each{|item|
     thumbnail_url = ''
     if /http:\/\/cdn-ak\.b\.st-hatena\.com\/entryimage\/[0-9\-]+\.jpg/ =~ item['encoded'][0] then
@@ -297,7 +310,9 @@ def get_entries(tag_name)
                    :date          => item['date'][0].sub(/T.+$/, ''),
                    :bookmarkcount => item['bookmarkcount'][0],
                    :thumbnail_url => thumbnail_url,
-                   :favicon_url   => favicon_url
+                   :favicon_url   => favicon_url,
+                   :checked       => checked_urls.include?(item['link'][0]),
+                   :latered       => latered_urls.include?(item['link'][0])
                  })
   }
 
