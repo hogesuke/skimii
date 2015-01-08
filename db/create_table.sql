@@ -36,7 +36,11 @@ CREATE TABLE IF NOT EXISTS tags_users (
 CREATE TABLE IF NOT EXISTS entries (
   id INT NOT NULL AUTO_INCREMENT,
   url NVARCHAR(1024) NOT NULL,
-  title NVARCHAR(512),
+  title NVARCHAR(256) NOT NULL,
+  description NVARCHAR(512),
+  hotentry_date DATE,
+  thumbnail_url NVARCHAR(1024),
+  favicon_url NVARCHAR(1024),
   created_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );
