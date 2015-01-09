@@ -106,47 +106,32 @@ get '/user/my/check' do
 end
 
 post '/user/my/check' do
-  params = JSON.parse(request.body.read)
-  entry_url = params['url']
-  hotentry_date = params['hotentry_date']
+  checked_entry = JSON.parse(request.body.read)
 
-  entry = Entry.where(:url => entry_url).first
-  if entry != nil then
+  entry = Entry.where(:url => checked_entry['link']).first
+  if not entry.nil? then
     if Check.exists?({:user_id => 1, :entry_id => entry.id}) then
-      # todo こんときのreturnはerrとするか要検討
       status(400)
       headers({'Content-Type' => 'application/json'})
       return {:err_msg => 'このエントリーは既にチェック済みとして登録されています。'}.to_json
     end
   end
 
-  url = URI.parse("http://b.hatena.ne.jp/entry/jsonlite/?url=#{entry_url}")
-  req = Net::HTTP::Get.new(url.path + '?' + url.query)
-  res = Net::HTTP.start(url.host, url.port) {|http|
-    http.request(req)
-  }
-
-  if res.body == 'null' then
-    status(400)
-    headers({'Content-Type' => 'application/json'})
-    return {:err_msg => 'エントリーが存在しません。'}.to_json
-  end
-
-  entry_info = JSON.parse(res.body)
-  if Entry.exists?(:url => entry_info['url']) then
-    new_entry = Entry.where(:url => entry_info['url']).first
-  else
-    new_entry = Entry.new
-    new_entry.url = entry_info['url']
-    new_entry.title = entry_info['title']
-    new_entry.save
+  if entry.nil? then
+    entry = Entry.new
+    entry.url = checked_entry['link']
+    entry.title = checked_entry['title']
+    entry.description = checked_entry['description']
+    entry.thumbnail_url = checked_entry['thumbnail_url']
+    entry.favicon_url = checked_entry['favicon_url']
+    entry.save
   end
 
   # todo OAuthを実装したらログインユーザで絞るように修正
   new_check = Check.new
   new_check.user_id = 1
-  new_check.entry_id = new_entry.id
-  new_check.hotentry_date = hotentry_date
+  new_check.entry_id = entry.id
+  new_check.hotentry_date = checked_entry['date']
   new_check.save
 
   headers({'Content-Type' => 'application/json'})
@@ -154,23 +139,23 @@ post '/user/my/check' do
 end
 
 delete '/user/my/check' do
-  params = JSON.parse(request.body.read)
-  entry_url = params['url']
-  hotentry_date = params['hotentry_date']
+  checked_entry = JSON.parse(request.body.read)
+
   # todo OAuthを実装したらログインユーザで絞るように修正
   user = User.find(1)
 
-  entry = Entry.where(:url => entry_url).first
+  entry = Entry.where(:url => checked_entry['link']).first
   if entry == nil then
     status(400)
     headers({'Content-Type' => 'application/json'})
     return {:err_msg => 'エントリーが存在しません。'}.to_json
   end
 
-  check = user.checks.where({:entry_id => entry.id, :hotentry_date => hotentry_date}).first
-  if check == nil then
+  check = user.checks.where({:entry_id => entry.id, :hotentry_date => checked_entry['date']}).first
+  if check.nil? then
+    status(400)
     headers({'Content-Type' => 'application/json'})
-    return user.check_entries.to_json
+    return {:err_msg => 'このエントリーはチェック済みとして登録されていません。'}.to_json
   end
 
   check.destroy
@@ -187,47 +172,32 @@ get '/user/my/later' do
 end
 
 post '/user/my/later' do
-  params = JSON.parse(request.body.read)
-  entry_url = params['url']
-  hotentry_date = params['hotentry_date']
+  latered_entry = JSON.parse(request.body.read)
 
-  entry = Entry.where(:url => entry_url).first
+  entry = Entry.where(:url => latered_entry['link']).first
   if entry != nil then
     if Later.exists?({:user_id => 1, :entry_id => entry.id}) then
-      # todo こんときのreturnはerrとするか要検討
       status(400)
       headers({'Content-Type' => 'application/json'})
       return {:err_msg => 'このエントリーは既にあとで読むとして登録されています。'}.to_json
     end
   end
 
-  url = URI.parse("http://b.hatena.ne.jp/entry/jsonlite/?url=#{entry_url}")
-  req = Net::HTTP::Get.new(url.path + '?' + url.query)
-  res = Net::HTTP.start(url.host, url.port) {|http|
-    http.request(req)
-  }
-
-  if res.body == 'null' then
-    status(400)
-    headers({'Content-Type' => 'application/json'})
-    return {:err_msg => 'エントリーが存在しません。'}.to_json
-  end
-
-  entry_info = JSON.parse(res.body)
-  if Entry.exists?(:url => entry_info['url']) then
-    new_entry = Entry.where(:url => entry_info['url']).first
-  else
-    new_entry = Entry.new
-    new_entry.url = entry_info['url']
-    new_entry.title = entry_info['title']
-    new_entry.save
+  if entry.nil? then
+    entry = Entry.new
+    entry.url = latered_entry['link']
+    entry.title = latered_entry['title']
+    entry.description = latered_entry['description']
+    entry.thumbnail_url = latered_entry['thumbnail_url']
+    entry.favicon_url = latered_entry['favicon_url']
+    entry.save
   end
 
   # todo OAuthを実装したらログインユーザで絞るように修正
   new_later = Later.new
   new_later.user_id = 1
-  new_later.entry_id = new_entry.id
-  new_later.hotentry_date = hotentry_date
+  new_later.entry_id = entry.id
+  new_later.hotentry_date = latered_entry['date']
   new_later.save
 
   headers({'Content-Type' => 'application/json'})
@@ -235,23 +205,23 @@ post '/user/my/later' do
 end
 
 delete '/user/my/later' do
-  params = JSON.parse(request.body.read)
-  entry_url = params['url']
-  hotentry_date = params['hotentry_date']
+  latered_entry = JSON.parse(request.body.read)
+
   # todo OAuthを実装したらログインユーザで絞るように修正
   user = User.find(1)
 
-  entry = Entry.where(:url => entry_url).first
-  if entry == nil then
+  entry = Entry.where(:url => latered_entry['link']).first
+  if entry.nil? then
     status(400)
     headers({'Content-Type' => 'application/json'})
     return {:err_msg => 'エントリーが存在しません。'}.to_json
   end
 
-  later = user.laters.where({:entry_id => entry.id, :hotentry_date => hotentry_date}).first
-  if later == nil then
+  later = user.laters.where({:entry_id => entry.id, :hotentry_date => latered_entry['date']}).first
+  if later.nil? then
+    status(400)
     headers({'Content-Type' => 'application/json'})
-    return user.later_entries.to_json
+    return {:err_msg => 'このエントリーはあとで読むとして登録されていません。'}.to_json
   end
 
   later.destroy

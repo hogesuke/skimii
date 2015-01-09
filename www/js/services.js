@@ -94,15 +94,12 @@ angular.module('TechBookApp').
         });
         return deferred.promise;
       },
-      save: function(url, hotentryDate) {
+      save: function(entry) {
         var deferred = $q.defer();
         $http({
           method: 'post',
           url: '/api/user/my/later',
-          data: {
-            url: url,
-            hotentry_date: hotentryDate
-          }
+          data: entry
         }).success(function (res) {
           deferred.resolve(res);
         }).error(function () {
@@ -110,15 +107,12 @@ angular.module('TechBookApp').
         });
         return deferred.promise;
       },
-      remove: function(url, hotentryDate) {
+      remove: function(entry) {
         var deferred = $q.defer();
         $http({
           method: 'delete',
           url: '/api/user/my/later',
-          data: {
-            url: url,
-            hotentry_date: hotentryDate
-          }
+          data: entry
         }).success(function (res) {
           deferred.resolve(res);
         }).error(function () {
@@ -142,15 +136,13 @@ angular.module('TechBookApp').
         });
         return deferred.promise;
       },
-      save: function (url, hotentryDate) {
+      save: function (entry) {
         var deferred = $q.defer();
+        console.debug(entry);
         $http({
           method: 'post',
           url: '/api/user/my/check',
-          data: {
-            url: url,
-            hotentry_date: hotentryDate
-          }
+          data: entry
         }).success(function (res) {
           deferred.resolve(res);
         }).error(function () {
@@ -158,15 +150,13 @@ angular.module('TechBookApp').
         });
         return deferred.promise;
       },
-      remove: function (url, hotentryDate) {
+      remove: function (entry) {
         var deferred = $q.defer();
+        console.debug(entry);
         $http({
           method: 'delete',
           url: '/api/user/my/check',
-          data: {
-            url: url,
-            hotentry_date: hotentryDate
-          }
+          data: entry
         }).success(function (res) {
           deferred.resolve(res);
         }).error(function () {

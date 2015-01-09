@@ -70,9 +70,9 @@ techBookControllers.controller('DashboardController', ['$scope', 'LaterService',
           });
         });
         if (isToLatered) {
-          LaterService.save(lateredEntry.link, lateredEntry.hotentry_date);
+          LaterService.save(lateredEntry);
         } else {
-          LaterService.remove(lateredEntry.link, lateredEntry.hotentry_date);
+          LaterService.remove(lateredEntry);
         }
       };
       $scope.switchCheck = function(checkedEntry) {
@@ -85,9 +85,9 @@ techBookControllers.controller('DashboardController', ['$scope', 'LaterService',
           });
         });
         if (isToChecked) {
-          CheckService.save(checkedEntry.link, checkedEntry.date);
+          CheckService.save(checkedEntry);
         } else {
-          CheckService.remove(checkedEntry.link, checkedEntry.date);
+          CheckService.remove(checkedEntry);
         }
       };
     }]
@@ -109,9 +109,9 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
           }
         });
         if (isToLatered) {
-          LaterService.save(lateredEntry.link, lateredEntry.date);
+          LaterService.save(lateredEntry);
         } else {
-          LaterService.remove(lateredEntry.link, lateredEntry.date);
+          LaterService.remove(lateredEntry);
         }
       };
       $scope.switchCheck = function(checkedEntry) {
@@ -122,9 +122,9 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
           }
         });
         if (isToChecked) {
-          CheckService.save(checkedEntry.link, checkedEntry.date);
+          CheckService.save(checkedEntry);
         } else {
-          CheckService.remove(checkedEntry.link, checkedEntry.date);
+          CheckService.remove(checkedEntry);
         }
       };
     }]
