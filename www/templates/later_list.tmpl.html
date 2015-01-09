@@ -1,9 +1,7 @@
-<div id="laterboard">
+<div id="entryboard">
+  <h2>あとで読むリスト</h2>
   <div class="entry-list">
-    <div class="entry" ng-repeat="entry in entries">
-      <div class="entry-header">
-        <a href="{{entry.url}}" class="title" target="_blank">{{entry.title}}</a>
-      </div>
+    <div class="entry" ng-repeat="entry in entries" ng-include="'../parts/entry_small.part.html'">
     </div>
   </div>
 </div>
