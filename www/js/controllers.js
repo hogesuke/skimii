@@ -66,6 +66,10 @@ techBookControllers.controller('DashboardController', ['$scope', 'LaterService',
           entries = entries.concat(tagEntries);
         });
         LaterService.toggle(entries, lateredEntry);
+        if (lateredEntry.checked) {
+          lateredEntry.checked = false;
+          CheckService.remove(lateredEntry);
+        }
       };
       $scope.toggleCheck = function(checkedEntry) {
         var entries = [];
@@ -73,6 +77,10 @@ techBookControllers.controller('DashboardController', ['$scope', 'LaterService',
           entries = entries.concat(tagEntries);
         });
         CheckService.toggle(entries, checkedEntry);
+        if (checkedEntry.latered) {
+          checkedEntry.latered = false;
+          LaterService.remove(checkedEntry);
+        }
       };
     }]
 );
@@ -88,9 +96,17 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
 
       $scope.toggleLater = function(lateredEntry) {
         LaterService.toggle($scope.entries, lateredEntry);
+        if (lateredEntry.checked) {
+          lateredEntry.checked = false;
+          CheckService.remove(lateredEntry);
+        }
       };
       $scope.toggleCheck = function(checkedEntry) {
         CheckService.toggle($scope.entries, checkedEntry);
+        if (checkedEntry.latered) {
+          checkedEntry.latered = false;
+          LaterService.remove(checkedEntry);
+        }
       };
     }]
 );
