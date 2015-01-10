@@ -102,7 +102,7 @@ end
 get '/user/my/check' do
   headers({'Content-Type' => 'application/json'})
   # todo OAuthを実装したらログインユーザで絞るように修正
-  User.find(1).check_entries.to_json
+  User.find(1).check_entries.select('entries.*, checks.hotentry_date').to_json
 end
 
 post '/user/my/check' do
@@ -131,7 +131,7 @@ post '/user/my/check' do
   new_check = Check.new
   new_check.user_id = 1
   new_check.entry_id = entry.id
-  new_check.hotentry_date = checked_entry['date']
+  new_check.hotentry_date = checked_entry['hotentry_date']
   new_check.save
 
   headers({'Content-Type' => 'application/json'})
@@ -151,7 +151,7 @@ delete '/user/my/check' do
     return {:err_msg => 'エントリーが存在しません。'}.to_json
   end
 
-  check = user.checks.where({:entry_id => entry.id, :hotentry_date => checked_entry['date']}).first
+  check = user.checks.where({:entry_id => entry.id, :hotentry_date => checked_entry['hotentry_date']}).first
   if check.nil? then
     status(400)
     headers({'Content-Type' => 'application/json'})
@@ -168,7 +168,7 @@ get '/user/my/later' do
   headers({'Content-Type' => 'application/json'})
   # todo OAuthを実装したらログインユーザで絞るように修正
   # todo 指定件数取得とするように修正。一定期間経過後のlaterは取得しないように修正。
-  User.find(1).later_entries.to_json
+  User.find(1).later_entries.select('entries.*, laters.hotentry_date').to_json
 end
 
 post '/user/my/later' do
@@ -197,7 +197,7 @@ post '/user/my/later' do
   new_later = Later.new
   new_later.user_id = 1
   new_later.entry_id = entry.id
-  new_later.hotentry_date = latered_entry['date']
+  new_later.hotentry_date = latered_entry['hotentry_date']
   new_later.save
 
   headers({'Content-Type' => 'application/json'})
@@ -217,7 +217,7 @@ delete '/user/my/later' do
     return {:err_msg => 'エントリーが存在しません。'}.to_json
   end
 
-  later = user.laters.where({:entry_id => entry.id, :hotentry_date => latered_entry['date']}).first
+  later = user.laters.where({:entry_id => entry.id, :hotentry_date => latered_entry['hotentry_date']}).first
   if later.nil? then
     status(400)
     headers({'Content-Type' => 'application/json'})
@@ -277,7 +277,7 @@ def get_entries(tag_name)
                    :title         => item['title'][0],
                    :url           => item['link'][0],
                    :description   => item['description'][0],
-                   :date          => item['date'][0].sub(/T.+$/, ''),
+                   :hotentry_date => item['date'][0].sub(/T.+$/, ''),
                    :bookmarkcount => item['bookmarkcount'][0],
                    :thumbnail_url => thumbnail_url,
                    :favicon_url   => favicon_url,

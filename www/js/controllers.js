@@ -117,6 +117,10 @@ techBookControllers.controller('LaterListController', ['$scope', 'LaterService',
       LaterService.all().then(function(entries) {
         $scope.entries = entries;
       });
+      $scope.remove = function(entry) {
+        LaterService.remove(entry);
+        entry.latered = false;
+      };
     }]
 );
 
@@ -127,6 +131,9 @@ techBookControllers.controller('EntryViewController', ['$scope',
       };
       $scope.setViewSize = function(viewName, size) {
         localStorage.setItem(viewName + '.view_size', size);
+      };
+      $scope.isRemovable = function() {
+        return !!$scope.viewName.match(/check_list|later_list/);
       };
     }]
 );
