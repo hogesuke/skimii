@@ -111,6 +111,19 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
     }]
 );
 
+techBookControllers.controller('CheckListController', ['$scope', 'CheckService',
+    function($scope, CheckService) {
+      $scope.viewName = 'check_list';
+      CheckService.all().then(function(entries) {
+        $scope.entries = entries;
+      });
+      $scope.remove = function(entry) {
+        CheckService.remove(entry);
+        entry.checked = false;
+      };
+    }]
+);
+
 techBookControllers.controller('LaterListController', ['$scope', 'LaterService',
     function($scope, LaterService) {
       $scope.viewName = 'later_list';
