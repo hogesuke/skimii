@@ -1,6 +1,6 @@
 <div id="dashboard">
   <p>Dashboard</p>
-  <div class="entry-list" ng-repeat="(tag, entries) in allTagEntries">
+  <div class="entry-list small" ng-repeat="(tag, entries) in allTagEntries">
     <div class="tag-name">{{tag}}</div>
     <div class="entry" ng-repeat="entry in entries" ng-include="'../parts/entry_small.part.html'">
     </div>

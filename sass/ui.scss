@@ -38,193 +38,199 @@
   #dashboard {
     overflow: hidden;
     padding-left: 15px;
+  }
+  #entryboard {
+    overflow: hidden;
+    padding-left: 20px;
+  }
 
-    .entry-list {
-      float: left;
-      margin: 0 10px 10px 0;
-      padding: 10px;
-      box-sizing: border-box;
+  .entry-list.small {
+    float: left;
+    margin: 0 10px 10px 0;
+    padding: 10px;
+    box-sizing: border-box;
 
-      @media screen and (max-width: 1000px) {
-        width: 100%;
+    @media screen and (max-width: 1000px) {
+      width: 100%;
+    }
+    @media screen and (min-width: 1000px) {
+      width: 48%;
+    }
+    @media screen and (min-width: 1500px) {
+      width: 32%;
+    }
+
+    .tag-name {
+      margin-bottom: 5px;
+      font-size: 24px;
+    }
+    .entry {
+      min-height: 60px;
+      margin-bottom: 15px;
+      border-bottom: solid 1px #dfdfdf;
+
+      .entry-header {
+        position: relative;
+
+        &.visible-thumbnail {
+          margin-right: 70px;
+        }
+        .favicon {
+          position: absolute;
+          top: 2px;
+          height: 16px;
+          width: 16px;
+        }
+        .title {
+          width: 100%;
+          height: 3em;
+          padding-left: 20px;
+          display: block;
+          overflow: hidden;
+          font-size: 14px;
+        }
       }
-      @media screen and (min-width: 1000px) {
-        width: 48%;
-      }
-      @media screen and (min-width: 1500px) {
-        width: 32%;
-      }
+      .entry-thumbnail {
+        float: right;
 
-      .tag-name {
-        margin-bottom: 5px;
-        font-size: 24px;
+        .thumbnail {
+          width: 65px;
+          height: 50px;
+        }
       }
-      .entry {
-        min-height: 60px;
-        margin-bottom: 15px;
-        border-bottom: solid 1px #dfdfdf;
+      .entry-body {
+        display: none;
+      }
+      .entry-footer {
+        padding: 5px 0 10px 0;
+        .bookmarkcount {
+          font-size: 14px;
 
-        .entry-header {
-          position: relative;
-
-          &.visible-thumbnail {
-            margin-right: 70px;
-          }
-          .favicon {
-            position: absolute;
-            top: 2px;
-            height: 16px;
-            width: 16px;
-          }
-          .title {
-            width: 100%;
-            height: 3em;
-            padding-left: 20px;
-            display: block;
-            overflow: hidden;
+          &::after {
+            content: " users";
           }
         }
-        .entry-thumbnail {
-          float: right;
+        .controll-button {
+          height: 28px;
+          width: 28px;
+          margin-right: 5px;
+          background-color: #ffffff;
+          border: solid 1px #dfdfdf;
+          border-radius: 14px;
+          outline: none;
+          color: #b2b2b2;
 
-          .thumbnail {
-            width: 65px;
-            height: 50px;
+          &:hover {
+            background-color: #acacac;
+            border-color: #acacac;
+            color: #ffffff;
           }
-        }
-        .entry-footer {
-          padding: 5px 0 10px 0;
-          .bookmarkcount {
-            &::after {
-              content: " users";
-            }
+          &.check-button.active {
+            background-color: #94a4e2;
+            border-color: #94a4e2;
+            color: #ffffff;
           }
-          .controll-button {
-            height: 28px;
-            width: 28px;
-            margin-right: 5px;
-            background-color: #ffffff;
-            border: solid 1px #dfdfdf;
-            border-radius: 14px;
-            outline: none;
-            color: #b2b2b2;
-
-            &:hover {
-              background-color: #acacac;
-              border-color: #acacac;
-              color: #ffffff;
-            }
-            &.check-button.active {
-              background-color: #94a4e2;
-              border-color: #94a4e2;
-              color: #ffffff;
-            }
-            &.later-button.active {
-              background-color: #eb8692;
-              border-color: #eb8692;
-              color: #ffffff;
-            }
+          &.later-button.active {
+            background-color: #eb8692;
+            border-color: #eb8692;
+            color: #ffffff;
           }
         }
       }
     }
   }
 
-  #entryboard {
-    padding-left: 20px;
+  .entry-list.large {
+    min-width: 600px;
+    max-width: 1100px;
 
-    .entry-list {
-      min-width: 600px;
-      max-width: 1100px;
+    .tag-name {
+      margin-bottom: 10px;
+      font-size: 28px;
+    }
+    .entry {
+      overflow: hidden;
+      position: relative;
+      min-height: 150px;
+      margin-bottom: 15px;
+      padding-bottom: 5px;
+      border-bottom: solid 1px #dddddd;
 
-      .tag-name {
-        margin-bottom: 10px;
-        font-size: 28px;
+      .entry-thumbnail {
+        float: right;
+
+        .thumbnail {
+          width: 130px;
+          height: 100px;
+          margin-bottom: 10px;
+        }
       }
-      .entry {
-        overflow: hidden;
+      .entry-header {
         position: relative;
-        min-height: 150px;
-        margin-bottom: 15px;
-        padding-bottom: 5px;
-        border-bottom: solid 1px #dddddd;
+        margin-bottom: 6px;
+        font-size: 16px;
 
-        .entry-thumbnail {
-          float: right;
-
-          .thumbnail {
-            width: 130px;
-            height: 100px;
-            margin-bottom: 10px;
-          }
+        &.visible-thumbnail {
+          margin-right: 140px;
         }
-        .entry-header {
-          position: relative;
-          margin-bottom: 6px;
-          font-size: 16px;
-
-          &.visible-thumbnail {
-            margin-right: 140px;
-          }
-          .title {
-            padding-left: 20px;
-          }
-          .favicon {
-            position: absolute;
-            top: 2px;
-            height: 16px;
-            width: 16px;
-          }
+        .title {
+          padding-left: 20px;
         }
-        .entry-body {
+        .favicon {
+          position: absolute;
+          top: 2px;
+          height: 16px;
+          width: 16px;
+        }
+      }
+      .entry-body {
 
-          &.visible-thumbnail {
-            margin-right: 140px;
-          }
-          .description {
-            margin-bottom: 40px;
-            color: gray;
+        &.visible-thumbnail {
+          margin-right: 140px;
+        }
+        .description {
+          margin-bottom: 40px;
+          color: gray;
+          font-size: 14px;
+        }
+      }
+      .entry-footer {
+        position: absolute;
+        bottom: 0;
+        margin-bottom: 8px;
+
+        .bookmarkcount {
+          font-size: 20px;
+
+          &::after {
+            content: " users";
             font-size: 14px;
           }
         }
-        .entry-footer {
-          position: absolute;
-          bottom: 0;
-          margin-bottom: 8px;
+        .controll-button {
+          height: 32px;
+          width: 32px;
+          margin-right: 5px;
+          background-color: #ffffff;
+          border: solid 1px #dfdfdf;
+          border-radius: 16px;
+          outline: none;
+          color: #b2b2b2;
 
-          .bookmarkcount {
-            font-size: 20px;
-
-            &::after {
-              content: " users";
-              font-size: 14px;
-            }
+          &:hover {
+            background-color: #acacac;
+            border-color: #acacac;
+            color: #ffffff;
           }
-          .controll-button {
-            height: 32px;
-            width: 32px;
-            margin-right: 5px;
-            background-color: #ffffff;
-            border: solid 1px #dfdfdf;
-            border-radius: 16px;
-            outline: none;
-            color: #b2b2b2;
-
-            &:hover {
-              background-color: #acacac;
-              border-color: #acacac;
-              color: #ffffff;
-            }
-            &.check-button.active {
-              background-color: #94a4e2;
-              border-color: #94a4e2;
-              color: #ffffff;
-            }
-            &.later-button.active {
-              background-color: #eb8692;
-              border-color: #eb8692;
-              color: #ffffff;
-            }
+          &.check-button.active {
+            background-color: #94a4e2;
+            border-color: #94a4e2;
+            color: #ffffff;
+          }
+          &.later-button.active {
+            background-color: #eb8692;
+            border-color: #eb8692;
+            color: #ffffff;
           }
         }
       }
