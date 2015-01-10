@@ -43,7 +43,30 @@
     overflow: hidden;
     padding-left: 20px;
   }
+  #entry-list-controll {
+    padding: 10px 0;
+    .controll-button {
+      height: 34px;
+      margin-right: 3px;
+      padding: 0 15px;
+      background-color: #ffffff;
+      border: solid 1px #dfdfdf;
+      border-radius: 17px;
+      outline: none;
+      color: #b2b2b2;
 
+      &:hover {
+        background-color: #acacac;
+        border-color: #acacac;
+        color: #ffffff;
+      }
+      &.active {
+        background-color: #76bd7c;
+        border-color: #76bd7c;
+        color: #ffffff;
+      }
+    }
+  }
   .entry-list.small {
     float: left;
     margin: 0 10px 10px 0;

@@ -1,4 +1,4 @@
 <div id="entry-list-controll">
-  <button ng-click="setViewSize(viewName, 'small')">small</button>
-  <button ng-click="setViewSize(viewName, 'large')">large</button>
+  <button class="controll-button" ng-click="setViewSize(viewName, 'small')" ng-class="{active: getViewSize(viewName) === 'small'}">small</button>
+  <button class="controll-button" ng-click="setViewSize(viewName, 'large')" ng-class="{active: getViewSize(viewName) === 'large'}">large</button>
 </div>
