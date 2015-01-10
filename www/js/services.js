@@ -119,6 +119,19 @@ angular.module('TechBookApp').
           deferred.reject();
         });
         return deferred.promise;
+      },
+      toggle: function (entries, lateredEntry) {
+        var isToLatered = !lateredEntry.latered;
+        angular.forEach(entries, function(entry) {
+          if (entry.url === lateredEntry.url && entry.date === lateredEntry.date) {
+            entry.latered = !lateredEntry.latered;
+          }
+        });
+        if (isToLatered) {
+          this.save(lateredEntry);
+        } else {
+          this.remove(lateredEntry);
+        }
       }
     }
   }]).
@@ -163,6 +176,19 @@ angular.module('TechBookApp').
           deferred.reject();
         });
         return deferred.promise;
+      },
+      toggle: function (entries, checkedEntry) {
+        var isToChecked = !checkedEntry.checked;
+        angular.forEach(entries, function(entry) {
+          if (entry.url === checkedEntry.url && entry.date === checkedEntry.date) {
+            entry.checked = !checkedEntry.checked;
+          }
+        });
+        if (isToChecked) {
+          this.save(checkedEntry);
+        } else {
+          this.remove(checkedEntry);
+        }
       }
     }
   }]);

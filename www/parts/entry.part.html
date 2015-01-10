@@ -9,10 +9,10 @@
   <div class="description">{{entry.description}}</div>
 </div>
 <div class="entry-footer">
-  <button class="controll-button check-button" ng-click="switchCheck(entry)" ng-class="{ active: entry.checked }">
+  <button class="controll-button check-button" ng-click="toggleCheck(entry)" ng-class="{ active: entry.checked }">
     <i class="fa fa-check"></i>
   </button>
-  <button class="controll-button later-button" ng-click="switchLater(entry)" ng-class="{ active: entry.latered }">
+  <button class="controll-button later-button" ng-click="toggleLater(entry)" ng-class="{ active: entry.latered }">
     <i class="fa fa-archive"></i>
   </button>
   <span class="bookmarkcount" ng-show="entry.bookmarkcount !== undefined">{{entry.bookmarkcount}}</span>
