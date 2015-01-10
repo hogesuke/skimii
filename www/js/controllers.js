@@ -95,6 +95,7 @@ techBookControllers.controller('DashboardController', ['$scope', 'LaterService',
 
 techBookControllers.controller('EntryListController', ['$scope', '$routeParams', 'EntryService', 'LaterService', 'CheckService',
     function($scope, $routeParams, EntryService, LaterService, CheckService) {
+      $scope.viewName = 'entry_list';
       $scope.tag = $routeParams.tag;
 
       EntryService.one($routeParams.tag).then(function(entries) {
@@ -132,9 +133,21 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
 
 techBookControllers.controller('LaterListController', ['$scope', 'LaterService',
     function($scope, LaterService) {
+      $scope.viewName = 'later_list';
       LaterService.all().then(function(entries) {
         $scope.entries = entries;
-      })
+      });
+    }]
+);
+
+techBookControllers.controller('EntryViewController', ['$scope',
+    function($scope) {
+      $scope.getViewSize = function(viewName) {
+        return localStorage.getItem(viewName + '.view_size');
+      };
+      $scope.setViewSize = function(viewName, size) {
+        localStorage.setItem(viewName + '.view_size', size);
+      };
     }]
 );
 
