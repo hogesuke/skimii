@@ -64,7 +64,7 @@ techBookControllers.controller('DashboardController', ['$scope', 'LaterService',
         var isToLatered = !lateredEntry.latered;
         angular.forEach($scope.allTagEntries, function(tagEntries) {
           angular.forEach(tagEntries, function(entry) {
-            if (entry.link === lateredEntry.link && entry.date === lateredEntry.date) {
+            if (entry.url === lateredEntry.url && entry.date === lateredEntry.date) {
               entry.latered = !lateredEntry.latered;
             }
           });
@@ -79,7 +79,7 @@ techBookControllers.controller('DashboardController', ['$scope', 'LaterService',
         var isToChecked = !checkedEntry.checked;
         angular.forEach($scope.allTagEntries, function(tagEntries) {
           angular.forEach(tagEntries, function(entry) {
-            if (entry.link === checkedEntry.link && entry.date === checkedEntry.date) {
+            if (entry.url === checkedEntry.url && entry.date === checkedEntry.date) {
               entry.checked = !checkedEntry.checked;
             }
           });
@@ -104,7 +104,7 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
       $scope.switchLater = function(lateredEntry) {
         var isToLatered = !lateredEntry.latered;
         angular.forEach($scope.entries, function(entry) {
-          if (entry.link === lateredEntry.link && entry.date === lateredEntry.date) {
+          if (entry.url === lateredEntry.url && entry.date === lateredEntry.date) {
             entry.latered = !lateredEntry.latered;
           }
         });
@@ -117,7 +117,7 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
       $scope.switchCheck = function(checkedEntry) {
         var isToChecked = !checkedEntry.checked;
         angular.forEach($scope.entries, function(entry) {
-          if (entry.link === checkedEntry.link && entry.date === checkedEntry.date) {
+          if (entry.url === checkedEntry.url && entry.date === checkedEntry.date) {
             entry.checked = !checkedEntry.checked;
           }
         });

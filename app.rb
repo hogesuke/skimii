@@ -108,7 +108,7 @@ end
 post '/user/my/check' do
   checked_entry = JSON.parse(request.body.read)
 
-  entry = Entry.where(:url => checked_entry['link']).first
+  entry = Entry.where(:url => checked_entry['url']).first
   if not entry.nil? then
     if Check.exists?({:user_id => 1, :entry_id => entry.id}) then
       status(400)
@@ -119,7 +119,7 @@ post '/user/my/check' do
 
   if entry.nil? then
     entry = Entry.new
-    entry.url = checked_entry['link']
+    entry.url = checked_entry['url']
     entry.title = checked_entry['title']
     entry.description = checked_entry['description']
     entry.thumbnail_url = checked_entry['thumbnail_url']
@@ -144,7 +144,7 @@ delete '/user/my/check' do
   # todo OAuthを実装したらログインユーザで絞るように修正
   user = User.find(1)
 
-  entry = Entry.where(:url => checked_entry['link']).first
+  entry = Entry.where(:url => checked_entry['url']).first
   if entry == nil then
     status(400)
     headers({'Content-Type' => 'application/json'})
@@ -174,7 +174,7 @@ end
 post '/user/my/later' do
   latered_entry = JSON.parse(request.body.read)
 
-  entry = Entry.where(:url => latered_entry['link']).first
+  entry = Entry.where(:url => latered_entry['url']).first
   if entry != nil then
     if Later.exists?({:user_id => 1, :entry_id => entry.id}) then
       status(400)
@@ -185,7 +185,7 @@ post '/user/my/later' do
 
   if entry.nil? then
     entry = Entry.new
-    entry.url = latered_entry['link']
+    entry.url = latered_entry['url']
     entry.title = latered_entry['title']
     entry.description = latered_entry['description']
     entry.thumbnail_url = latered_entry['thumbnail_url']
@@ -210,7 +210,7 @@ delete '/user/my/later' do
   # todo OAuthを実装したらログインユーザで絞るように修正
   user = User.find(1)
 
-  entry = Entry.where(:url => latered_entry['link']).first
+  entry = Entry.where(:url => latered_entry['url']).first
   if entry.nil? then
     status(400)
     headers({'Content-Type' => 'application/json'})
@@ -275,7 +275,7 @@ def get_entries(tag_name)
 
     entries.push({
                    :title         => item['title'][0],
-                   :link          => item['link'][0],
+                   :url           => item['link'][0],
                    :description   => item['description'][0],
                    :date          => item['date'][0].sub(/T.+$/, ''),
                    :bookmarkcount => item['bookmarkcount'][0],
