@@ -12,5 +12,5 @@
   <button class="controll-button later-button" ng-click="switchLater(entry)" ng-class="{ active: entry.latered }">
     <i class="fa fa-archive"></i>
   </button>
-  <span class="bookmarkcount">{{entry.bookmarkcount}}</span>
+  <span class="bookmarkcount" ng-show="entry.bookmarkcount !== undefined">{{entry.bookmarkcount}}</span>
 </div>
