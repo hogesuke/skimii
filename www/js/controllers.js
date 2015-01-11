@@ -111,8 +111,8 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
     }]
 );
 
-techBookControllers.controller('CheckListController', ['$scope', 'CheckService',
-    function($scope, CheckService) {
+techBookControllers.controller('CheckListController', ['$scope', 'CheckService', 'LaterService',
+    function($scope, CheckService, LaterService) {
       $scope.viewName = 'check_list';
       CheckService.all().then(function(entries) {
         $scope.entries = entries;
@@ -121,11 +121,16 @@ techBookControllers.controller('CheckListController', ['$scope', 'CheckService',
         CheckService.remove(entry);
         entry.checked = false;
       };
+
+      $scope.toggleLater = function(lateredEntry) {
+        LaterService.toggle($scope.entries, lateredEntry);
+        CheckService.toggle($scope.entries, lateredEntry);
+      };
     }]
 );
 
-techBookControllers.controller('LaterListController', ['$scope', 'LaterService',
-    function($scope, LaterService) {
+techBookControllers.controller('LaterListController', ['$scope', 'LaterService', 'CheckService',
+    function($scope, LaterService, CheckService) {
       $scope.viewName = 'later_list';
       LaterService.all().then(function(entries) {
         $scope.entries = entries;
@@ -133,6 +138,11 @@ techBookControllers.controller('LaterListController', ['$scope', 'LaterService',
       $scope.remove = function(entry) {
         LaterService.remove(entry);
         entry.latered = false;
+      };
+
+      $scope.toggleCheck = function(checkedEntry) {
+        CheckService.toggle($scope.entries, checkedEntry);
+        LaterService.toggle($scope.entries, checkedEntry);
       };
     }]
 );

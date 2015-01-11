@@ -102,7 +102,13 @@ end
 get '/user/my/check' do
   headers({'Content-Type' => 'application/json'})
   # todo OAuthを実装したらログインユーザで絞るように修正
-  User.find(1).check_entries.select('entries.*, checks.hotentry_date').to_json
+  entries = User.find(1).check_entries.select('entries.*, checks.hotentry_date')
+  entries.each do |e|
+    e.checked = true
+    e.latered = false
+  end
+
+  return entries.to_json
 end
 
 post '/user/my/check' do
@@ -168,7 +174,13 @@ get '/user/my/later' do
   headers({'Content-Type' => 'application/json'})
   # todo OAuthを実装したらログインユーザで絞るように修正
   # todo 指定件数取得とするように修正。一定期間経過後のlaterは取得しないように修正。
-  User.find(1).later_entries.select('entries.*, laters.hotentry_date').to_json
+  entries = User.find(1).later_entries.select('entries.*, laters.hotentry_date')
+  entries.each do |e|
+    e.latered = true
+    e.checked = false
+  end
+
+  return entries.to_json
 end
 
 post '/user/my/later' do
