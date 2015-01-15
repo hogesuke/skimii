@@ -102,6 +102,8 @@
 #content .entry-list.large .entry .entry-footer .controll-button.later-button.active { background-color: #eb8692; border-color: #eb8692; color: #ffffff; }
 /* line 263, ../../sass/ui.scss */
 #content #tag-select { padding-left: 15px; }
+/* line 267, ../../sass/ui.scss */
+#content #settings { padding: 10px; }
 
-/* line 268, ../../sass/ui.scss */
+/* line 272, ../../sass/ui.scss */
 #footer { background-color: #101010; }
