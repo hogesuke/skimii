@@ -165,3 +165,8 @@ techBookControllers.controller('SidebarController', ['$scope', 'TagService',
     function($scope, TagService) {
     }]
 );
+
+techBookControllers.controller('SettingController', ['$scope',
+    function($scope) {
+    }]
+);

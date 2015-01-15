@@ -48,6 +48,10 @@ techBookApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
           }
         }
       }).
+      when('/setting', {
+        templateUrl: '../templates/setting.tmpl.html',
+        controller: 'SettingController'
+      }).
       otherwise({
         redirectTo: '/'
       });
