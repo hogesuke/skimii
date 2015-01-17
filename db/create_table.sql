@@ -13,7 +13,10 @@ CREATE TABLE IF NOT EXISTS users (
 CREATE TABLE IF NOT EXISTS settings (
   id INT NOT NULL AUTO_INCREMENT,
   user_id INT,
-  days INT,
+  bookmark_threshold INT,
+  hotentry_days INT,
+  later_days INT,
+  dashbord_count INT,
   created_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );
