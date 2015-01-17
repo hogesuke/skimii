@@ -216,6 +216,22 @@ post '/user/my/later' do
   User.find(1).later_entries.to_json
 end
 
+get '/setting' do
+  headers({'Content-Type' => 'application/json'})
+  # todo OAuthを実装したらログインユーザで絞るように修正
+  return User.find(1).setting.to_json
+end
+
+put '/setting' do
+  input = JSON.parse(request.body.read)
+
+  setting = User.find(1).setting
+  setting.update_attributes(input)
+
+  headers({'Content-Type' => 'application/json'})
+  User.find(1).setting
+end
+
 delete '/user/my/later' do
   latered_entry = JSON.parse(request.body.read)
 
@@ -245,7 +261,7 @@ end
 def get_entries(tag_name)
   user = User.find(1)
   setting = user.setting
-  date_begin = (Date.today - setting.days - 1).strftime("%Y-%m-%d")
+  date_begin = (Date.today - setting.hotentry_days - 1).strftime("%Y-%m-%d")
   date_end = Date.today.strftime("%Y-%m-%d")
 
   url = URI.parse("http://b.hatena.ne.jp/search/tag?q=#{tag_name}&date_begin=#{date_begin}&date_end=#{date_end}&mode=rss")

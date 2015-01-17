@@ -166,7 +166,16 @@ techBookControllers.controller('SidebarController', ['$scope', 'TagService',
     }]
 );
 
-techBookControllers.controller('SettingController', ['$scope',
-    function($scope) {
+techBookControllers.controller('SettingController', ['$scope', 'SettingService',
+    function($scope, SettingService) {
+      SettingService.load().then(function(setting) {
+        $scope.setting = setting;
+      });
+
+      $scope.save = function() {
+        SettingService.save($scope.setting);
+      };
+
+      $scope.options = SettingService.options;
     }]
 );

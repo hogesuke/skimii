@@ -191,4 +191,40 @@ angular.module('TechBookApp').
         }
       }
     }
+  }]).
+  factory('SettingService', ['$http', '$q', function($http, $q) {
+    return {
+      load: function () {
+        var deferred = $q.defer();
+        $http({
+          method: 'get',
+          url: '/api/setting'
+        }).success(function (res) {
+          deferred.resolve(res);
+        }).error(function () {
+          deferred.reject();
+        });
+        return deferred.promise;
+      },
+      save: function (entry) {
+        var deferred = $q.defer();
+        console.debug(entry);
+        $http({
+          method: 'put',
+          url: '/api/setting',
+          data: entry
+        }).success(function (res) {
+          deferred.resolve(res);
+        }).error(function () {
+          deferred.reject();
+        });
+        return deferred.promise;
+      },
+      options: {
+        bookmarkCount: [ 1, 3, 5, 10, 30, 100 ],
+        hotentryDays: [ 1, 3, 5, 10, 30, 100 ],
+        laterDays: [ 1, 3, 5, 10, 30, 100 ],
+        dashboardCount: [ 5, 10, 20, 30 ]
+      }
+    }
   }]);

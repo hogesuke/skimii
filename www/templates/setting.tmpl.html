@@ -1,53 +1,27 @@
 <div id="settings">
-  <form class="form-horizontal">
+  <form class="form-horizontal" ng-submit="save()">
     <div class="form-group">
       <label class="col-sm-4 col-md-3 control-label">ブックマーク数閾値</label>
       <div class="col-sm-4 col-md-3">
-        <select class="form-control">
-          <option value="1">1 user</option>
-          <option value="3">3 users</option>
-          <option value="5">5 users</option>
-          <option value="10">10 users</option>
-          <option value="30">30 users</option>
-          <option value="100">100 users</option>
-        </select>
+        <select class="form-control" ng-model="setting.bookmark_threshold" ng-options="o as o + ' user' for o in options.bookmarkCount"></select>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-4 col-md-3 control-label">ホットエントリー表示期間</label>
       <div class="col-sm-4 col-md-3">
-        <select class="form-control">
-          <option value="1">1 日</option>
-          <option value="3">3 日</option>
-          <option value="5">5 日</option>
-          <option value="10">10 日</option>
-          <option value="30">30 日</option>
-          <option value="100">100 日</option>
-        </select>
+        <select class="form-control" ng-model="setting.hotentry_days" ng-options="o as o + ' 日' for o in options.hotentryDays"></select>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-4 col-md-3 control-label">あとで読む表示期間</label>
       <div class="col-sm-4 col-md-3">
-        <select class="form-control">
-          <option value="1">1 日</option>
-          <option value="3">3 日</option>
-          <option value="5">5 日</option>
-          <option value="10">10 日</option>
-          <option value="30">30 日</option>
-          <option value="100">100 日</option>
-        </select>
+        <select class="form-control" ng-model="setting.later_days" ng-options="o as o + ' 日' for o in options.laterDays"></select>
       </div>
     </div>
     <div class="form-group">
       <label class="col-sm-4 col-md-3 control-label">ダッシュボード表示件数</label>
       <div class="col-sm-4 col-md-3">
-        <select class="form-control">
-          <option value="5">5 件</option>
-          <option value="10">10 件</option>
-          <option value="20">20 件</option>
-          <option value="30">30 件</option>
-        </select>
+        <select class="form-control" ng-model="setting.dashbord_count" ng-options="o as o + ' 件' for o in options.dashboardCount"></select>
       </div>
     </div>
     <div class="form-group">
