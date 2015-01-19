@@ -172,9 +172,11 @@ end
 
 get '/user/my/later' do
   headers({'Content-Type' => 'application/json'})
+  user = User.find(1)
+  setting = user.setting
+  date_begin = (Date.today - setting.later_days - 1).strftime("%Y-%m-%d")
   # todo OAuthを実装したらログインユーザで絞るように修正
-  # todo 指定件数取得とするように修正。一定期間経過後のlaterは取得しないように修正。
-  entries = User.find(1).later_entries.select('entries.*, laters.hotentry_date')
+  entries = User.find(1).later_entries.where('laters.created_datetime >= ?', date_begin).select('entries.*, laters.hotentry_date')
   entries.each do |e|
     e.latered = true
     e.checked = false
