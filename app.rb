@@ -266,7 +266,7 @@ def get_entries(tag_name)
   date_begin = (Date.today - setting.hotentry_days - 1).strftime("%Y-%m-%d")
   date_end = Date.today.strftime("%Y-%m-%d")
 
-  url = URI.parse("http://b.hatena.ne.jp/search/tag?q=#{tag_name}&date_begin=#{date_begin}&date_end=#{date_end}&mode=rss")
+  url = URI.parse("http://b.hatena.ne.jp/search/tag?q=#{tag_name}&date_begin=#{date_begin}&date_end=#{date_end}&users=#{setting.bookmark_threshold}&mode=rss")
   req = Net::HTTP::Get.new(url.path + '?' + url.query)
   res = Net::HTTP.start(url.host, url.port) {|http|
     http.request(req)
