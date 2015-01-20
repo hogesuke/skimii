@@ -38,6 +38,11 @@
   #dashboard {
     overflow: hidden;
     padding-left: 15px;
+
+    .show-more {
+      text-align: center;
+      font-size: 14px;
+    }
   }
   #entryboard {
     overflow: hidden;
