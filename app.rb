@@ -31,11 +31,11 @@ end
 
 get '/user/my/entry' do
   # todo OAuthを実装したらログインユーザで絞るように修正
-  tags = User.find(1).tags
+  user = User.find(1)
 
   all_entries = {}
-  tags.each{|tag|
-    all_entries[tag.name] = get_entries(tag.name)
+  user.tags.each{|tag|
+    all_entries[tag.name] = get_entries(tag.name, user.setting.dashbord_count)
   }
 
   headers({'Content-Type' => 'application/json'})
@@ -260,7 +260,7 @@ delete '/user/my/later' do
   user.later_entries.to_json
 end
 
-def get_entries(tag_name)
+def get_entries(tag_name, count = 40)
   user = User.find(1)
   setting = user.setting
   date_begin = (Date.today - setting.hotentry_days - 1).strftime("%Y-%m-%d")
@@ -277,6 +277,8 @@ def get_entries(tag_name)
 
   if items.nil? then
     return []
+  elsif items.length > count then
+    items = items.slice(0, count)
   end
 
   check_entries = user.check_entries.where('checks.hotentry_date >= ?', date_begin).select('url')
