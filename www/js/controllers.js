@@ -88,10 +88,16 @@ techBookControllers.controller('DashboardController', ['$scope', 'LaterService',
 techBookControllers.controller('EntryListController', ['$scope', '$routeParams', 'EntryService', 'LaterService', 'CheckService',
     function($scope, $routeParams, EntryService, LaterService, CheckService) {
       $scope.viewName = 'entry_list';
+      $scope.entries = [];
       $scope.tag = $routeParams.tag;
+      $scope.page = 1;
+      $scope.loading = true;
+      $scope.terminal = false;
 
-      EntryService.one($routeParams.tag, 1).then(function(entries) {
+      EntryService.one($routeParams.tag, $scope.page).then(function(entries) {
         $scope.entries = entries;
+      }).finally(function() {
+        $scope.loading = false;
       });
 
       $scope.toggleLater = function(lateredEntry) {
@@ -108,6 +114,24 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
           LaterService.remove(checkedEntry);
         }
       };
+
+      $(window).scroll(function() {
+        var total = $(document).height();
+        var position = $(window).scrollTop() + $(window).height();
+
+        if (!$scope.loading && !$scope.terminal && position >= total - 200) {
+          $scope.loading = true;
+          EntryService.one($routeParams.tag, ++$scope.page).then(function(entries) {
+            if (entries.length > 0) {
+              $scope.entries = $scope.entries.concat(entries);
+            } else {
+              $scope.terminal = true;
+            }
+          }).finally(function() {
+            $scope.loading = false;
+          });
+        }
+      });
     }]
 );
 
