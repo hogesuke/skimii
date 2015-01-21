@@ -66,11 +66,11 @@ angular.module('TechBookApp').
         });
         return deferred.promise;
       },
-      one: function(tag) {
+      one: function(tag, page) {
         var deferred = $q.defer();
         $http({
           method: 'get',
-          url: '/api/entry/' + tag
+          url: '/api/entry/' + tag + '?page=' + page
         }).success(function (res) {
           deferred.resolve(res);
         }).error(function () {

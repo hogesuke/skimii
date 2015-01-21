@@ -23,8 +23,9 @@ ActiveRecord::Base.establish_connection('development')
 # todo tagは小文字変換して登録するようにすること
 
 get '/entry/:tag' do
-  entries = get_entries(params[:tag])
+  page = params[:page].to_i
 
+  entries = get_entries(params[:tag], page: page)
   headers({'Content-Type' => 'application/json'})
   entries.to_json
 end
@@ -35,7 +36,7 @@ get '/user/my/entry' do
 
   all_entries = {}
   user.tags.each{|tag|
-    all_entries[tag.name] = get_entries(tag.name, user.setting.dashbord_count)
+    all_entries[tag.name] = get_entries(tag.name, count: user.setting.dashbord_count)
   }
 
   headers({'Content-Type' => 'application/json'})
@@ -260,13 +261,19 @@ delete '/user/my/later' do
   user.later_entries.to_json
 end
 
-def get_entries(tag_name, count = 40)
+def get_entries(tag_name, count: 40, page: 1)
   user = User.find(1)
   setting = user.setting
   date_begin = (Date.today - setting.hotentry_days - 1).strftime("%Y-%m-%d")
   date_end = Date.today.strftime("%Y-%m-%d")
 
-  url = URI.parse("http://b.hatena.ne.jp/search/tag?q=#{tag_name}&date_begin=#{date_begin}&date_end=#{date_end}&users=#{setting.bookmark_threshold}&mode=rss")
+  url = URI.parse("http://b.hatena.ne.jp/search/tag?" +
+                    "q=#{tag_name}&" +
+                    "date_begin=#{date_begin}&" +
+                    "date_end=#{date_end}&" +
+                    "users=#{setting.bookmark_threshold}&" +
+                    "of=#{count * (page - 1)}" +
+                    "&mode=rss")
   req = Net::HTTP::Get.new(url.path + '?' + url.query)
   res = Net::HTTP.start(url.host, url.port) {|http|
     http.request(req)

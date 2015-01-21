@@ -90,7 +90,7 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
       $scope.viewName = 'entry_list';
       $scope.tag = $routeParams.tag;
 
-      EntryService.one($routeParams.tag).then(function(entries) {
+      EntryService.one($routeParams.tag, 1).then(function(entries) {
         $scope.entries = entries;
       });
 
