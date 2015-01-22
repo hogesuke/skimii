@@ -95,6 +95,13 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
       $scope.terminal = false;
 
       EntryService.one($routeParams.tag, $scope.page).then(function(entries) {
+        var prevDate = '9999-99-99';
+        angular.forEach(entries, function(entry) {
+          if (prevDate > entry.hotentry_date) {
+            entry.visibleDate = true;
+          }
+          prevDate = entry.hotentry_date;
+        });
         $scope.entries = entries;
       }).finally(function() {
         $scope.loading = false;
@@ -123,6 +130,13 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
           $scope.loading = true;
           EntryService.one($routeParams.tag, ++$scope.page).then(function(entries) {
             if (entries.length > 0) {
+              var prevDate = $scope.entries.pop.hotentry_date;
+              angular.forEach(entries, function(entry) {
+                if (prevDate > entry.hotentry_date) {
+                  entry.visibleDate = true;
+                }
+                prevDate = entry.hotentry_date;
+              });
               $scope.entries = $scope.entries.concat(entries);
             } else {
               $scope.terminal = true;
