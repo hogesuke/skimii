@@ -18,7 +18,6 @@ ActiveRecord::Base.configurations = YAML.load_file('./db/database.yml')
 ActiveRecord::Base.establish_connection('development')
 
 # todo パラメータがちゃんと渡されてるかバリデーションすること
-# todo saveはsave!に変更すること
 # todo tagの登録個数制限を付けること
 # todo tagは小文字変換して登録するようにすること
 
@@ -77,7 +76,7 @@ post '/user/my/tag' do
       tag = Tag.new
       tag.name = param_tag['name']
       tag.official = '0'
-      tag.save
+      tag.save!
     end
 
     user.tags<<tag
@@ -131,7 +130,7 @@ post '/user/my/check' do
     entry.description = checked_entry['description']
     entry.thumbnail_url = checked_entry['thumbnail_url']
     entry.favicon_url = checked_entry['favicon_url']
-    entry.save
+    entry.save!
   end
 
   # todo OAuthを実装したらログインユーザで絞るように修正
@@ -139,7 +138,7 @@ post '/user/my/check' do
   new_check.user_id = 1
   new_check.entry_id = entry.id
   new_check.hotentry_date = checked_entry['hotentry_date']
-  new_check.save
+  new_check.save!
 
   headers({'Content-Type' => 'application/json'})
   User.find(1).check_entries.to_json
@@ -205,7 +204,7 @@ post '/user/my/later' do
     entry.description = latered_entry['description']
     entry.thumbnail_url = latered_entry['thumbnail_url']
     entry.favicon_url = latered_entry['favicon_url']
-    entry.save
+    entry.save!
   end
 
   # todo OAuthを実装したらログインユーザで絞るように修正
@@ -213,7 +212,7 @@ post '/user/my/later' do
   new_later.user_id = 1
   new_later.entry_id = entry.id
   new_later.hotentry_date = latered_entry['hotentry_date']
-  new_later.save
+  new_later.save!
 
   headers({'Content-Type' => 'application/json'})
   User.find(1).later_entries.to_json
@@ -229,7 +228,7 @@ put '/setting' do
   input = JSON.parse(request.body.read)
 
   setting = User.find(1).setting
-  setting.update_attributes(input)
+  setting.update_attributes!(input)
 
   headers({'Content-Type' => 'application/json'})
   User.find(1).setting
