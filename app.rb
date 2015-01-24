@@ -18,7 +18,6 @@ ActiveRecord::Base.configurations = YAML.load_file('./db/database.yml')
 ActiveRecord::Base.establish_connection('development')
 
 # todo パラメータがちゃんと渡されてるかバリデーションすること
-# todo tagの登録個数制限を付けること
 # todo tagは小文字変換して登録するようにすること
 
 get '/entry' do
