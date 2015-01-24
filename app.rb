@@ -23,23 +23,18 @@ ActiveRecord::Base.establish_connection('development')
 
 get '/entry/:tag' do
   page = params[:page].to_i
-
-  entries = get_entries(params[:tag], page: page)
-  headers({'Content-Type' => 'application/json'})
-  entries.to_json
-end
-
-get '/user/my/entry' do
-  # todo OAuthを実装したらログインユーザで絞るように修正
   user = User.find(1)
 
-  all_entries = {}
-  user.tags.each{|tag|
-    all_entries[tag.name] = get_entries(tag.name, count: user.setting.dashbord_count)
-  }
+  if page == 0
+    # dashboardのエントリ取得
+    entries = get_entries(params[:tag], page: 1, count: user.setting.dashbord_count)
+  else
+    # 各タグページのエントリ取得
+    entries = get_entries(params[:tag], page: page)
+  end
 
   headers({'Content-Type' => 'application/json'})
-  all_entries.to_json
+  entries.to_json
 end
 
 get '/user/me' do

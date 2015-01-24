@@ -57,9 +57,18 @@ techBookControllers.controller('TagController', ['$scope', 'TagService', 'offici
   }]
 );
 
-techBookControllers.controller('DashboardController', ['$scope', 'LaterService', 'CheckService', 'entries',
-    function($scope, LaterService, CheckService, entries) {
-      $scope.allTagEntries = entries;
+techBookControllers.controller('DashboardController', ['$scope', 'TagService', 'EntryService', 'LaterService', 'CheckService',
+    function($scope, TagService, EntryService, LaterService, CheckService) {
+      $scope.allTagEntries = {};
+
+      TagService.mine().then(function(tags) {
+        angular.forEach(tags, function(tag) {
+          $scope.allTagEntries[tag.name] = [];
+          EntryService.one(tag.name, 0).then(function(tagEntries) {
+            $scope.allTagEntries[tag.name] = tagEntries;
+          });
+        });
+      });
       $scope.toggleLater = function(lateredEntry) {
         var entries = [];
         angular.forEach($scope.allTagEntries, function(tagEntries) {

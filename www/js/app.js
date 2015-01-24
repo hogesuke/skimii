@@ -12,14 +12,7 @@ techBookApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
     $routeProvider.
       when('/', {
         templateUrl: '../templates/entry_dashboard.tmpl.html',
-        controller: 'DashboardController',
-        resolve: {
-          EntryService: 'EntryService',
-          entries: function(EntryService) {
-            // todo ロード中の画面表示どうしようね…
-            return EntryService.all();
-          }
-        }
+        controller: 'DashboardController'
       }).
       when('/entry/:tag', {
         templateUrl: '../templates/entry_list.tmpl.html',
