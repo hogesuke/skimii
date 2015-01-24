@@ -3,6 +3,9 @@ var techBookControllers = angular.module('techBookControllers', ['ui.bootstrap']
 techBookControllers.controller('BaseController', ['$scope', 'TagService',
   function($scope, TagService) {
     TagService.mine().then(function(tags) {
+      tags.forEach(function(tag) {
+        tag.encoded = encodeURI(tag.name);
+      });
       TagService.setTags(tags);
       $scope.tags = TagService.getTags();
     });

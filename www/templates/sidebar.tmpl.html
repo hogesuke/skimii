@@ -11,7 +11,7 @@
     <h2 id="tags-header"><a href="#/tag">Tags</a></h2>
     <ul>
       <li ng-repeat="tag in tags.mine">
-        <a href="#/entry/{{tag.name}}">{{tag.name}}</a>
+        <a ng-href="#/entry/{{tag.encoded}}">{{tag.name}}</a>
       </li>
     </ul>
     <ul>
