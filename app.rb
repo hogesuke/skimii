@@ -21,7 +21,7 @@ ActiveRecord::Base.establish_connection('development')
 # todo tagの登録個数制限を付けること
 # todo tagは小文字変換して登録するようにすること
 
-get '/entry/:tag' do
+get '/entry' do
   page = params[:page].to_i
   user = User.find(1)
 
@@ -261,13 +261,14 @@ def get_entries(tag_name, count: 40, page: 1)
   date_begin = (Date.today - setting.hotentry_days - 1).strftime("%Y-%m-%d")
   date_end = Date.today.strftime("%Y-%m-%d")
 
-  url = URI.parse("http://b.hatena.ne.jp/search/tag?" +
+  url = URI.parse(URI.escape(
+                    "http://b.hatena.ne.jp/search/tag?" +
                     "q=#{tag_name}&" +
                     "date_begin=#{date_begin}&" +
                     "date_end=#{date_end}&" +
                     "users=#{setting.bookmark_threshold}&" +
                     "of=#{count * (page - 1)}" +
-                    "&mode=rss")
+                    "&mode=rss"))
   req = Net::HTTP::Get.new(url.path + '?' + url.query)
   res = Net::HTTP.start(url.host, url.port) {|http|
     http.request(req)
