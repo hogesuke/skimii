@@ -38,8 +38,8 @@ angular.module('TechBookApp').
           data: {tags: tags}
         }).success(function (res) {
           deferred.resolve(res);
-        }).error(function () {
-          deferred.reject();
+        }).error(function (res) {
+          deferred.reject(res);
         });
         return deferred.promise;
       },

@@ -48,10 +48,16 @@ techBookControllers.controller('TagController', ['$scope', 'TagService', 'offici
       var checkedTags = $scope.tags.filter(function(tag) {
         return !!tag.checked;
       });
+      if (checkedTags.length > 50) {
+        $scope.msg = "タグの登録上限数を越えています。";
+        return;
+      }
       // todo save中の表示・save後の表示
       // todo 登録に失敗した場合の実装
       TagService.save(checkedTags).then(function(tags) {
         TagService.setTags(tags);
+      }, function(res) {
+        $scope.msg = res.err_msg;
       });
     };
   }]

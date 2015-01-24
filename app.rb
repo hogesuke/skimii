@@ -57,8 +57,14 @@ get '/user/my/tag' do
 end
 
 post '/user/my/tag' do
+  headers({'Content-Type' => 'application/json'})
   params = JSON.parse(request.body.read)
   param_tags = params['tags']
+
+  if param_tags.size > 50
+    status(400)
+    return {err_msg: 'タグの登録上限数を越えています。'}.to_json
+  end
 
   # todo OAuthを実装したらログインユーザで絞るように修正
   user = User.find(1)
@@ -77,7 +83,6 @@ post '/user/my/tag' do
     user.tags<<tag
   }
 
-  headers({'Content-Type' => 'application/json'})
   user.tags.to_json
 end
 
