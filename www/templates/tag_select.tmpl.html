@@ -15,10 +15,11 @@
   <div>タグを追加</div>
   <form novalidate name="addOriginalTag" class="form-inline" ng-submit="add(tag)">
     <div class="form-group">
-      <input type="text" name="tagName" class="form-control" placeholder="Enter tag" ng-model="tag.name" required ng-maxlength="30">
+      <input type="text" name="tagName" class="form-control" placeholder="Enter tag" ng-model="tag.name" required ng-maxlength="30" ng-pattern="/^[^;,/\?:@&=\+\$#\s]+$/">
       <input type="submit" class="btn btn-default" value="add" ng-disabled="addOriginalTag.$invalid">
       <div class="error-msg">
         <span ng-show="addOriginalTag.tagName.$error.maxlength">タグは30文字以内で入力してください</span>
+        <span ng-show="addOriginalTag.tagName.$error.pattern">使用でない文字が含まれています</span>
       </div>
     </div>
   </form>
