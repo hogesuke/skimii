@@ -16,7 +16,8 @@ CREATE TABLE IF NOT EXISTS settings (
   bookmark_threshold INT,
   hotentry_days INT,
   later_days INT,
-  dashbord_count INT,
+  dashboard_count INT,
+  sort INT, -- 0: 新着(recent) 1: 人気(popular)
   created_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );
