@@ -268,7 +268,7 @@ def get_entries(tag_name, count: 40, page: 1)
   url = URI.parse(URI.escape(
                     "http://b.hatena.ne.jp/search/tag?" +
                     "q=#{tag_name}&" +
-                    "sort=#{setting.sort}&" +
+                    "sort=#{setting.sort == 0 ? 'recent' : 'popular'}&" +
                     "date_begin=#{date_begin}&" +
                     "date_end=#{date_end}&" +
                     "users=#{setting.bookmark_threshold}&" +
