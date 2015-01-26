@@ -21,7 +21,13 @@
     <div class="form-group">
       <label class="col-sm-4 col-md-3 control-label">ダッシュボード表示件数</label>
       <div class="col-sm-4 col-md-3">
-        <select class="form-control" ng-model="setting.dashbord_count" ng-options="o as o + ' 件' for o in options.dashboardCount"></select>
+        <select class="form-control" ng-model="setting.dashboard_count" ng-options="o as o + ' 件' for o in options.dashboardCount"></select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-sm-4 col-md-3 control-label">エントリー表示順</label>
+      <div class="col-sm-4 col-md-3">
+        <select class="form-control" ng-model="setting.sort" ng-options="o.value as o.label for o in options.sort"></select>
       </div>
     </div>
     <div class="form-group">

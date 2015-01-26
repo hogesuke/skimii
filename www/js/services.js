@@ -194,13 +194,12 @@ angular.module('TechBookApp').
         });
         return deferred.promise;
       },
-      save: function (entry) {
+      save: function (settings) {
         var deferred = $q.defer();
-        console.debug(entry);
         $http({
           method: 'put',
           url: '/api/setting',
-          data: entry
+          data: settings
         }).success(function (res) {
           deferred.resolve(res);
         }).error(function () {
@@ -209,10 +208,11 @@ angular.module('TechBookApp').
         return deferred.promise;
       },
       options: {
-        bookmarkCount: [ 1, 3, 5, 10, 30, 100 ],
-        hotentryDays: [ 1, 3, 5, 10, 30, 100 ],
-        laterDays: [ 1, 3, 5, 10, 30, 100 ],
-        dashboardCount: [ 5, 10, 20, 30 ]
+        bookmarkCount : [ 1, 3, 5, 10, 30, 100 ],
+        hotentryDays  : [ 1, 3, 5, 10, 30, 100 ],
+        laterDays     : [ 1, 3, 5, 10, 30, 100 ],
+        dashboardCount: [ 5, 10, 20, 30 ],
+        sort          : [ { value: 0, label: '新着順' }, { value: 1, label: '人気順' }]
       }
     }
   }]);

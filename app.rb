@@ -26,7 +26,7 @@ get '/entry' do
 
   if page == 0
     # dashboardのエントリ取得
-    entries = get_entries(params[:tag], page: 1, count: user.setting.dashbord_count)
+    entries = get_entries(params[:tag], page: 1, count: user.setting.dashboard_count)
   else
     # 各タグページのエントリ取得
     entries = get_entries(params[:tag], page: page)
@@ -268,6 +268,7 @@ def get_entries(tag_name, count: 40, page: 1)
   url = URI.parse(URI.escape(
                     "http://b.hatena.ne.jp/search/tag?" +
                     "q=#{tag_name}&" +
+                    "sort=#{setting.sort}&" +
                     "date_begin=#{date_begin}&" +
                     "date_end=#{date_end}&" +
                     "users=#{setting.bookmark_threshold}&" +
