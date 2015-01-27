@@ -1,6 +1,9 @@
 <div class="hotentry-date" ng-show="entry.visibleDate">
   <span>{{entry.hotentry_date}}</span>
 </div>
+<button class="remove-button" ng-click="remove(entry)" ng-show="isRemovable()">
+  <i class="fa fa-remove"></i>
+</button>
 <div class="entry-thumbnail" ng-if="entry.thumbnail_url">
   <img src="{{entry.thumbnail_url}}" class="thumbnail">
 </div>
@@ -17,9 +20,6 @@
   </button>
   <button class="controll-button later-button" ng-click="toggleLater(entry)" ng-class="{ active: entry.latered }" ng-hide="viewName === 'later_list'">
     <i class="fa fa-archive"></i>
-  </button>
-  <button class="controll-button remove-button" ng-click="remove(entry)" ng-show="isRemovable()">
-    <i class="fa fa-remove"></i>
   </button>
   <span class="bookmarkcount" ng-show="entry.bookmarkcount !== undefined">{{entry.bookmarkcount}}</span>
 </div>
