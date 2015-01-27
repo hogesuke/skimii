@@ -139,7 +139,6 @@ angular.module('TechBookApp').
       },
       save: function (entry) {
         var deferred = $q.defer();
-        console.debug(entry);
         $http({
           method: 'post',
           url: '/api/user/my/check',
@@ -153,7 +152,6 @@ angular.module('TechBookApp').
       },
       remove: function (entry) {
         var deferred = $q.defer();
-        console.debug(entry);
         $http({
           method: 'delete',
           url: '/api/user/my/check',

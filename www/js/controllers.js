@@ -140,6 +140,7 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
         }
       };
 
+      // オートページネーション
       $(window).scroll(function() {
         var total = $(document).height();
         var position = $(window).scrollTop() + $(window).height();
@@ -173,9 +174,10 @@ techBookControllers.controller('CheckListController', ['$scope', 'CheckService',
       CheckService.all().then(function(entries) {
         $scope.entries = entries;
       });
-      $scope.remove = function(entry) {
-        CheckService.remove(entry);
+      $scope.remove = function(entry, index) {
+        CheckService.remove(entry, index);
         entry.checked = false;
+        $('[index=' + index + ']').fadeOut(300);
       };
 
       $scope.toggleLater = function(lateredEntry) {
@@ -191,9 +193,10 @@ techBookControllers.controller('LaterListController', ['$scope', 'LaterService',
       LaterService.all().then(function(entries) {
         $scope.entries = entries;
       });
-      $scope.remove = function(entry) {
+      $scope.remove = function(entry, index) {
         LaterService.remove(entry);
         entry.latered = false;
+        $('[index=' + index + ']').fadeOut(300);
       };
 
       $scope.toggleCheck = function(checkedEntry) {

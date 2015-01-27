@@ -1,7 +1,7 @@
 <div class="hotentry-date" ng-show="entry.visibleDate">
   <span>{{entry.hotentry_date}}</span>
 </div>
-<button class="remove-button" ng-click="remove(entry)" ng-show="isRemovable()">
+<button class="remove-button" ng-click="remove(entry, $index)" ng-show="isRemovable()">
   <i class="fa fa-remove"></i>
 </button>
 <div class="entry-thumbnail" ng-if="entry.thumbnail_url">
