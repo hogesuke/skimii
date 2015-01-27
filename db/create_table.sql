@@ -18,6 +18,7 @@ CREATE TABLE IF NOT EXISTS settings (
   later_days INT,
   dashboard_count INT,
   sort INT, -- 0: 新着(recent) 1: 人気(popular)
+  visible_marked INT, -- 0: 表示しない 1: 表示する
   created_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );
