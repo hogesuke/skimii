@@ -65,6 +65,9 @@ angular.module('TechBookApp').
           deferred.reject();
         });
         return deferred.promise;
+      },
+      convertToHatebuUrl: function(url) {
+        return "http://b.hatena.ne.jp/entry/" + url.replace(/^http(s)?:\/\//, '');
       }
     }
   }]).

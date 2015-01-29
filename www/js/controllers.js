@@ -2,6 +2,7 @@ var techBookControllers = angular.module('techBookControllers', ['ui.bootstrap']
 
 techBookControllers.controller('BaseController', ['$scope', 'TagService',
   function($scope, TagService) {
+    // todo このタグの実装要見直し
     TagService.mine().then(function(tags) {
       tags.forEach(function(tag) {
         tag.encoded = encodeURI(tag.name);
@@ -34,7 +35,7 @@ techBookControllers.controller('TagController', ['$scope', 'TagService', 'offici
       $scope.tags.forEach(function(tag) {
         if (originalTag.name == tag.name) {
           isDuplicated = true;
-          return;
+          return false;
         }
       });
       if (!isDuplicated) {
@@ -100,6 +101,9 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
           LaterService.remove(checkedEntry);
         }
       };
+      $scope.convertToHatebuUrl = function(url) {
+        return EntryService.convertToHatebuUrl(url);
+      };
     }]
 );
 
@@ -138,6 +142,9 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
           checkedEntry.latered = false;
           LaterService.remove(checkedEntry);
         }
+      };
+      $scope.convertToHatebuUrl = function(url) {
+        return EntryService.convertToHatebuUrl(url);
       };
 
       // オートページネーション
