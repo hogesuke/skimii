@@ -3,8 +3,8 @@
   <div class="entry-list" ng-class="getViewSize(viewName)">
     <div class="tag-name">{{tag}}</div>
     <div class="entry" ng-repeat="entry in entries" ng-include="'../parts/entry.part.html'"></div>
-    <div ng-show="loading" style="text-align: center;">
-      <i class="fa fa-circle-o-notch fa-spin fa-3x"></i>
+    <div ng-show="loading">
+      <img src="./img/loading.gif">
     </div>
   </div>
 </div>
