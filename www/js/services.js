@@ -54,7 +54,7 @@ angular.module('TechBookApp').
   }]).
   factory('EntryService', ['$http', '$q', function($http, $q) {
     return {
-      one: function(tag, page) {
+      load: function(tag, page) {
         var deferred = $q.defer();
         $http({
           method: 'get',

@@ -69,33 +69,34 @@ techBookControllers.controller('TagController', ['$scope', 'TagService', 'offici
 
 techBookControllers.controller('DashboardController', ['$scope', 'TagService', 'EntryService', 'LaterService', 'CheckService',
     function($scope, TagService, EntryService, LaterService, CheckService) {
-      $scope.allTagEntries = {};
+      $scope.allEntriesDatas = {};
 
       TagService.mine().then(function(tags) {
         angular.forEach(tags, function(tag) {
-          $scope.allTagEntries[tag.name] = [];
-          EntryService.one(tag.name, 0).then(function(tagEntries) {
-            $scope.allTagEntries[tag.name] = tagEntries;
+          $scope.allEntriesDatas[tag.name] = {entries: [], completed: false};
+          EntryService.load(tag.name, 0).then(function(entriesData) {
+            console.debug(entriesData);
+            $scope.allEntriesDatas[tag.name] = entriesData;
           });
         });
       });
       $scope.toggleLater = function(lateredEntry) {
-        var entries = [];
-        angular.forEach($scope.allTagEntries, function(tagEntries) {
-          entries = entries.concat(tagEntries);
+        var joinedEntries = [];
+        angular.forEach($scope.allEntriesDatas, function(entriesData) {
+          joinedEntries = joinedEntries.concat(entriesData.entries);
         });
-        LaterService.toggle(entries, lateredEntry);
+        LaterService.toggle(joinedEntries, lateredEntry);
         if (lateredEntry.checked) {
           lateredEntry.checked = false;
           CheckService.remove(lateredEntry);
         }
       };
       $scope.toggleCheck = function(checkedEntry) {
-        var entries = [];
-        angular.forEach($scope.allTagEntries, function(tagEntries) {
-          entries = entries.concat(tagEntries);
+        var joinedEntries = [];
+        angular.forEach($scope.allEntriesDatas, function(entriesData) {
+          joinedEntries = joinedEntries.concat(entriesData.entries);
         });
-        CheckService.toggle(entries, checkedEntry);
+        CheckService.toggle(joinedEntries, checkedEntry);
         if (checkedEntry.latered) {
           checkedEntry.latered = false;
           LaterService.remove(checkedEntry);
@@ -116,15 +117,15 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
       $scope.loading = true;
       $scope.terminal = false;
 
-      EntryService.one($routeParams.tag, $scope.page).then(function(entries) {
+      EntryService.load($routeParams.tag, $scope.page).then(function(entriesData) {
         var prevDate = '9999-99-99';
-        angular.forEach(entries, function(entry) {
+        angular.forEach(entriesData.entries, function(entry) {
           if (prevDate > entry.hotentry_date) {
             entry.visibleDate = true;
           }
           prevDate = entry.hotentry_date;
         });
-        $scope.entries = entries;
+        $scope.entries = entriesData.entries;
       }).finally(function() {
         $scope.loading = false;
       });
@@ -154,16 +155,16 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
 
         if (!$scope.loading && !$scope.terminal && position >= total - 200) {
           $scope.loading = true;
-          EntryService.one($routeParams.tag, ++$scope.page).then(function(entries) {
-            if (entries.length > 0) {
+          EntryService.load($routeParams.tag, ++$scope.page).then(function(entriesData) {
+            if (entriesData.length > 0) {
               var prevDate = $scope.entries.pop.hotentry_date;
-              angular.forEach(entries, function(entry) {
+              angular.forEach(entriesData.entries, function(entry) {
                 if (prevDate > entry.hotentry_date) {
                   entry.visibleDate = true;
                 }
                 prevDate = entry.hotentry_date;
               });
-              $scope.entries = $scope.entries.concat(entries);
+              $scope.entries = $scope.entries.concat(entriesData.entries);
             } else {
               $scope.terminal = true;
             }

@@ -23,17 +23,18 @@ ActiveRecord::Base.establish_connection('development')
 get '/entry' do
   page = params[:page].to_i
   user = User.find(1)
+  setting = user.setting
 
   if page == 0
     # dashboardのエントリ取得
-    entries = get_entries(params[:tag], page: 1, count: user.setting.dashboard_count)
+    entries_data = get_entries(params[:tag], page: 1, count: setting.dashboard_count)
   else
     # 各タグページのエントリ取得
-    entries = get_entries(params[:tag], page: page)
+    entries_data = get_entries(params[:tag], page: page)
   end
 
   headers({'Content-Type' => 'application/json'})
-  entries.to_json
+  return entries_data.to_json
 end
 
 get '/user/me' do
@@ -280,12 +281,14 @@ def get_entries(tag_name, count: 40, page: 1)
   }
 
   entries = []
+  completed = true
   items = XmlSimple.xml_in(res.body)['item']
 
   if items.nil? then
-    return []
+    return { entries: [], completed: true }
   elsif items.length > count then
     items = items.slice(0, count)
+    completed = false
   end
 
   check_entries = user.check_entries.where('checks.hotentry_date >= ?', date_begin).select('url')
@@ -325,5 +328,5 @@ def get_entries(tag_name, count: 40, page: 1)
                  })
   }
 
-  return entries
+  return { :entries => entries, :completed => completed }
 end
