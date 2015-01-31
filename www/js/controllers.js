@@ -118,13 +118,15 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
       $scope.terminal = false;
 
       EntryService.load($routeParams.tag, $scope.page).then(function(entriesData) {
-        var prevDate = '9999-99-99';
-        angular.forEach(entriesData.entries, function(entry) {
-          if (prevDate > entry.hotentry_date) {
-            entry.visibleDate = true;
-          }
-          prevDate = entry.hotentry_date;
-        });
+        if (entriesData.sort === 'recent') {
+          var prevDate = '9999-99-99';
+          angular.forEach(entriesData.entries, function (entry) {
+            if (prevDate > entry.hotentry_date) {
+              entry.visibleDate = true;
+            }
+            prevDate = entry.hotentry_date;
+          });
+        }
         $scope.entries = entriesData.entries;
       }).finally(function() {
         $scope.loading = false;

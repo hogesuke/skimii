@@ -265,11 +265,12 @@ def get_entries(tag_name, count: 40, page: 1)
   setting = user.setting
   date_begin = (Date.today - setting.hotentry_days - 1).strftime("%Y-%m-%d")
   date_end = Date.today.strftime("%Y-%m-%d")
+  sort = setting.sort == 0 ? 'recent' : 'popular'
 
   url = URI.parse(URI.escape(
                     "http://b.hatena.ne.jp/search/tag?" +
                     "q=#{tag_name}&" +
-                    "sort=#{setting.sort == 0 ? 'recent' : 'popular'}&" +
+                    "sort=#{sort}&" +
                     "date_begin=#{date_begin}&" +
                     "date_end=#{date_end}&" +
                     "users=#{setting.bookmark_threshold}&" +
@@ -328,5 +329,5 @@ def get_entries(tag_name, count: 40, page: 1)
                  })
   }
 
-  return { :entries => entries, :completed => completed }
+  return { :entries => entries, :completed => completed, :sort => sort }
 end
