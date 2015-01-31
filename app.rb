@@ -102,7 +102,9 @@ end
 get '/user/my/check' do
   headers({'Content-Type' => 'application/json'})
   # todo OAuthを実装したらログインユーザで絞るように修正
-  entries = User.find(1).check_entries.select('entries.*, checks.hotentry_date')
+  entries = User.find(1).check_entries.
+    select('entries.*, checks.hotentry_date').
+    order('checks.created_datetime DESC')
   entries.each do |e|
     e.checked = true
     e.latered = false
@@ -176,7 +178,10 @@ get '/user/my/later' do
   setting = user.setting
   date_begin = (Date.today - setting.later_days - 1).strftime("%Y-%m-%d")
   # todo OAuthを実装したらログインユーザで絞るように修正
-  entries = User.find(1).later_entries.where('laters.created_datetime >= ?', date_begin).select('entries.*, laters.hotentry_date')
+  entries = User.find(1).later_entries.
+    where('laters.created_datetime >= ?', date_begin).
+    select('entries.*, laters.hotentry_date').
+    order('laters.created_datetime DESC')
   entries.each do |e|
     e.latered = true
     e.checked = false
