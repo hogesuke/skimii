@@ -67,11 +67,15 @@ techBookControllers.controller('TagController', ['$scope', 'TagService', 'offici
   }]
 );
 
-techBookControllers.controller('DashboardController', ['$scope', 'TagService', 'EntryService', 'LaterService', 'CheckService',
-    function($scope, TagService, EntryService, LaterService, CheckService) {
+techBookControllers.controller('DashboardController', ['$scope', 'TagService', 'EntryService', 'LaterService', 'CheckService', 'SettingService',
+    function($scope, TagService, EntryService, LaterService, CheckService, SettingService) {
       $scope.allEntriesDatas = {};
+      var settings = null;
 
-      TagService.mine().then(function(tags) {
+      SettingService.load().then(function(res) {
+        settings = res;
+        return TagService.mine();
+      }).then(function(tags) {
         angular.forEach(tags, function(tag) {
           $scope.allEntriesDatas[tag.name] = {entries: [], completed: false};
           EntryService.load(tag.name, 0).then(function(entriesData) {
@@ -105,19 +109,26 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
       $scope.convertToHatebuUrl = function(url) {
         return EntryService.convertToHatebuUrl(url);
       };
+      $scope.visibleEntry = function(entry) {
+        return settings.visible_marked == 1 || (!entry.checked && !entry.latered);
+      };
     }]
 );
 
-techBookControllers.controller('EntryListController', ['$scope', '$routeParams', 'EntryService', 'LaterService', 'CheckService',
-    function($scope, $routeParams, EntryService, LaterService, CheckService) {
+techBookControllers.controller('EntryListController', ['$scope', '$routeParams', 'EntryService', 'LaterService', 'CheckService', 'SettingService',
+    function($scope, $routeParams, EntryService, LaterService, CheckService, SettingService) {
       $scope.viewName = 'entry_list';
       $scope.entries = [];
       $scope.tag = $routeParams.tag;
       $scope.page = 1;
       $scope.loading = true;
       $scope.terminal = false;
+      var settings = null;
 
-      EntryService.load($routeParams.tag, $scope.page).then(function(entriesData) {
+      SettingService.load().then(function(res) {
+        settings = res;
+        return EntryService.load($routeParams.tag, $scope.page);
+      }).then(function(entriesData) {
         if (entriesData.sort === 'recent') {
           var prevDate = '9999-99-99';
           angular.forEach(entriesData.entries, function (entry) {
@@ -148,6 +159,9 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
       };
       $scope.convertToHatebuUrl = function(url) {
         return EntryService.convertToHatebuUrl(url);
+      };
+      $scope.visibleEntry = function(entry) {
+        return settings.visible_marked == 1 || (!entry.checked && !entry.latered);
       };
 
       // オートページネーション

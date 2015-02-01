@@ -2,7 +2,7 @@
   <p>Dashboard</p>
   <div class="entry-list small" ng-repeat="(tag, entriesData) in allEntriesDatas">
     <div class="tag-name">{{tag}}</div>
-    <div class="entry" ng-repeat="entry in entriesData.entries" ng-include="'../parts/entry.part.html'"></div>
+    <div class="entry" ng-repeat="entry in entriesData.entries" ng-show="::visibleEntry(entry)" ng-include="'../parts/entry.part.html'"></div>
     <div class="show-more" ng-show="!entriesData.completed"><a href="#/entry/{{tag}}">もっと見る</a></div>
   </div>
 </div>

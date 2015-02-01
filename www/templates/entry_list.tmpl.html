@@ -2,7 +2,7 @@
   <div ng-include="'../parts/entry_list_controll.part.html'"></div>
   <div class="entry-list" ng-class="getViewSize(viewName)">
     <div class="tag-name">{{tag}}</div>
-    <div class="entry" ng-repeat="entry in entries" ng-include="'../parts/entry.part.html'"></div>
+    <div class="entry" ng-repeat="entry in entries" ng-show="::visibleEntry(entry)" ng-include="'../parts/entry.part.html'"></div>
     <div ng-show="loading">
       <img src="./img/loading.gif">
     </div>
