@@ -112,8 +112,12 @@
 #content .entry-list.large .entry .entry-footer .controll-button.later-button.active { background-color: #eb8692; border-color: #eb8692; color: #ffffff; }
 /* line 309, ../../sass/ui.scss */
 #content #tag-select { padding-left: 15px; }
-/* line 313, ../../sass/ui.scss */
+/* line 314, ../../sass/ui.scss */
+#content #tag-select #tag-select-list .tag { padding: 5px; border: solid 1px #dfdfdf; border-radius: 5px; font-size: 12px; }
+/* line 320, ../../sass/ui.scss */
+#content #tag-select #tag-select-list .tag input[type=checkbox] { position: relative; margin-left: 10px; margin-top: 0px; }
+/* line 329, ../../sass/ui.scss */
 #content #settings { padding: 10px; }
 
-/* line 318, ../../sass/ui.scss */
+/* line 334, ../../sass/ui.scss */
 #footer { background-color: #101010; }

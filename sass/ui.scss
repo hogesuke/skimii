@@ -308,6 +308,22 @@
 
   #tag-select {
     padding-left: 15px;
+
+    #tag-select-list {
+
+      .tag {
+        padding: 5px;
+        border: solid 1px #dfdfdf;
+        border-radius: 5px;
+        font-size: 12px;
+
+        input[type=checkbox] {
+          position: relative;
+          margin-left: 10px;
+          margin-top: 0px;
+        }
+      }
+    }
   }
 
   #settings {
