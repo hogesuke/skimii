@@ -1,43 +1,61 @@
 <div id="settings">
   <form class="form-horizontal" ng-submit="save()">
     <div class="form-group">
-      <label class="col-sm-4 col-md-3 control-label">ブックマーク数閾値</label>
+      <label class="col-sm-4 col-md-4 control-label">ブックマーク数閾値</label>
       <div class="col-sm-4 col-md-3">
         <select class="form-control" ng-model="setting.bookmark_threshold" ng-options="o as o + ' user' for o in options.bookmarkCount"></select>
       </div>
+      <div class="setting-note col-sm-4 col-md-5">
+        <span>ブクマいくつ以上から表示する？</span>
+      </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-4 col-md-3 control-label">ホットエントリー表示期間</label>
+      <label class="col-sm-4 col-md-4 control-label">エントリ表示期間</label>
       <div class="col-sm-4 col-md-3">
         <select class="form-control" ng-model="setting.hotentry_days" ng-options="o as o + ' 日' for o in options.hotentryDays"></select>
       </div>
+      <div class="setting-note col-sm-4 col-md-5">
+        <span>過去何日分のエントリを表示する？</span>
+      </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-4 col-md-3 control-label">あとで読む表示期間</label>
+      <label class="col-sm-4 col-md-4 control-label">あとで読む表示期間</label>
       <div class="col-sm-4 col-md-3">
         <select class="form-control" ng-model="setting.later_days" ng-options="o as o + ' 日' for o in options.laterDays"></select>
       </div>
+      <div class="setting-note description col-sm-4 col-md-5">
+        <span>過去何日分のあとで読むを表示する？</span>
+      </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-4 col-md-3 control-label">ダッシュボード表示件数</label>
+      <label class="col-sm-4 col-md-4 control-label">ダッシュボード表示件数</label>
       <div class="col-sm-4 col-md-3">
         <select class="form-control" ng-model="setting.dashboard_count" ng-options="o as o + ' 件' for o in options.dashboardCount"></select>
       </div>
+      <div class="setting-note col-sm-4 col-md-5">
+        <span>タグ１つあたり何件表示する？</span>
+      </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-4 col-md-3 control-label">エントリー表示順</label>
+      <label class="col-sm-4 col-md-4 control-label">エントリ並び順</label>
       <div class="col-sm-4 col-md-3">
         <select class="form-control" ng-model="setting.sort" ng-options="o.value as o.label for o in options.sort"></select>
       </div>
-    </div>
-    <div class="form-group">
-      <label class="col-sm-4 col-md-3 control-label">既読・あとで読むにマーク済みのエントリー</label>
-      <div class="col-sm-4 col-md-3">
-        <select class="form-control" ng-model="setting.visible_marked" ng-options="o.value as o.label for o in options.visibleMarkedEntry"></select>
+      <div class="setting-note col-sm-4 col-md-5">
+        <span>何を基準にソートする？</span>
       </div>
     </div>
     <div class="form-group">
-      <div class="col-sm-offset-4 col-sm-8 col-md-offset-3 col-md-6">
+      <label class="col-sm-4 col-md-4 control-label">既読・あとで読む エントリ</label>
+      <div class="col-sm-4 col-md-3">
+        <select class="form-control" ng-model="setting.visible_marked" ng-options="o.value as o.label for o in options.visibleMarkedEntry"></select>
+      </div>
+      <div class="setting-note col-sm-4 col-md-5">
+        <span>"既読・あとで読む"に登録したエントリを一覧に表示する？</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-4 col-sm-2 col-md-offset-4 col-md-2">
         <input type="submit" class="btn btn-default" value="save">
       </div>
     </div>

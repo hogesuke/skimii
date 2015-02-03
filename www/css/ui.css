@@ -126,6 +126,8 @@
 #content #tag-select #tag-submit { clear: both; }
 /* line 349, ../../sass/ui.scss */
 #content #settings { padding: 10px; }
+/* line 352, ../../sass/ui.scss */
+#content #settings .setting-note { font-size: 12px; color: #999999; }
 
-/* line 354, ../../sass/ui.scss */
+/* line 359, ../../sass/ui.scss */
 #footer { background-color: #101010; }
