@@ -45,6 +45,7 @@ techBookControllers.controller('TagController', ['$scope', 'TagService', 'offici
           checked: true
         })
       }
+      $scope.tag.name = '';
     };
 
     // タグの登録
