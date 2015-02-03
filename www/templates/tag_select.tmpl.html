@@ -4,8 +4,9 @@
   <form novalidate name="selectTags" ng-submit="save()">
     <div class="form-group">
       <div id="tag-select-list" ng-repeat="tag in tags">
-        <div class="tag checkbox checkbox-circle checkbox-primary">
-          <input type="checkbox" id="checkbox{{$index}}" ng-checked="tag.checked || !tag.official" ng-model="tag.checked">
+        <div class="tag checkbox checkbox-circle checkbox-primary" tag-option>
+          <input type="checkbox" id="checkbox{{$index}}" class="tag-option"
+                 ng-checked="tag.checked || !tag.official" ng-model="tag.checked">
           <label for="checkbox{{$index}}"> {{tag.name}}</label>
         </div>
       </div>
