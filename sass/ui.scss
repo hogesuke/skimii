@@ -312,17 +312,37 @@
     #tag-select-list {
 
       .tag {
+        width: 200px;
+        float: left;
+        margin: 0 10px 10px 0;
         padding: 5px;
         border: solid 1px #dfdfdf;
         border-radius: 5px;
-        font-size: 12px;
+        overflow: hidden;
+        cursor: pointer;
 
+        &.active {
+          background-color: #d2e2fb;
+          border: solid 1px #d2e2fb;
+        }
         .tag-option {
           position: relative;
           margin-left: 10px;
-          margin-top: 0px;
+          margin-top: 0;
+        }
+        .tag-label {
+          width: 160px;
+          white-space: nowrap;
+          font-size: 15px;
+
+          &:before, &:after {
+            margin-top: 2px;
+          }
         }
       }
+    }
+    #tag-submit {
+      clear: both;
     }
   }
 

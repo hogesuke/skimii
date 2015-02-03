@@ -7,6 +7,7 @@ angular.module('techBookDirectives', []).
       link: function(scope, element) {
         var $el = $(element[0]);
         var $tagOp = $el.find('.tag-option');
+
         $el.on('click', function(e) {
           $tagOp.trigger('click');
           e.preventDefault();

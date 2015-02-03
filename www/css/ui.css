@@ -113,11 +113,19 @@
 /* line 309, ../../sass/ui.scss */
 #content #tag-select { padding-left: 15px; }
 /* line 314, ../../sass/ui.scss */
-#content #tag-select #tag-select-list .tag { padding: 5px; border: solid 1px #dfdfdf; border-radius: 5px; font-size: 12px; }
-/* line 320, ../../sass/ui.scss */
-#content #tag-select #tag-select-list .tag .tag-option { position: relative; margin-left: 10px; margin-top: 0px; }
-/* line 329, ../../sass/ui.scss */
+#content #tag-select #tag-select-list .tag { width: 200px; float: left; margin: 0 10px 10px 0; padding: 5px; border: solid 1px #dfdfdf; border-radius: 5px; overflow: hidden; cursor: pointer; }
+/* line 324, ../../sass/ui.scss */
+#content #tag-select #tag-select-list .tag.active { background-color: #d2e2fb; border: solid 1px #d2e2fb; }
+/* line 328, ../../sass/ui.scss */
+#content #tag-select #tag-select-list .tag .tag-option { position: relative; margin-left: 10px; margin-top: 0; }
+/* line 333, ../../sass/ui.scss */
+#content #tag-select #tag-select-list .tag .tag-label { width: 160px; white-space: nowrap; font-size: 15px; }
+/* line 338, ../../sass/ui.scss */
+#content #tag-select #tag-select-list .tag .tag-label:before, #content #tag-select #tag-select-list .tag .tag-label:after { margin-top: 2px; }
+/* line 344, ../../sass/ui.scss */
+#content #tag-select #tag-submit { clear: both; }
+/* line 349, ../../sass/ui.scss */
 #content #settings { padding: 10px; }
 
-/* line 334, ../../sass/ui.scss */
+/* line 354, ../../sass/ui.scss */
 #footer { background-color: #101010; }

@@ -2,16 +2,14 @@
   <p>タグ選択</p>
   <div>ウォッチするタグを選択してください</div>
   <form novalidate name="selectTags" ng-submit="save()">
-    <div class="form-group">
-      <div id="tag-select-list" ng-repeat="tag in tags">
-        <div class="tag checkbox checkbox-circle checkbox-primary" tag-option>
-          <input type="checkbox" id="checkbox{{$index}}" class="tag-option"
-                 ng-checked="tag.checked || !tag.official" ng-model="tag.checked">
-          <label for="checkbox{{$index}}"> {{tag.name}}</label>
-        </div>
+    <div id="tag-select-list" class="form-group">
+      <div class="tag checkbox checkbox-circle checkbox-primary" ng-repeat="tag in tags" ng-class="{ active: tag.checked }" tag-option>
+        <input type="checkbox" id="checkbox{{$index}}" class="tag-option"
+               ng-checked="tag.checked || !tag.official" ng-model="tag.checked">
+        <label for="checkbox{{$index}}" class="tag-label"> {{tag.name}}</label>
       </div>
     </div>
-    <div class="form-group">
+    <div id="tag-submit" class="form-group">
       <input type="submit" class="btn btn-default" value="save">
       <span>{{msg}}</span>
     </div>
