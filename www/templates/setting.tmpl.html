@@ -19,12 +19,12 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-4 col-md-4 control-label">あとで読む表示期間</label>
+      <label class="col-sm-4 col-md-4 control-label">"あとで読む"表示期間</label>
       <div class="col-sm-4 col-md-3">
         <select class="form-control" ng-model="setting.later_days" ng-options="o as o + ' 日' for o in options.laterDays"></select>
       </div>
       <div class="setting-note description col-sm-4 col-md-5">
-        <span>過去何日分のあとで読むを表示する？</span>
+        <span>過去何日分の"あとで読む"を表示する？</span>
       </div>
     </div>
     <div class="form-group">
@@ -46,7 +46,7 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-4 col-md-4 control-label">既読・あとで読む エントリ</label>
+      <label class="col-sm-4 col-md-4 control-label">既読・あとで読む エントリの表示</label>
       <div class="col-sm-4 col-md-3">
         <select class="form-control" ng-model="setting.visible_marked" ng-options="o.value as o.label for o in options.visibleMarkedEntry"></select>
       </div>
