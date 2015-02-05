@@ -57,7 +57,7 @@
   }
   #entryboard {
     overflow: hidden;
-    padding-left: 20px;
+    padding: 20px 20px 20px 30px;
 
     .entry-list.small {
       max-width: 750px;
@@ -65,7 +65,7 @@
     }
   }
   #entry-list-controll {
-    padding: 10px 0;
+    margin-bottom: 10px;
     .controll-button {
       height: 34px;
       margin-right: 3px;
@@ -88,21 +88,20 @@
       }
     }
   }
+  .tag-name {
+    margin-bottom: 15px;
+    font-size: 28px;
+  }
   .entry-list.small {
     float: left;
-    margin: 0 10px 10px 0;
-    padding: 10px;
     box-sizing: border-box;
 
-    .tag-name {
-      margin-bottom: 5px;
-      font-size: 24px;
-    }
     .entry {
       position: relative;
       min-height: 60px;
       margin-bottom: 15px;
       border-bottom: solid 1px #dfdfdf;
+      overflow: hidden;
 
       .hotentry-date {
         padding: 5px 0 20px 0;
@@ -151,6 +150,7 @@
         .thumbnail {
           width: 95px;
           height: 74px;
+          margin-bottom: 0;
         }
       }
       .entry-body {
@@ -158,37 +158,56 @@
       }
       .entry-footer {
         padding: 5px 0 10px 0;
-        .bookmarkcount {
-          font-size: 14px;
+        overflow: hidden;
 
-          &::after {
-            content: " users";
+        .bookmarkcount {
+          float: left;
+
+          a {
+            position: absolute;
+            bottom: 10px;
+            padding: 0 5px;
+            border: solid 1px #93a9c3;
+            border-radius: 3px;
+            background-color: #93a9c3;
+            font-size: 15px;
+            color: #ffffff;
+
+            &::after {
+              content: " users";
+              font-size: 12px;
+            }
           }
         }
-        .controll-button {
-          height: 28px;
-          width: 28px;
-          margin-right: 5px;
-          background-color: #ffffff;
-          border: solid 1px #dfdfdf;
-          border-radius: 14px;
-          outline: none;
-          color: #b2b2b2;
+        .controll-button-container {
+          float: left;
+          margin-right: 15px;
 
-          &:hover {
-            background-color: #acacac;
-            border-color: #acacac;
-            color: #ffffff;
-          }
-          &.check-button.active {
-            background-color: #a4b4f3;
-            border-color: #a4b4f3;
-            color: #ffffff;
-          }
-          &.later-button.active {
-            background-color: #eb8692;
-            border-color: #eb8692;
-            color: #ffffff;
+          .controll-button {
+            height: 28px;
+            width: 28px;
+            margin-right: 5px;
+            background-color: #ffffff;
+            border: solid 1px #dfdfdf;
+            border-radius: 14px;
+            outline: none;
+            color: #b2b2b2;
+
+            &:hover {
+              background-color: #acacac;
+              border-color: #acacac;
+              color: #ffffff;
+            }
+            &.check-button.active {
+              background-color: #a4b4f3;
+              border-color: #a4b4f3;
+              color: #ffffff;
+            }
+            &.later-button.active {
+              background-color: #eb8692;
+              border-color: #eb8692;
+              color: #ffffff;
+            }
           }
         }
       }
@@ -199,10 +218,6 @@
     min-width: 600px;
     max-width: 950px;
 
-    .tag-name {
-      margin-bottom: 10px;
-      font-size: 28px;
-    }
     .entry {
       overflow: hidden;
       position: relative;
@@ -236,7 +251,6 @@
         .thumbnail {
           width: 130px;
           height: 100px;
-          margin-bottom: 10px;
         }
       }
       .entry-header {
@@ -273,39 +287,55 @@
         position: absolute;
         bottom: 0;
         margin-bottom: 8px;
+        overflow: hidden;
 
         .bookmarkcount {
-          font-size: 20px;
+          float: left;
+          margin-top: 4px;
+          padding: 1px 7px;
+          border: solid 1px #93a9c3;
+          border-radius: 5px;
+          background-color: #93a9c3;
 
-          &::after {
-            content: " users";
-            font-size: 14px;
+          a {
+            font-size: 16px;
+            color: #ffffff;
+
+            &::after {
+              content: " users";
+              font-size: 13px;
+            }
           }
         }
-        .controll-button {
-          height: 32px;
-          width: 32px;
-          margin-right: 5px;
-          background-color: #ffffff;
-          border: solid 1px #dfdfdf;
-          border-radius: 16px;
-          outline: none;
-          color: #b2b2b2;
+        .controll-button-container {
+          float: left;
+          margin-right: 15px;
 
-          &:hover {
-            background-color: #acacac;
-            border-color: #acacac;
-            color: #ffffff;
-          }
-          &.check-button.active {
-            background-color: #a4b4f3;
-            border-color: #a4b4f3;
-            color: #ffffff;
-          }
-          &.later-button.active {
-            background-color: #eb8692;
-            border-color: #eb8692;
-            color: #ffffff;
+          .controll-button {
+            height: 32px;
+            width: 32px;
+            margin-right: 5px;
+            background-color: #ffffff;
+            border: solid 1px #dfdfdf;
+            border-radius: 16px;
+            outline: none;
+            color: #b2b2b2;
+
+            &:hover {
+              background-color: #acacac;
+              border-color: #acacac;
+              color: #ffffff;
+            }
+            &.check-button.active {
+              background-color: #a4b4f3;
+              border-color: #a4b4f3;
+              color: #ffffff;
+            }
+            &.later-button.active {
+              background-color: #eb8692;
+              border-color: #eb8692;
+              color: #ffffff;
+            }
           }
         }
       }
