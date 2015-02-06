@@ -92,22 +92,79 @@
     margin-bottom: 15px;
     font-size: 28px;
   }
-  .entry-list.small {
-    float: left;
-    box-sizing: border-box;
-
+  /* entry-list 共通 */
+  .entry-list {
     .entry {
       position: relative;
-      min-height: 60px;
       margin-bottom: 15px;
       border-bottom: solid 1px #dfdfdf;
       overflow: hidden;
 
       .hotentry-date {
-        padding: 5px 0 20px 0;
         text-align: center;
-        font-size: 16px;
         color: #5c5c5c;
+      }
+      .entry-header {
+        .favicon {
+          position: absolute;
+          top: 2px;
+          height: 16px;
+          width: 16px;
+        }
+      }
+      .remove-button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        z-index: 10000;
+        padding: 0;
+        background-color: #b2b2b2;
+        border: none;
+        color: #ffffff;
+      }
+      .entry-footer {
+        .controll-button-container {
+          float: left;
+          margin-right: 15px;
+
+          .controll-button {
+            margin-right: 5px;
+            background-color: #ffffff;
+            border: solid 1px #dfdfdf;
+            outline: none;
+            color: #b2b2b2;
+
+            &:hover {
+              background-color: #acacac;
+              border-color: #acacac;
+              color: #ffffff;
+            }
+            &.check-button.active {
+              background-color: #a4b4f3;
+              border-color: #a4b4f3;
+              color: #ffffff;
+            }
+            &.later-button.active {
+              background-color: #eb8692;
+              border-color: #eb8692;
+              color: #ffffff;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .entry-list.small {
+    float: left;
+    box-sizing: border-box;
+
+    .entry {
+      min-height: 60px;
+
+      .hotentry-date {
+        padding: 5px 0 20px 0;
+        font-size: 16px;
       }
       .entry-header {
         position: relative;
@@ -115,12 +172,6 @@
 
         &.visible-thumbnail {
           margin-right: 100px;
-        }
-        .favicon {
-          position: absolute;
-          top: 2px;
-          height: 16px;
-          width: 16px;
         }
         .title {
           width: 100%;
@@ -132,17 +183,9 @@
         }
       }
       .remove-button {
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 10000;
         width: 15px;
         height: 15px;
-        padding: 0;
-        background-color: #b2b2b2;
-        border: none;
         font-size: 11px;
-        color: #ffffff;
       }
       .entry-thumbnail {
         float: right;
@@ -179,34 +222,10 @@
           }
         }
         .controll-button-container {
-          float: left;
-          margin-right: 15px;
-
           .controll-button {
             height: 28px;
             width: 28px;
-            margin-right: 5px;
-            background-color: #ffffff;
-            border: solid 1px #dfdfdf;
             border-radius: 14px;
-            outline: none;
-            color: #b2b2b2;
-
-            &:hover {
-              background-color: #acacac;
-              border-color: #acacac;
-              color: #ffffff;
-            }
-            &.check-button.active {
-              background-color: #a4b4f3;
-              border-color: #a4b4f3;
-              color: #ffffff;
-            }
-            &.later-button.active {
-              background-color: #eb8692;
-              border-color: #eb8692;
-              color: #ffffff;
-            }
           }
         }
       }
@@ -218,31 +237,17 @@
     max-width: 950px;
 
     .entry {
-      overflow: hidden;
-      position: relative;
       min-height: 150px;
-      margin-bottom: 15px;
       padding-bottom: 5px;
-      border-bottom: solid 1px #dddddd;
 
       .hotentry-date {
         padding: 15px 0 30px 0;
-        text-align: center;
         font-size: 18px;
-        color: #5c5c5c;
       }
       .remove-button {
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 10000;
         width: 20px;
         height: 20px;
-        padding: 0;
-        background-color: #b2b2b2;
-        border: none;
         font-size: 13px;
-        color: #ffffff;
       }
       .entry-thumbnail {
         float: right;
@@ -263,12 +268,6 @@
         }
         .title {
           padding-left: 20px;
-        }
-        .favicon {
-          position: absolute;
-          top: 2px;
-          height: 16px;
-          width: 16px;
         }
       }
       .entry-body {
@@ -306,34 +305,10 @@
           }
         }
         .controll-button-container {
-          float: left;
-          margin-right: 15px;
-
           .controll-button {
             height: 32px;
             width: 32px;
-            margin-right: 5px;
-            background-color: #ffffff;
-            border: solid 1px #dfdfdf;
             border-radius: 16px;
-            outline: none;
-            color: #b2b2b2;
-
-            &:hover {
-              background-color: #acacac;
-              border-color: #acacac;
-              color: #ffffff;
-            }
-            &.check-button.active {
-              background-color: #a4b4f3;
-              border-color: #a4b4f3;
-              color: #ffffff;
-            }
-            &.later-button.active {
-              background-color: #eb8692;
-              border-color: #eb8692;
-              color: #ffffff;
-            }
           }
         }
       }
