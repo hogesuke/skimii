@@ -6,6 +6,7 @@
   <script src="js/lib/angular-route.min.js"></script>
   <script src="js/lib/ui-bootstrap-0.12.0.min.js"></script>
   <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/jquery.mCustomScrollbar.concat.min.js"></script>
   <script src="js/app.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/services.js"></script>
@@ -13,16 +14,13 @@
   <link rel="stylesheet" href="css/lib/bootstrap.min.css">
   <link rel="stylesheet" href="css/lib/font-awesome.min.css">
   <link rel="stylesheet" href="css/lib/awesome-bootstrap-checkbox.css">
+  <link rel="stylesheet" href="css/lib/jquery.mCustomScrollbar.css">
   <link rel="stylesheet" href="css/ui.css">
   <title>tech-book</title>
   <base href="/">
 </head>
 <body ng-controller="BaseController">
-<div id="header" class="container-fluid">header</div>
-<div>
-  <div id="sidebar" ng-include="'templates/sidebar.tmpl.html'"></div>
-  <div id="content" ng-view></div>
-</div>
-<div id="footer" class="container-fluid">footer</div>
+<div id="sidebar" ng-include="'templates/sidebar.tmpl.html'"></div>
+<div id="content" ng-view></div>
 </body>
 </html>

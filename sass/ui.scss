@@ -1,3 +1,7 @@
+html, body {
+  height: 100%;
+}
+
 #header {
   height: 45px;
   background-color: #204d74;
@@ -8,8 +12,6 @@
   height: 100%;
   min-height: 100%;
   position: absolute;
-  top: 45px;
-  left: 0;
   padding-left: 15px;
   background-color: #204d74;
   color: #ffffff;
@@ -32,6 +34,7 @@
 }
 
 #content {
+  height: 100%;
   padding-left: 250px;
 
   // todo 幅を極端に狭めたときの表示
@@ -56,8 +59,9 @@
     }
   }
   #entryboard {
+    height: 100%;
     overflow: hidden;
-    padding: 20px 20px 20px 30px;
+    padding: 20px 10px 20px 30px;
 
     .entry-list.small {
       max-width: 750px;
@@ -66,6 +70,7 @@
   }
   #entry-list-controll {
     margin-bottom: 10px;
+
     .controll-button {
       height: 34px;
       margin-right: 3px;
@@ -363,8 +368,4 @@
       color: #999999;
     }
   }
-}
-
-#footer {
-  background-color: #101010;
 }

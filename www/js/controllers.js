@@ -123,7 +123,7 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
       $scope.tag = $routeParams.tag;
       $scope.page = 1;
       $scope.loading = true;
-      $scope.terminal = false;
+      $scope.completed = false;
       var settings = null;
 
       SettingService.load().then(function(res) {
@@ -170,7 +170,7 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
         var total = $(document).height();
         var position = $(window).scrollTop() + $(window).height();
 
-        if (!$scope.loading && !$scope.terminal && position >= total - 200) {
+        if (!$scope.loading && !$scope.completed && position >= total - 200) {
           $scope.loading = true;
           EntryService.load($routeParams.tag, ++$scope.page).then(function(entriesData) {
             if (entriesData.length > 0) {
@@ -183,7 +183,7 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
               });
               $scope.entries = $scope.entries.concat(entriesData.entries);
             } else {
-              $scope.terminal = true;
+              $scope.completed = true;
             }
           }).finally(function() {
             $scope.loading = false;
