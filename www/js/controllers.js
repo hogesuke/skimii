@@ -80,7 +80,6 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
         angular.forEach(tags, function(tag) {
           $scope.allEntriesDatas[tag.name] = {entries: [], completed: false};
           EntryService.load(tag.name, 0).then(function(entriesData) {
-            console.debug(entriesData);
             $scope.allEntriesDatas[tag.name] = entriesData;
           });
         });
@@ -164,32 +163,6 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
       $scope.visibleEntry = function(entry) {
         return settings.visible_marked == 1 || (!entry.checked && !entry.latered);
       };
-
-      // オートページネーション
-      $(window).scroll(function() {
-        var total = $(document).height();
-        var position = $(window).scrollTop() + $(window).height();
-
-        if (!$scope.loading && !$scope.completed && position >= total - 200) {
-          $scope.loading = true;
-          EntryService.load($routeParams.tag, ++$scope.page).then(function(entriesData) {
-            if (entriesData.length > 0) {
-              var prevDate = $scope.entries.pop.hotentry_date;
-              angular.forEach(entriesData.entries, function(entry) {
-                if (prevDate > entry.hotentry_date) {
-                  entry.visibleDate = true;
-                }
-                prevDate = entry.hotentry_date;
-              });
-              $scope.entries = $scope.entries.concat(entriesData.entries);
-            } else {
-              $scope.completed = true;
-            }
-          }).finally(function() {
-            $scope.loading = false;
-          });
-        }
-      });
     }]
 );
 
