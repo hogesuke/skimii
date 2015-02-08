@@ -25,11 +25,11 @@ html, body {
       border-left: solid 4px transparent;
       cursor: pointer;
 
-      &.active {
-        border-left: solid 4px #e6994e;
-      }
       &:hover {
         border-left: solid 4px #ffffff;
+      }
+      &.active {
+        border-left: solid 4px #e6994e;
       }
     }
   }
