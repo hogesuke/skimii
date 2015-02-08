@@ -12,22 +12,58 @@ html, body {
   height: 100%;
   min-height: 100%;
   position: absolute;
-  padding-left: 15px;
+  padding-top: 15px;
   background-color: #204d74;
   color: #ffffff;
   font-size: 16px;
 
-  .tag-list {
-    #tags-header {
+  ul {
+    padding-left: 0;
+    list-style-type: none;
+
+    li {
+      border-left: solid 4px transparent;
+      cursor: pointer;
+
+      &.active {
+        border-left: solid 4px #e6994e;
+      }
+      &:hover {
+        border-left: solid 4px #ffffff;
+      }
+    }
+  }
+  #page-link-list {
+    li {
+      padding: 10px 0 10px 15px;
+
+      a {
+        display: block;
+        height: 100%;
+      }
+    }
+  }
+  #tag-list {
+    padding-left: 15px;
+
+    #tag-list-header {
       font-size: 18px;
+      a {
+        color: #ffffff;
+      }
     }
 
     ul {
-      padding-left: 15px;
-      list-style-type: none;
+      padding-right: 15px;
 
-      li a {
-        color: #ffffff;
+      li {
+        span {
+          display: block;
+          padding-left: 15px;
+          overflow: hidden;
+          white-space  : nowrap;
+          text-overflow: ellipsis;
+        }
       }
     }
   }

@@ -1,25 +1,25 @@
 <div ng-controller="SidebarController">
-  <div class="tag-list">
+  <div id="page-link-list">
     <ul>
-      <li>
-        <a href="#/">dashboard</a>
+      <li class="active" sidebar-link="#/">
+        <span><i class="fa fa-tachometer"></i> dashboard</span>
       </li>
-      <li>
-        <a href="#/setting">setting</a>
+      <li sidebar-link="#/check">
+        <span><i class="fa fa-check"></i> checks</span>
+      </li>
+      <li sidebar-link="#/later">
+        <span><i class="fa fa-archive"></i> laters</span>
+      </li>
+      <li sidebar-link="#/setting">
+        <span><i class="fa fa-cog"></i> setting</span>
       </li>
     </ul>
-    <h2 id="tags-header"><a href="#/tag">Tags</a></h2>
+  </div>
+  <div id="tag-list">
+    <h2 id="tag-list-header"><a href="#/tag"><i class="fa fa-tags"></i> Tags</a></h2>
     <ul>
-      <li ng-repeat="tag in tags.mine">
-        <a ng-href="#/entry/{{tag.encoded}}">{{tag.name}}</a>
-      </li>
-    </ul>
-    <ul>
-      <li>
-        <a href="#/check">checks</a>
-      </li>
-      <li>
-        <a href="#/later">laters</a>
+      <li ng-repeat="tag in tags.mine" sidebar-link="{{'#/entry/' + tag.encoded}}">
+        <span>{{tag.name}}</span>
       </li>
     </ul>
   </div>

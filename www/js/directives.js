@@ -80,4 +80,21 @@ angular.module('techBookDirectives', []).
         }
       }
     };
-  }]);
+  }]).
+  directive('sidebarLink', function () {
+    return {
+      restrict: 'A',
+      link: function(scope, element, attrs) {
+        var $el = $(element[0]);
+        var href = attrs.sidebarLink;
+
+        $el.on('click', function() {
+          console.debug("$el.parent('#sidebar') : ", $el.parent('#sidebar'));
+          console.debug("$el.parent('#sidebar').children('.active') : ", $el.parent('#sidebar').children('.active'));
+          $el.parents('#sidebar').find('.active').removeClass('active');
+          $el.addClass('active');
+          document.location.href = href;
+        });
+      }
+    };
+  });
