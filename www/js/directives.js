@@ -57,14 +57,12 @@ angular.module('techBookDirectives', []).
           EntryService.load($routeParams.tag, ++scope.page).then(function(entriesData) {
             setEntries(entriesData);
           }).finally(function() {
-            setTimeout(function() {
-              scope.loading = false;
-            }, 1000);
+            scope.loading = false;
           });
         }
 
         function setEntries(entriesData) {
-          if (entriesData.length <= 0) {
+          if (entriesData.completed) {
             scope.completed = true;
             return;
           }
