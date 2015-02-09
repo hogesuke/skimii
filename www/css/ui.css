@@ -59,7 +59,7 @@ html, body { height: 100%; }
 /* line 138, ../../sass/ui.scss */
 #content .entry-list .entry { position: relative; margin-bottom: 15px; border-bottom: solid 1px #dfdfdf; overflow: hidden; }
 /* line 144, ../../sass/ui.scss */
-#content .entry-list .entry .hotentry-date { text-align: center; color: #5c5c5c; }
+#content .entry-list .entry .hotentry-date { text-align: center; color: #9e9e9e; }
 /* line 149, ../../sass/ui.scss */
 #content .entry-list .entry .entry-header .favicon { position: absolute; top: 2px; height: 16px; width: 16px; }
 /* line 156, ../../sass/ui.scss */
@@ -79,7 +79,7 @@ html, body { height: 100%; }
 /* line 203, ../../sass/ui.scss */
 #content .entry-list.small .entry { min-height: 60px; }
 /* line 206, ../../sass/ui.scss */
-#content .entry-list.small .entry .hotentry-date { padding: 5px 0 20px 0; font-size: 16px; }
+#content .entry-list.small .entry .hotentry-date { margin: 10px 0 20px 0; font-size: 14px; }
 /* line 210, ../../sass/ui.scss */
 #content .entry-list.small .entry .entry-header { position: relative; margin-right: 20px; }
 /* line 214, ../../sass/ui.scss */
@@ -109,7 +109,7 @@ html, body { height: 100%; }
 /* line 280, ../../sass/ui.scss */
 #content .entry-list.large .entry { min-height: 150px; padding-bottom: 5px; }
 /* line 284, ../../sass/ui.scss */
-#content .entry-list.large .entry .hotentry-date { padding: 15px 0 30px 0; font-size: 18px; }
+#content .entry-list.large .entry .hotentry-date { padding: 15px 0 30px 0; font-size: 17px; }
 /* line 288, ../../sass/ui.scss */
 #content .entry-list.large .entry .remove-button { width: 20px; height: 20px; font-size: 13px; }
 /* line 293, ../../sass/ui.scss */
