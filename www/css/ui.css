@@ -14,7 +14,7 @@ html, body { height: 100%; }
 /* line 28, ../../sass/ui.scss */
 #sidebar ul li:hover { border-left: solid 4px #ffffff; }
 /* line 31, ../../sass/ui.scss */
-#sidebar ul li.active { border-left: solid 4px #e6994e; }
+#sidebar ul li.active { border-left: solid 4px #e6932f; }
 /* line 37, ../../sass/ui.scss */
 #sidebar #page-link-list li { padding: 10px 0 10px 15px; }
 /* line 40, ../../sass/ui.scss */
