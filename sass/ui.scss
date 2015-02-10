@@ -29,7 +29,7 @@ html, body {
         border-left: solid 4px #ffffff;
       }
       &.active {
-        border-left: solid 4px #e6932f;
+        border-left: solid 4px #f59927;
       }
     }
   }
@@ -405,4 +405,15 @@ html, body {
       color: #999999;
     }
   }
+}
+
+.mCS-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,
+.mCS-dark.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar,
+.mCS-dark.mCSB_scrollTools .mCSB_dragger:active .mCSB_dragger_bar,
+.mCS-dark.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
+  background-color: #446fbd;
+}
+
+.mCS-dark.mCSB_scrollTools .mCSB_draggerRail {
+  background-color: #dfdfdf;
 }
