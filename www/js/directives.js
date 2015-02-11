@@ -94,6 +94,35 @@ angular.module('techBookDirectives', []).
       }
     };
   }).
+  directive('dashboardEntryList', function () {
+    return {
+      restrict: 'A',
+      link: function(scope, element) {
+        var $entryList = $(element[0]);
+        var $container = $entryList.parents('.mCSB_container');
+
+        setEntryListWidth($entryList, $container);
+
+        $(window).resize(function() {
+          setEntryListWidth($entryList, $container);
+        });
+
+        function setEntryListWidth($entryList, $container) {
+          var adjustment_w = $container.css('margin-right') === '0px' ? 15 : 0;
+          var container_w  = $container.width() - adjustment_w;
+          var lefPad_w     = 20;
+
+          if (container_w < 800) {
+            $entryList.width(container_w - lefPad_w);
+          } else if (container_w < 1200) {
+            $entryList.width(container_w / 2 - lefPad_w);
+          } else {
+            $entryList.width(container_w / 3 - lefPad_w);
+          }
+        }
+      }
+    };
+  }).
   directive('sidebarLink', function () {
     return {
       restrict: 'A',
