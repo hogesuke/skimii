@@ -81,6 +81,19 @@ angular.module('techBookDirectives', []).
       }
     };
   }]).
+  directive('dashboardScrollbar', function () {
+    return {
+      restrict: 'A',
+      link: function(scope, element) {
+        $(element[0]).mCustomScrollbar({
+          theme        : 'dark',
+          scrollInertia: 500,
+          mouseWheel   : { scrollAmount: 300 },
+          advanced     : { updateOnImageLoad: false }
+        });
+      }
+    };
+  }).
   directive('sidebarLink', function () {
     return {
       restrict: 'A',

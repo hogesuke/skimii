@@ -76,13 +76,16 @@ html, body {
   // todo 幅を極端に狭めたときの表示
   #dashboard {
     overflow: hidden;
-    padding-left: 15px;
+    height: 100%;
+    padding: 20px 5px 20px 30px;
 
     .show-more {
       text-align: center;
       font-size: 14px;
     }
     .entry-list.small {
+      box-sizing: border-box;
+
       @media screen and (max-width: 1000px) {
         width: 100%;
       }
@@ -97,7 +100,7 @@ html, body {
   #entryboard {
     height: 100%;
     overflow: hidden;
-    padding: 20px 10px 20px 30px;
+    padding: 20px 5px 20px 30px;
 
     .entry-list.small {
       max-width: 750px;

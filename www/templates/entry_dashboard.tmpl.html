@@ -1,5 +1,4 @@
-<div id="dashboard">
-  <p>Dashboard</p>
+<div id="dashboard" dashboard-scrollbar>
   <div class="entry-list small" ng-repeat="(tag, entriesData) in allEntriesDatas">
     <div class="tag-name">{{tag}}</div>
     <div class="entry" ng-repeat="entry in entriesData.entries" ng-show="::visibleEntry(entry)" ng-include="'../parts/entry.part.html'"></div>
