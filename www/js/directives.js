@@ -134,7 +134,6 @@ angular.module('techBookDirectives', []).
 
           if (container_w < 800) {
             $entryList.width(container_w - lefPad_w);
-            $entryList.css({height: ''});
           } else if (container_w < 1200) {
             $entryList.width(container_w / 2 - lefPad_w);
           } else {
