@@ -28,7 +28,7 @@ angular.module('techBookDirectives', []).
 
         var $el = $(element[0]);
 
-        scope.$on('$includeContentLoaded', function(event) {
+        scope.$on('$includeContentLoaded', function() {
           var $header  = $el.siblings('#entry-list-header');
           var header_h = $header.height();
           var board_h  = $('#entryboard').height();
