@@ -18,14 +18,25 @@ angular.module('techBookDirectives', []).
       }
     };
   }).
-  directive('entryListScrollbar', ['$routeParams', 'EntryService', function ($routeParams, EntryService) {
+  directive('entryListScrollbar', ['$routeParams', '$timeout', 'EntryService', function ($routeParams, $timeout, EntryService) {
     return {
       restrict: 'A',
       link: function(scope, element) {
         if ($('[id$=_dragger_vertical]').length > 0) {
           return;
         }
-        $(element[0]).mCustomScrollbar({
+
+        var $el = $(element[0]);
+
+        scope.$on('$includeContentLoaded', function(event) {
+          var $header  = $el.siblings('#entry-list-header');
+          var header_h = $header.height();
+          var board_h  = $('#entryboard').height();
+
+          $el.height(board_h - header_h);
+        });
+
+        $el.mCustomScrollbar({
           theme        : 'dark',
           scrollInertia: 500,
           mouseWheel   : { scrollAmount: 300 },
@@ -33,19 +44,19 @@ angular.module('techBookDirectives', []).
           callbacks    : {
             onInit: function() {
               var $scrollbar  = $('[id$=_dragger_vertical]');
-              var $entryBoard = $('#entryboard');
-              var observer = new MutationObserver(function() {doEvent($entryBoard, $scrollbar);});
+              var $entryList = $('.entry-list');
+              var observer = new MutationObserver(function() {doEvent($entryList, $scrollbar);});
               observer.observe($scrollbar[0], {attributes : true, attributeFilter : ['style']});
             }
           }
         });
 
-        function doEvent($entryBoard, $scrollbar) {
-          var entryboard_h = $entryBoard.height();
+        function doEvent($entryList, $scrollbar) {
+          var entrylist_h = $entryList.height();
           var slidebar_h = $scrollbar.height();
           var top = $scrollbar.css('top').replace('px', '');
 
-          if (entryboard_h - slidebar_h - top <= 0) {
+          if (entrylist_h - slidebar_h - top <= 0) {
             if (!scope.completed && !scope.loading) {
               load();
             }

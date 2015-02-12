@@ -86,16 +86,26 @@ html, body {
     .entry-list.small {
       box-sizing: content-box;
       padding-right: 20px;
+
+      .mCSB_inside > .mCSB_container {
+        margin-right: 30px;
+      }
     }
   }
   #entryboard {
     height: 100%;
     overflow: hidden;
-    padding: 20px 5px 20px 30px;
+    padding: 20px 5px 30px 30px;
 
-    .entry-list.small {
-      max-width: 750px;
-      min-width: 400px;
+    .entry-list {
+
+      &.small {
+        max-width: 750px;
+        min-width: 400px;
+      }
+      .mCSB_inside > .mCSB_container {
+        margin-right: 30px;
+      }
     }
   }
   #entry-list-controll {
@@ -398,10 +408,6 @@ html, body {
       color: #999999;
     }
   }
-}
-
-.mCSB_inside > .mCSB_container {
-  margin-right: 15px;
 }
 
 .mCS-dark.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar,
