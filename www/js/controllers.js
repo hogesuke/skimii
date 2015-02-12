@@ -71,10 +71,9 @@ techBookControllers.controller('TagController', ['$scope', 'TagService', 'offici
 techBookControllers.controller('DashboardController', ['$scope', 'TagService', 'EntryService', 'LaterService', 'CheckService', 'SettingService',
     function($scope, TagService, EntryService, LaterService, CheckService, SettingService) {
       $scope.allEntriesDatas = {};
-      var settings = null;
 
       SettingService.load().then(function(res) {
-        settings = res;
+        $scope.settings = res;
         return TagService.mine();
       }).then(function(tags) {
         angular.forEach(tags, function(tag) {
@@ -110,7 +109,7 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
         return EntryService.convertToHatebuUrl(url);
       };
       $scope.visibleEntry = function(entry) {
-        return settings.visible_marked == 1 || (!entry.checked && !entry.latered);
+        return $scope.settings.visible_marked == 1 || (!entry.checked && !entry.latered);
       };
     }]
 );

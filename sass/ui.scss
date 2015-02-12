@@ -87,10 +87,9 @@ html, body {
     .entry-list.small {
       box-sizing: content-box;
       padding-right: 20px;
-
-      .mCSB_inside > .mCSB_container {
-        margin-right: 30px;
-      }
+    }
+    .mCSB_inside > .mCSB_container {
+      margin-right: 15px;
     }
   }
   #entryboard {
