@@ -28,12 +28,13 @@ angular.module('techBookDirectives', []).
 
         var $el = $(element[0]);
 
+        // contentのloadが完了したのちentry-listのheightを設定
         scope.$on('$includeContentLoaded', function() {
-          var $header  = $el.siblings('#entry-list-header');
-          var header_h = $header.height();
-          var board_h  = $('#entryboard').height();
+          setHeight($el);
 
-          $el.height(board_h - header_h);
+          $(window).resize(function() {
+            setHeight($el);
+          });
         });
 
         $el.mCustomScrollbar({
@@ -43,18 +44,25 @@ angular.module('techBookDirectives', []).
           advanced     : { updateOnImageLoad: false },
           callbacks    : {
             onInit: function() {
-              var $scrollbar  = $('[id$=_dragger_vertical]');
+              var $scrollbar = $('[id$=_dragger_vertical]');
               var $entryList = $('.entry-list');
-              var observer = new MutationObserver(function() {doEvent($entryList, $scrollbar);});
+              var observer   = new MutationObserver(function() {doEvent($entryList, $scrollbar);});
               observer.observe($scrollbar[0], {attributes : true, attributeFilter : ['style']});
             }
           }
         });
 
+        function setHeight($el) {
+          var $header  = $el.siblings('#entry-list-header');
+          var header_h = $header.height();
+          var board_h  = $('#entryboard').height();
+
+          $el.height(board_h - header_h);
+        }
         function doEvent($entryList, $scrollbar) {
           var entrylist_h = $entryList.height();
-          var slidebar_h = $scrollbar.height();
-          var top = $scrollbar.css('top').replace('px', '');
+          var slidebar_h  = $scrollbar.height();
+          var top         = $scrollbar.css('top').replace('px', '');
 
           if (entrylist_h - slidebar_h - top <= 0) {
             if (!scope.completed && !scope.loading) {
