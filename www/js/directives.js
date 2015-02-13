@@ -112,28 +112,28 @@ angular.module('techBookDirectives', []).
         var $entryList = $(element[0]);
         var $container = $entryList.parents('.mCSB_container');
 
-        setEntryListWidth($entryList, $container);
-        setEntryListHeight($entryList);
+        setWidthAndHeight($entryList, $container);
 
         $(window).resize(function() {
-          setEntryListWidth($entryList, $container);
+          setWidthAndHeight($entryList, $container);
         });
 
-        function setEntryListHeight($entryList) {
+        function setWidthAndHeight($entryList, $container) {
+          // for width variables
+          var adjustment_w = $container.css('margin-right') === '0px' ? 15 : 0;
+          var container_w  = $container.width() - adjustment_w;
+          var lefPad_w     = 20;
+          // for height variables
           var count        = scope.settings.dashboard_count;
           var entry_h      = 101;
           var listHeader_h = $entryList.children('.tag-name').height();
           var list_h       = entry_h * (count + 1) + listHeader_h;
 
           $entryList.height(list_h);
-        }
-        function setEntryListWidth($entryList, $container) {
-          var adjustment_w = $container.css('margin-right') === '0px' ? 15 : 0;
-          var container_w  = $container.width() - adjustment_w;
-          var lefPad_w     = 20;
 
           if (container_w < 800) {
             $entryList.width(container_w - lefPad_w);
+            $entryList.css({height: ''});
           } else if (container_w < 1200) {
             $entryList.width(container_w / 2 - lefPad_w);
           } else {
