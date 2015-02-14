@@ -112,7 +112,8 @@ html, body {
     .entry-list {
 
       &.small {
-        max-width: 750px;
+        width: 100%;
+        max-width: 800px;
         min-width: 400px;
       }
       .mCSB_inside > .mCSB_container {
@@ -292,6 +293,7 @@ html, body {
   }
 
   .entry-list.large {
+    width: 100%;
     min-width: 600px;
     max-width: 950px;
 
