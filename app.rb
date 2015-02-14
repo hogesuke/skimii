@@ -290,10 +290,12 @@ def get_entries(tag_name, count: 40, page: 1)
   completed = false
   items = XmlSimple.xml_in(res.body)['item']
 
-  if items.nil? then
+  if items.nil?
     return { entries: [], completed: true }
-  elsif items.length > count then
+  elsif items.length > count
     items = items.slice(0, count)
+  elsif items.length < count
+    completed = true;
   end
 
   check_entries = user.check_entries.where('checks.hotentry_date >= ?', date_begin).select('url')
