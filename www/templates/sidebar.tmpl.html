@@ -2,21 +2,21 @@
   <div id="page-link-list">
     <ul>
       <li sidebar-link="#/">
-        <span><i class="fa fa-tachometer"></i> dashboard</span>
+        <span><i class="fa fa-tachometer"></i> ダッシュボード</span>
       </li>
       <li sidebar-link="#/check">
-        <span><i class="fa fa-check"></i> checks</span>
+        <span><i class="fa fa-check"></i> もう読んだ</span>
       </li>
       <li sidebar-link="#/later">
-        <span><i class="fa fa-archive"></i> laters</span>
+        <span><i class="fa fa-archive"></i> あとで読む</span>
       </li>
       <li sidebar-link="#/setting">
-        <span><i class="fa fa-cog"></i> setting</span>
+        <span><i class="fa fa-cog"></i> 設定</span>
       </li>
     </ul>
   </div>
   <div id="tag-list">
-    <h2 id="tag-list-header"><a href="#/tag"><i class="fa fa-tags"></i> Tags</a></h2>
+    <h2 id="tag-list-header"><a href="#/tag"><i class="fa fa-tags"></i> タグ</a></h2>
     <ul>
       <li ng-repeat="tag in tags.mine" sidebar-link="{{'#/entry/' + tag.encoded}}">
         <span>{{tag.name}}</span>
