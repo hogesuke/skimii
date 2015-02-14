@@ -94,6 +94,11 @@ html, body {
     .entry-list.small {
       box-sizing: content-box;
       padding-right: 20px;
+
+      .show-more a {
+        padding: 10px 0;
+        display: block;
+      }
     }
     .mCSB_inside > .mCSB_container {
       margin-right: 15px;
