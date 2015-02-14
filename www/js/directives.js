@@ -155,13 +155,18 @@ angular.module('techBookDirectives', []).
     return {
       restrict: 'A',
       link: function(scope, element, attrs) {
-        var $el = $(element[0]);
-        var href = attrs.sidebarLink;
+        var $el         = $(element[0]);
+        var nextHash    = attrs.sidebarLink;
+        var currentHash = document.location.hash;
+
+        if (nextHash === currentHash) {
+          $el.addClass('active');
+        }
 
         $el.on('click', function() {
           $el.parents('#sidebar').find('.active').removeClass('active');
           $el.addClass('active');
-          document.location.href = href;
+          document.location.href = nextHash;
         });
       }
     };
