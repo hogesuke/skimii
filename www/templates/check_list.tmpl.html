@@ -1,7 +1,9 @@
-<div id="entryboard" ng-controller="EntryViewController" entry-list-scrollbar>
-  <div ng-include="'../parts/entry_list_controll.part.html'"></div>
-  <div class="entry-list" ng-class="getViewSize(viewName)">
+<div id="entryboard" ng-controller="EntryViewController">
+  <div id="entry-list-header">
+    <div ng-include="'../parts/entry_list_controll.part.html'"></div>
     <div class="tag-name">既読</div>
+  </div>
+  <div class="entry-list" ng-class="getViewSize(viewName)" entry-list-scrollbar>
     <div class="entry" index="{{$index}}" ng-repeat="entry in entries" ng-include="'../parts/entry.part.html'">
     </div>
   </div>
