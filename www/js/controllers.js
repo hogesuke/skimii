@@ -87,8 +87,8 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
         });
         LaterService.toggle(joinedEntries, lateredEntry);
         if (lateredEntry.checked) {
-          lateredEntry.checked = false;
-          CheckService.remove(lateredEntry);
+          // laterにマークされたのでcheckは削除
+          CheckService.toggle(joinedEntries, lateredEntry);
         }
       };
       $scope.toggleCheck = function(checkedEntry) {
@@ -98,8 +98,8 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
         });
         CheckService.toggle(joinedEntries, checkedEntry);
         if (checkedEntry.latered) {
-          checkedEntry.latered = false;
-          LaterService.remove(checkedEntry);
+          // checkにマークされたのでlaterは削除
+          LaterService.toggle(joinedEntries, checkedEntry);
         }
       };
       $scope.convertToHatebuUrl = function(url) {
