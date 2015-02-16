@@ -1,7 +1,20 @@
 <div id="dashboard" dashboard-scrollbar>
   <div class="entry-list small" ng-repeat="(tag, entriesData) in allEntriesDatas" dashboard-entry-list>
     <div class="tag-name">{{tag}}</div>
+    <!-- loading start -->
+    <div class="loading" ng-show="entriesData.loading">
+      <div class="spinner">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+      </div>
+    </div>
+    <!-- loading end -->
     <div class="entry" ng-repeat="entry in entriesData.entries" ng-show="::visibleEntry(entry)" ng-include="'../parts/entry.part.html'"></div>
-    <div class="show-more" ng-show="!entriesData.completed"><a href="#/entry/{{tag}}">もっと見る</a></div>
+    <div class="show-more" ng-show="!entriesData.loading && !entriesData.completed">
+      <a href="#/entry/{{tag}}">もっと見る</a>
+    </div>
   </div>
 </div>

@@ -6,5 +6,16 @@
   <div class="entry-list" ng-class="getViewSize(viewName)" entry-list-scrollbar>
     <div class="entry" index="{{$index}}" ng-repeat="entry in entries" ng-include="'../parts/entry.part.html'">
     </div>
+    <!-- loading start -->
+    <div class="loading" ng-show="loading">
+      <div class="spinner">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+      </div>
+    </div>
+    <!-- loading end -->
   </div>
 </div>

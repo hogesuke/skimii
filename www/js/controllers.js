@@ -74,8 +74,9 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
         return TagService.mine();
       }).then(function(tags) {
         angular.forEach(tags, function(tag) {
-          $scope.allEntriesDatas[tag.name] = {entries: [], completed: false};
+          $scope.allEntriesDatas[tag.name] = { entries: [], completed: false, loading: true };
           EntryService.load(tag.name, 0).then(function(entriesData) {
+            entriesData.loading = false;
             $scope.allEntriesDatas[tag.name] = entriesData;
           });
         });
@@ -165,8 +166,11 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
 techBookControllers.controller('CheckListController', ['$scope', 'CheckService', 'LaterService',
     function($scope, CheckService, LaterService) {
       $scope.viewName = 'check_list';
+      $scope.loading  = true;
+
       CheckService.all().then(function(entries) {
         $scope.entries = entries;
+        $scope.loading = false;
       });
       $scope.remove = function(entry, index) {
         CheckService.remove(entry, index);
@@ -184,8 +188,11 @@ techBookControllers.controller('CheckListController', ['$scope', 'CheckService',
 techBookControllers.controller('LaterListController', ['$scope', 'LaterService', 'CheckService',
     function($scope, LaterService, CheckService) {
       $scope.viewName = 'later_list';
+      $scope.loading  = true;
+
       LaterService.all().then(function(entries) {
         $scope.entries = entries;
+        $scope.loading  = false;
       });
       $scope.remove = function(entry, index) {
         LaterService.remove(entry);
