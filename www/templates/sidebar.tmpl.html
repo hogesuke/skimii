@@ -17,7 +17,7 @@
   </div>
   <div id="tag-list">
     <h2 id="tag-list-header"><a href="#/tag"><i class="fa fa-tags"></i> タグ</a></h2>
-    <ul>
+    <ul tag-list-scrollbar>
       <li ng-repeat="tag in tags.mine" sidebar-link="{{'#/entry/' + tag.encoded}}">
         <span>{{tag.name}}</span>
       </li>

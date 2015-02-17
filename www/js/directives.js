@@ -113,6 +113,34 @@ angular.module('techBookDirectives', []).
       }
     };
   }).
+  directive('tagListScrollbar', function () {
+    return {
+      restrict: 'A',
+      link: function(scope, element) {
+        var $tagList = $(element[0]);
+
+        setHeight($tagList);
+
+        $(window).resize(function() {
+          setHeight($tagList);
+        });
+
+        $tagList.mCustomScrollbar({
+          theme        : 'light',
+          scrollInertia: 500,
+          mouseWheel   : { scrollAmount: 75 },
+          advanced     : { updateOnImageLoad: false }
+        });
+
+        function setHeight($tagList) {
+          var sidebar_h = $('#sidebar').height();
+          var listTop   = $tagList.offset().top;
+
+          $tagList.height(sidebar_h - listTop);
+        }
+      }
+    };
+  }).
   directive('dashboardEntryList', function () {
     return {
       restrict: 'A',
