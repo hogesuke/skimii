@@ -39,8 +39,8 @@ angular.module('techBookDirectives', []).
 
         $el.mCustomScrollbar({
           theme        : 'dark',
-          scrollInertia: 500,
-          mouseWheel   : { scrollAmount: 200 },
+          scrollInertia: 100,
+          mouseWheel   : { scrollAmount: 100 },
           advanced     : { updateOnImageLoad: false },
           callbacks    : {
             onInit: function() {
@@ -106,8 +106,8 @@ angular.module('techBookDirectives', []).
       link: function(scope, element) {
         $(element[0]).mCustomScrollbar({
           theme        : 'dark',
-          scrollInertia: 500,
-          mouseWheel   : { scrollAmount: 200 },
+          scrollInertia: 100,
+          mouseWheel   : { scrollAmount: 100 },
           advanced     : { updateOnImageLoad: false }
         });
       }
@@ -127,7 +127,7 @@ angular.module('techBookDirectives', []).
 
         $tagList.mCustomScrollbar({
           theme        : 'light',
-          scrollInertia: 500,
+          scrollInertia: 100,
           mouseWheel   : { scrollAmount: 75 },
           advanced     : { updateOnImageLoad: false }
         });
