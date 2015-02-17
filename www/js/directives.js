@@ -22,7 +22,7 @@ angular.module('techBookDirectives', []).
     return {
       restrict: 'A',
       link: function(scope, element) {
-        if ($('[id$=_dragger_vertical]').length > 0) {
+        if ($('#entryboard [id$=_dragger_vertical]').length > 0) {
           return;
         }
 
@@ -44,7 +44,7 @@ angular.module('techBookDirectives', []).
           advanced     : { updateOnImageLoad: false },
           callbacks    : {
             onInit: function() {
-              var $scrollbar = $('[id$=_dragger_vertical]');
+              var $scrollbar = $('#entryboard [id$=_dragger_vertical]');
               var $entryList = $('.entry-list');
               var observer   = new MutationObserver(function() {doEvent($entryList, $scrollbar);});
               observer.observe($scrollbar[0], {attributes : true, attributeFilter : ['style']});
