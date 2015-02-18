@@ -49,7 +49,7 @@ html, body {
     }
   }
   #tag-list {
-    padding-left: 15px;
+    padding-left: 19px;
 
     #tag-list-header {
       font-size: 16px;
@@ -57,7 +57,6 @@ html, body {
         color: #ffffff;
       }
     }
-
     ul {
       padding-right: 15px;
 
@@ -71,6 +70,9 @@ html, body {
           font-size: 15px;
         }
       }
+    }
+    .mCSB_inside > .mCSB_container {
+      margin-right: 20px;
     }
   }
 }
