@@ -64,10 +64,11 @@ html, body {
       li {
         span {
           display: block;
-          padding-left: 15px;
+          padding: 3px 0 0 15px;
           overflow: hidden;
           white-space  : nowrap;
           text-overflow: ellipsis;
+          font-size: 15px;
         }
       }
     }
