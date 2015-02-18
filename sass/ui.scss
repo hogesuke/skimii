@@ -31,7 +31,10 @@ html, body {
         border-left: solid 4px #ffffff;
       }
       &.active {
+        color: #204d74;
+        background-color: #ffffff;
         border-left: solid 4px #f59927;
+        border-right: solid 4px #204d74;
       }
     }
   }
