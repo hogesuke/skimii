@@ -52,12 +52,29 @@ html, body {
     padding-left: 19px;
 
     #tag-list-header {
+      overflow: hidden;
+      margin-bottom: 5px;
       font-size: 16px;
-      a {
-        color: #ffffff;
+
+      div {
+        float: left;
+      }
+
+      #tag-edit-link {
+        margin: 2px 0 0 10px;
+        padding: 1px 7px;
+        background-color: #ffffff;
+        border-radius: 20px;
+        font-size: 11px;
+
+        a {
+          color: #204d74;
+          text-decoration: none;
+        }
       }
     }
     ul {
+      clear: both;
       padding-right: 15px;
 
       li {
