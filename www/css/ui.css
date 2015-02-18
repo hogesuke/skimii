@@ -49,7 +49,7 @@ html, body { height: 100%; font-family: 'Lucida Grande','Hiragino Kaku Gothic Pr
 /* line 118, ../../sass/ui.scss */
 #content #entryboard .entry-list.small { width: 100%; max-width: 800px; min-width: 400px; }
 /* line 123, ../../sass/ui.scss */
-#content #entryboard .entry-list .mCSB_inside > .mCSB_container { margin-right: 30px; }
+#content #entryboard .entry-list .mCSB_inside > .mCSB_container { margin-right: 40px; }
 /* line 128, ../../sass/ui.scss */
 #content #entry-list-controll { margin-bottom: 10px; }
 /* line 131, ../../sass/ui.scss */
