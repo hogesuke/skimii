@@ -66,10 +66,18 @@ html, body {
         background-color: #ffffff;
         border-radius: 20px;
         font-size: 11px;
+        color: #204d74;
+        box-sizing: border-box;
 
-        a {
-          color: #204d74;
-          text-decoration: none;
+        &.active {
+          background-color: #f59927;
+        }
+        &:hover {
+          cursor: pointer;
+
+          &:not(.active) {
+            color: #f59927;
+          }
         }
       }
     }
