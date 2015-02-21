@@ -112,32 +112,22 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
     }]
 );
 
-techBookControllers.controller('EntryListController', ['$scope', '$routeParams', 'EntryService', 'LaterService', 'CheckService', 'SettingService',
-    function($scope, $routeParams, EntryService, LaterService, CheckService, SettingService) {
+techBookControllers.controller('EntryListController', ['$scope', '$routeParams', '$q', 'EntryService', 'LaterService', 'CheckService', 'SettingService',
+    function($scope, $routeParams, $q, EntryService, LaterService, CheckService, SettingService) {
       $scope.viewName = 'entry_list';
-      $scope.entries = [];
-      $scope.tag = $routeParams.tag;
-      $scope.page = 1;
-      $scope.loading = true;
-      $scope.completed = false;
-      var settings = null;
+      $scope.entries  = [];
+      $scope.tag      = $routeParams.tag;
+      $scope.page     = 0;
+      $scope.settings = null;
+      var deferred = $q.defer();
+      var prev     = deferred.promise;
 
-      SettingService.load().then(function(res) {
-        settings = res;
-        return EntryService.load($routeParams.tag, $scope.page);
-      }).then(function(entriesData) {
-        if (entriesData.sort === 'recent') {
-          var prevDate = '9999-99-99';
-          angular.forEach(entriesData.entries, function (entry) {
-            if (prevDate > entry.hotentry_date) {
-              entry.visibleDate = true;
-            }
-            prevDate = entry.hotentry_date;
-          });
-        }
-        $scope.entries = entriesData.entries;
-      }).finally(function() {
-        $scope.loading = false;
+      deferred.resolve();
+      prev = prev.then(function() {
+        return SettingService.load();
+      });
+      prev.then(function(res) {
+        $scope.settings = res;
       });
 
       $scope.toggleLater = function(lateredEntry) {
@@ -158,7 +148,17 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
         return EntryService.convertToHatebuUrl(url);
       };
       $scope.visibleEntry = function(entry) {
-        return settings.visible_marked == 1 || (!entry.checked && !entry.latered);
+        return $scope.settings.visible_marked == 1 || (!entry.checked && !entry.latered);
+      };
+
+      $scope.getViewSize = function(viewName) {
+        return localStorage.getItem(viewName + '.view_size') || 'small';
+      };
+      $scope.setViewSize = function(viewName, size) {
+        localStorage.setItem(viewName + '.view_size', size);
+      };
+      $scope.isRemovable = function() {
+        return !!$scope.viewName.match(/check_list|later_list/);
       };
     }]
 );
@@ -207,6 +207,7 @@ techBookControllers.controller('LaterListController', ['$scope', 'LaterService',
     }]
 );
 
+// todo これはあとで完全廃止する
 techBookControllers.controller('EntryViewController', ['$scope',
     function($scope) {
       $scope.getViewSize = function(viewName) {
