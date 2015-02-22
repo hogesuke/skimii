@@ -409,23 +409,43 @@ html, body {
   }
 
   #tag-select {
-    padding-left: 15px;
+    padding: 20px 30px;
 
+    #tag-select-header {
+      margin-bottom: 20px;
+      #title {
+        font-size: 28px;
+      }
+      #description {
+        font-size: 14px;
+        color: #808080;
+      }
+    }
+    #add-tag-form {
+      margin-bottom: 20px;
+
+      #input-tag-name {
+        width: 200px;
+      }
+    }
     #tag-select-list {
+      margin-bottom: 10px;
+      overflow: hidden;
 
       .tag {
         width: 200px;
         float: left;
         margin: 0 10px 10px 0;
         padding: 5px;
+        color: #909090;
         border: solid 1px #dfdfdf;
         border-radius: 5px;
         overflow: hidden;
         cursor: pointer;
 
         &.active {
-          background-color: #d2e2fb;
-          border: solid 1px #d2e2fb;
+          color: #204d74;
+          border: solid 1px #204d74;
         }
         .tag-option {
           position: relative;
@@ -519,5 +539,10 @@ html, body {
 
   .mCS-dark.mCSB_scrollTools .mCSB_draggerRail {
     background-color: #dfdfdf;
+  }
+
+  .checkbox-primary input[type="checkbox"]:checked + label::before {
+    background-color: #204d74;
+    border-color: #204d74;
   }
 }
