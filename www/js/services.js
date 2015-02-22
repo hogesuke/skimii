@@ -47,7 +47,6 @@ angular.module('TechBookApp').
         angular.forEach(tags, function(tag) {
           tag.encoded = encodeURI(tag.name);
         });
-        console.debug(tags);
         Tags.mine.length = 0;
         Tags.mine = tags;
       },

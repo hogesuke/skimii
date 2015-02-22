@@ -67,7 +67,7 @@
 
             if (entrylist_h - slidebar_h - top <= 0) {
               if (!scope.completed && !scope.loading) {
-                load(scope, $routeParams, EntryService);
+                load('list', scope, $routeParams.tag, ++scope.page, EntryService);
               }
             }
           }
@@ -153,12 +153,38 @@
         }
       };
     }).
+    directive('dashboardEntryRepeat', ['$routeParams', '$timeout','EntryService', function ($routeParams, $timeout, EntryService) {
+      return {
+        restrict: 'A',
+        link: function(scope, element) {
+          if (scope.$last) {
+            $timeout(function() {
+              if (!isFullCount()) {
+                var targetScope = scope.$parent.$parent;
+                load('dashboard', targetScope, targetScope.tag, ++targetScope.entriesData.page, EntryService);
+              }
+            }, 500);
+          }
+
+          function isFullCount() {
+            var $entry         = $(element);
+            var $entries       = $entry.parent('.entry-list').children('.entry');
+            var limitCount     = scope.settings.dashboard_count;
+            var visibleEntries = $entries.filter(function(i, entry) {
+              return $(entry).css('display') !== 'none';
+            });
+
+            return visibleEntries.size() >= limitCount;
+          }
+        }
+      };
+    }]).
     directive('entryList', ['$routeParams','EntryService', function ($routeParams, EntryService) {
       return {
         restrict: 'A',
         scope: false,
         link: function(scope) {
-          load(scope, $routeParams, EntryService);
+          load('list', scope, $routeParams.tag, ++scope.page, EntryService);
         }
       };
     }]).
@@ -169,7 +195,8 @@
           if (scope.$last) {
             $timeout(function() {
               if (unvisibleScrollBar()) {
-                load(scope.$parent.$parent, $routeParams, EntryService);
+                var targetScope = scope.$parent.$parent;
+                load('list', targetScope, $routeParams.tag, ++targetScope.page, EntryService);
               }
             }, 500);
           }
@@ -203,15 +230,34 @@
   );
 
   // ====== common functions ======
-  function load(scope, $routeParams, EntryService) {
-    scope.loading = true;
-    EntryService.load($routeParams.tag, ++scope.page).then(function(entriesData) {
-      setEntries(scope, entriesData);
+  function load(type, scope, tag, page, EntryService) {
+    if (type === 'dashboard') {
+      scope.entriesData.loading = true;
+    } else if (type === 'list') {
+      scope.loading = true;
+    }
+
+    EntryService.load(tag, page).then(function(entriesData) {
+      setEntries(type, scope, entriesData);
     }).finally(function() {
-      scope.loading = false;
+      if (type === 'dashboard') {
+        scope.entriesData.loading = false;
+      } else if (type === 'list') {
+        scope.loading = false;
+      }
     });
   }
-  function setEntries(scope, entriesData) {
+  function setEntries(type, scope, entriesData) {
+    if (type === 'dashboard') {
+      var limitCount      = scope.settings.dashboard_count;
+      var filteredEntries = entriesData.entries.filter(function(entry) {
+        return !entry.checked && !entry.latered;
+      });
+
+      scope.entriesData.entries = scope.entriesData.entries.concat(filteredEntries).slice(0, limitCount);
+      return;
+    }
+
     if (entriesData.completed) {
       scope.completed = true;
       return;
@@ -220,7 +266,7 @@
       var prevDate = scope.entries.pop() ? scope.entries.pop().hotentry_date : '9999-99-99';
       angular.forEach(entriesData.entries, function (entry) {
         // マーク済みのエントリを表示しない場合は、未マークのエントリのみを対象とする
-        if (scope.settings.visible_marked === 0 && (entry.chcked || entry.latered)) {
+        if (scope.settings.visible_marked === 0 && (entry.checked || entry.latered)) {
           return;
         }
         if (prevDate > entry.hotentry_date) {

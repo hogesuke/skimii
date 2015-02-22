@@ -25,13 +25,7 @@ get '/entry' do
   user = User.find(1)
   setting = user.setting
 
-  if page == 0
-    # dashboardのエントリ取得
-    entries_data = get_entries(params[:tag], page: 1, count: setting.dashboard_count)
-  else
-    # 各タグページのエントリ取得
-    entries_data = get_entries(params[:tag], page: page)
-  end
+  entries_data = get_entries(params[:tag], page)
 
   headers({'Content-Type' => 'application/json'})
   return entries_data.to_json
@@ -265,12 +259,13 @@ delete '/user/my/later' do
   user.later_entries.to_json
 end
 
-def get_entries(tag_name, count: 40, page: 1)
-  user = User.find(1)
-  setting = user.setting
+def get_entries(tag_name, page)
+  user       = User.find(1)
+  setting    = user.setting
   date_begin = (Date.today - setting.hotentry_days - 1).strftime("%Y-%m-%d")
-  date_end = Date.today.strftime("%Y-%m-%d")
-  sort = setting.sort == 0 ? 'recent' : 'popular'
+  date_end   = Date.today.strftime("%Y-%m-%d")
+  sort       = setting.sort == 0 ? 'recent' : 'popular'
+  count      = 40
 
   url = URI.parse(URI.escape(
                     "http://b.hatena.ne.jp/search/tag?" +
@@ -292,8 +287,6 @@ def get_entries(tag_name, count: 40, page: 1)
 
   if items.nil?
     return { entries: [], completed: true }
-  elsif items.length > count
-    items = items.slice(0, count)
   end
 
   check_entries = user.check_entries.where('checks.hotentry_date >= ?', date_begin).select('url')

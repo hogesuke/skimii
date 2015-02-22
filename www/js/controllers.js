@@ -75,8 +75,13 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
       }).then(function(tags) {
         angular.forEach(tags, function(tag) {
           $scope.allEntriesDatas[tag.name] = { entries: [], completed: false, loading: true };
-          EntryService.load(tag.name, 0).then(function(entriesData) {
+          EntryService.load(tag.name, 1).then(function(entriesData) {
             entriesData.loading = false;
+            entriesData.page    = 1;
+            entriesData.entries = entriesData.entries.filter(function(entry) {
+              return !entry.checked && !entry.latered;
+            }).slice(0, $scope.settings.dashboard_count);
+
             $scope.allEntriesDatas[tag.name] = entriesData;
           });
         });
