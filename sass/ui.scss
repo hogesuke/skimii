@@ -106,6 +106,18 @@ html, body {
   height: 100%;
   padding-left: 250px;
 
+  #view-header {
+    margin-bottom: 20px;
+
+    #view-title {
+      font-size: 28px;
+    }
+    #view-description {
+      font-size: 14px;
+      color: #808080;
+    }
+  }
+
   // todo 幅を極端に狭めたときの表示
   #dashboard {
     overflow: hidden;
@@ -411,16 +423,6 @@ html, body {
   #tag-select {
     padding: 20px 30px;
 
-    #tag-select-header {
-      margin-bottom: 20px;
-      #title {
-        font-size: 28px;
-      }
-      #description {
-        font-size: 14px;
-        color: #808080;
-      }
-    }
     #add-tag-form {
       margin-bottom: 20px;
 
@@ -469,11 +471,11 @@ html, body {
   }
 
   #settings {
-    padding: 10px;
+    padding: 20px 30px;
 
     .setting-note {
       font-size: 12px;
-      color: #999999;
+      color: #808080;
     }
   }
 
