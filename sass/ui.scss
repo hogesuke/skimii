@@ -110,7 +110,7 @@ html, body {
     margin-bottom: 20px;
 
     #view-title {
-      font-size: 28px;
+      font-size: 26px;
     }
     #view-description {
       font-size: 14px;
@@ -153,6 +153,12 @@ html, body {
     overflow: hidden;
     padding: 20px 5px 30px 30px;
 
+    .tag-name {
+      margin-bottom: 15px;
+      padding-left: 20px;
+      font-size: 26px;
+      border-left: solid 4px #f59927;
+    }
     .entry-list {
 
       &.small {
@@ -166,15 +172,15 @@ html, body {
     }
   }
   #entry-list-controll {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 
     .controll-button {
-      height: 34px;
       margin-right: 3px;
-      padding: 0 15px;
+      padding: 5px 10px;
       background-color: #ffffff;
       border: solid 1px #dfdfdf;
-      border-radius: 17px;
+      border-radius: 20px;
+      font-size: 12px;
       outline: none;
       color: #b2b2b2;
 
@@ -184,15 +190,10 @@ html, body {
         color: #ffffff;
       }
       &.active {
-        background-color: #76bd7c;
         border-color: #76bd7c;
-        color: #ffffff;
+        color: #76bd7c;
       }
     }
-  }
-  .tag-name {
-    margin-bottom: 15px;
-    font-size: 28px;
   }
   /* entry-list 共通 */
   .entry-list {
