@@ -151,9 +151,9 @@ html, body { height: 100%; font-family: 'Lucida Grande','Hiragino Kaku Gothic Pr
 /* line 397, ../../sass/ui.scss */
 #content .entry-list.large .entry .entry-footer .bookmarkcount { float: left; margin-top: 8px; padding: 0 7px 1px 7px; border: solid 1px #dfdfdf; border-radius: 5px; }
 /* line 404, ../../sass/ui.scss */
-#content .entry-list.large .entry .entry-footer .bookmarkcount a { font-size: 15px; color: #204d74; }
+#content .entry-list.large .entry .entry-footer .bookmarkcount a { font-size: 14px; color: #204d74; }
 /* line 408, ../../sass/ui.scss */
-#content .entry-list.large .entry .entry-footer .bookmarkcount a::after { content: " users"; font-size: 12px; }
+#content .entry-list.large .entry .entry-footer .bookmarkcount a::after { content: " users"; font-size: 11px; }
 /* line 415, ../../sass/ui.scss */
 #content .entry-list.large .entry .entry-footer .controll-button-container .controll-button { height: 32px; width: 32px; border-radius: 16px; }
 /* line 425, ../../sass/ui.scss */
