@@ -50,17 +50,17 @@
       </div>
     </div>
     <div class="form-group">
-      <label class="col-sm-4 col-md-4 control-label">既読・あとで読む エントリの表示</label>
+      <label class="col-sm-4 col-md-4 control-label">もう読んだ・あとで読む<br>エントリの表示</label>
       <div class="col-sm-4 col-md-3">
         <select class="form-control" ng-model="setting.visible_marked" ng-options="o.value as o.label for o in options.visibleMarkedEntry"></select>
       </div>
       <div class="setting-note col-sm-4 col-md-5">
-        <span>"既読・あとで読む"に登録したエントリを一覧に表示する？</span>
+        <span>"もう読んだ・あとで読む"に登録したエントリを一覧に表示する？</span>
       </div>
     </div>
     <div class="form-group">
-      <div class="col-sm-offset-4 col-sm-2 col-md-offset-4 col-md-2">
-        <input type="submit" class="btn btn-default" value="save">
+      <div class="col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-4">
+        <input type="submit" class="form-control btn btn-primary" value="save">
       </div>
     </div>
   </form>
