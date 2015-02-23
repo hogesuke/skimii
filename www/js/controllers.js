@@ -155,16 +155,6 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
       $scope.visibleEntry = function(entry) {
         return $scope.settings.visible_marked == 1 || (!entry.checked && !entry.latered);
       };
-
-      $scope.getViewSize = function(viewName) {
-        return localStorage.getItem(viewName + '.view_size') || 'small';
-      };
-      $scope.setViewSize = function(viewName, size) {
-        localStorage.setItem(viewName + '.view_size', size);
-      };
-      $scope.isRemovable = function() {
-        return !!$scope.viewName.match(/check_list|later_list/);
-      };
     }]
 );
 
@@ -208,21 +198,6 @@ techBookControllers.controller('LaterListController', ['$scope', 'LaterService',
       $scope.toggleCheck = function(checkedEntry) {
         CheckService.toggle($scope.entries, checkedEntry);
         LaterService.toggle($scope.entries, checkedEntry);
-      };
-    }]
-);
-
-// todo これはあとで完全廃止する
-techBookControllers.controller('EntryViewController', ['$scope',
-    function($scope) {
-      $scope.getViewSize = function(viewName) {
-        return localStorage.getItem(viewName + '.view_size') || 'small';
-      };
-      $scope.setViewSize = function(viewName, size) {
-        localStorage.setItem(viewName + '.view_size', size);
-      };
-      $scope.isRemovable = function() {
-        return !!$scope.viewName.match(/check_list|later_list/);
       };
     }]
 );

@@ -19,6 +19,22 @@
         }
       };
     }).
+    directive('entryBoard', function () {
+      return {
+        restrict: 'A',
+        link: function(scope) {
+          scope.getViewSize = function(viewName) {
+            return localStorage.getItem(viewName + '.view_size') || 'small';
+          };
+          scope.setViewSize = function(viewName, size) {
+            localStorage.setItem(viewName + '.view_size', size);
+          };
+          scope.isRemovable = function() {
+            return !!scope.viewName.match(/check_list|later_list/);
+          };
+        }
+      };
+    }).
     directive('entryListScrollbar', ['$routeParams', '$timeout', 'EntryService', function ($routeParams, $timeout, EntryService) {
       return {
         restrict: 'A',
@@ -182,7 +198,6 @@
     directive('entryList', ['$routeParams','EntryService', function ($routeParams, EntryService) {
       return {
         restrict: 'A',
-        scope: false,
         link: function(scope) {
           load('list', scope, $routeParams.tag, ++scope.page, EntryService);
         }
