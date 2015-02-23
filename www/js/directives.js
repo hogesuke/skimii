@@ -263,7 +263,8 @@
       return;
     }
     if (entriesData.sort === 'recent') {
-      var prevDate = scope.entries.pop() ? scope.entries.pop().hotentry_date : '9999-99-99';
+      var lastEntry = scope.entries[scope.entries.length - 1];
+      var prevDate  = lastEntry ? lastEntry.hotentry_date : '9999-99-99';
       angular.forEach(entriesData.entries, function (entry) {
         // マーク済みのエントリを表示しない場合は、未マークのエントリのみを対象とする
         if (scope.settings.visible_marked === 0 && (entry.checked || entry.latered)) {
