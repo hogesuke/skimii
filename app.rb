@@ -313,6 +313,8 @@ def get_entries(tag_name, page)
       favicon_url = $&
     end
 
+    next if not isValidItemElement(item)
+
     entries.push({
                    :title         => item['title'][0],
                    :url           => item['link'][0],
@@ -327,4 +329,14 @@ def get_entries(tag_name, page)
   }
 
   return { :entries => entries, :completed => completed, :sort => sort }
+end
+
+def isValidItemElement(item)
+  not(
+    item['title'].nil?       or
+    item['link'].nil?        or
+    item['description'].nil? or
+    item['date'].nil?        or
+    item['bookmarkcount'].nil?
+  )
 end
