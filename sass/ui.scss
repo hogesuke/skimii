@@ -12,9 +12,9 @@ html, body {
   width: 250px;
   height: 100%;
   min-height: 100%;
+  padding-top: 5px;
   position: absolute;
   overflow: hidden;
-  padding-top: 15px;
   background-color: #204d74;
   color: #ffffff;
   font-size: 16px;
@@ -37,6 +37,12 @@ html, body {
         border-right: solid 4px #204d74;
       }
     }
+  }
+  #logotype {
+    margin-bottom: 5px;
+    padding-left: 15px;
+    font-family: 'Alegreya Sans', sans-serif;
+    font-size: 38px;
   }
   #page-link-list {
     li {
