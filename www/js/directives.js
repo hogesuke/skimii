@@ -35,61 +35,78 @@
         }
       };
     }).
-    directive('entryListScrollbar', ['$routeParams', '$timeout', 'EntryService', function ($routeParams, $timeout, EntryService) {
-      return {
-        restrict: 'A',
-        link: function(scope, element) {
-          if ($('#entryboard [id$=_dragger_vertical]').length > 0) {
-            return;
-          }
+    directive('entryListScrollbar', ['$routeParams', '$timeout', 'EntryService', 'CheckService', 'LaterService',
+      function ($routeParams, $timeout, EntryService, CheckService, LaterService) {
+        return {
+          restrict: 'A',
+          link: function(scope, element, attrs) {
+            if ($('#entryboard [id$=_dragger_vertical]').length > 0) {
+              return;
+            }
 
-          var $el = $(element[0]);
+            var type = attrs.entryListScrollbar;
+            var $el  = $(element[0]);
 
-          // contentのloadが完了したのちentry-listのheightを設定
-          scope.$on('$includeContentLoaded', function() {
-            setHeight($el);
-
-            $(window).resize(function() {
+            // contentのloadが完了したのちentry-listのheightを設定
+            scope.$on('$includeContentLoaded', function() {
               setHeight($el);
+
+              $(window).resize(function() {
+                setHeight($el);
+              });
             });
-          });
 
-          $el.mCustomScrollbar({
-            theme        : 'dark',
-            scrollInertia: 100,
-            mouseWheel   : { scrollAmount: 100 },
-            advanced     : { updateOnImageLoad: false },
-            callbacks    : {
-              onInit: function() {
-                var $scrollbar = $('#entryboard [id$=_dragger_vertical]');
-                var $entryList = $('.entry-list');
-                var observer   = new MutationObserver(function() {doEvent($entryList, $scrollbar);});
-                observer.observe($scrollbar[0], {attributes : true, attributeFilter : ['style']});
+            $el.mCustomScrollbar({
+              theme        : 'dark',
+              scrollInertia: 100,
+              mouseWheel   : { scrollAmount: 100 },
+              advanced     : { updateOnImageLoad: false },
+              callbacks    : {
+                onInit: function() {
+                  var $scrollbar = $('#entryboard [id$=_dragger_vertical]');
+                  var $entryList = $('.entry-list');
+                  var observer   = new MutationObserver(function() {doEvent($entryList, $scrollbar);});
+                  observer.observe($scrollbar[0], {attributes : true, attributeFilter : ['style']});
+                }
+              }
+            });
+
+            function setHeight($el) {
+              var $header  = $el.siblings('#entry-list-header');
+              var header_h = $header.height();
+              var board_h  = $('#entryboard').height();
+
+              $el.height(board_h - header_h);
+            }
+            function doEvent($entryList, $scrollbar) {
+              var entrylist_h = $entryList.height();
+              var slidebar_h  = $scrollbar.height();
+              var top         = $scrollbar.css('top').replace('px', '');
+
+              if (entrylist_h - slidebar_h - top <= 0) {
+                if (!scope.completed && !scope.loading) {
+                  var service = null;
+                  switch(type) {
+                    case 'list':
+                      service = EntryService;
+                      break;
+                    case 'check':
+                      service = CheckService;
+                      break;
+                    case 'later':
+                      service = LaterService;
+                      break;
+                    default:
+                      return;
+                  }
+                  load(type, scope, $routeParams.tag, ++scope.page, service);
+                }
               }
             }
-          });
-
-          function setHeight($el) {
-            var $header  = $el.siblings('#entry-list-header');
-            var header_h = $header.height();
-            var board_h  = $('#entryboard').height();
-
-            $el.height(board_h - header_h);
           }
-          function doEvent($entryList, $scrollbar) {
-            var entrylist_h = $entryList.height();
-            var slidebar_h  = $scrollbar.height();
-            var top         = $scrollbar.css('top').replace('px', '');
-
-            if (entrylist_h - slidebar_h - top <= 0) {
-              if (!scope.completed && !scope.loading) {
-                load('list', scope, $routeParams.tag, ++scope.page, EntryService);
-              }
-            }
-          }
-        }
-      };
-    }]).
+        };
+      }
+    ]).
     directive('dashboardScrollbar', function () {
       return {
         restrict: 'A',
@@ -245,19 +262,20 @@
   );
 
   // ====== common functions ======
-  function load(type, scope, tag, page, EntryService) {
+  function load(type, scope, tag, page, service) {
     if (type === 'dashboard') {
       scope.entriesData.loading = true;
-    } else if (type === 'list') {
+    } else if (/list|check|later/.test(type)) {
       scope.loading = true;
     }
 
-    EntryService.load(tag, page).then(function(entriesData) {
+    var prev = tag ? service.load(tag, page) : service.load(page);
+    prev.then(function(entriesData) {
       setEntries(type, scope, entriesData);
     }).finally(function() {
       if (type === 'dashboard') {
         scope.entriesData.loading = false;
-      } else if (type === 'list') {
+      } else if (/list|check|later/.test(type)) {
         scope.loading = false;
       }
     });

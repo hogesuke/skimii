@@ -3,8 +3,8 @@
     <div ng-include="'../parts/entry_list_controll.part.html'"></div>
     <div class="tag-name">あとで読む</div>
   </div>
-  <div class="entry-list" ng-class="getViewSize(viewName)" entry-list-scrollbar>
-    <div class="entry" index="{{$index}}" ng-repeat="entry in entries" ng-include="'../parts/entry.part.html'">
+  <div class="entry-list" ng-class="getViewSize(viewName)" entry-list-scrollbar="later">
+    <div class="entry" index="{{$index}}" ng-repeat="entry in entries track by $index" ng-include="'../parts/entry.part.html'">
     </div>
     <!-- loading start -->
     <div class="loading" ng-show="loading">

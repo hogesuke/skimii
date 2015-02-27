@@ -21,8 +21,8 @@ ActiveRecord::Base.establish_connection('development')
 # todo tagは小文字変換して登録するようにすること
 
 get '/entry' do
-  page = params[:page].to_i
-  user = User.find(1)
+  page    = params[:page].to_i
+  user    = User.find(1)
   setting = user.setting
 
   entries_data = get_entries(params[:tag], page)
@@ -52,7 +52,7 @@ end
 
 post '/user/my/tag' do
   headers({'Content-Type' => 'application/json'})
-  params = JSON.parse(request.body.read)
+  params     = JSON.parse(request.body.read)
   param_tags = params['tags']
 
   if param_tags.size > 50
@@ -81,7 +81,7 @@ post '/user/my/tag' do
 end
 
 delete '/user/my/tag' do
-  params = JSON.parse(request.body.read)
+  params   = JSON.parse(request.body.read)
   tag_name = params['name']
   # todo OAuthを実装したらログインユーザで絞るように修正
   user = User.find(1)
@@ -95,16 +95,21 @@ end
 
 get '/user/my/check' do
   headers({'Content-Type' => 'application/json'})
+  page  = params['page'].to_i
+  count = 40
+
   # todo OAuthを実装したらログインユーザで絞るように修正
   entries = User.find(1).check_entries.
     select('entries.*, checks.hotentry_date').
+    limit(count).
+    offset(count * (page - 1)).
     order('checks.created_datetime DESC')
   entries.each do |e|
     e.checked = true
     e.latered = false
   end
 
-  return entries.to_json
+  return { :entries => entries, :completed => entries.empty?, :sort => 'recent' }.to_json
 end
 
 post '/user/my/check' do
@@ -168,20 +173,25 @@ end
 
 get '/user/my/later' do
   headers({'Content-Type' => 'application/json'})
-  user = User.find(1)
-  setting = user.setting
+  page       = params['page'].to_i
+  count      = 40
+  user       = User.find(1)
+  setting    = user.setting
   date_begin = (Date.today - setting.later_days - 1).strftime("%Y-%m-%d")
+
   # todo OAuthを実装したらログインユーザで絞るように修正
   entries = User.find(1).later_entries.
     where('laters.created_datetime >= ?', date_begin).
     select('entries.*, laters.hotentry_date').
+    limit(count).
+    offset(count * (page - 1)).
     order('laters.created_datetime DESC')
   entries.each do |e|
     e.latered = true
     e.checked = false
   end
 
-  return entries.to_json
+  return { :entries => entries, :completed => entries.empty?, :sort => 'recent' }.to_json
 end
 
 post '/user/my/later' do

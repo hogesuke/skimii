@@ -3,7 +3,7 @@
     <div ng-include="'../parts/entry_list_controll.part.html'"></div>
     <div class="tag-name">{{tag}}</div>
   </div>
-  <div class="entry-list" ng-class="getViewSize(viewName)" entry-list entry-list-scrollbar>
+  <div class="entry-list" ng-class="getViewSize(viewName)" entry-list entry-list-scrollbar="list">
     <div class="entry" ng-repeat="entry in entries" ng-show="::visibleEntry(entry)" ng-include="'../parts/entry.part.html'" entry-repeat></div>
     <!-- loading start -->
     <div class="loading" ng-show="loading">

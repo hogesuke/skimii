@@ -61,7 +61,7 @@ angular.module('TechBookApp').
         var deferred = $q.defer();
         $http({
           method: 'get',
-          url: '/api/entry' + '?page=' + page + '&tag=' + tag
+          url: '/api/entry?page=' + page + '&tag=' + tag
         }).success(function (res) {
           deferred.resolve(res);
         }).error(function () {
@@ -76,11 +76,11 @@ angular.module('TechBookApp').
   }]).
   factory('LaterService', ['$http', '$q', function($http, $q) {
     return {
-      all: function() {
+      load: function(page) {
         var deferred = $q.defer();
         $http({
           method: 'get',
-          url: '/api/user/my/later'
+          url: '/api/user/my/later?page=' + page
         }).success(function (res) {
           deferred.resolve(res);
         }).error(function () {
@@ -131,11 +131,11 @@ angular.module('TechBookApp').
   }]).
   factory('CheckService', ['$http', '$q', function($http, $q) {
     return {
-      all: function () {
+      load: function (page) {
         var deferred = $q.defer();
         $http({
           method: 'get',
-          url: '/api/user/my/check'
+          url: '/api/user/my/check?page=' + page
         }).success(function (res) {
           deferred.resolve(res);
         }).error(function () {

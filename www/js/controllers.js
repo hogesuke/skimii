@@ -158,15 +158,27 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
     }]
 );
 
-techBookControllers.controller('CheckListController', ['$scope', 'CheckService', 'LaterService',
-    function($scope, CheckService, LaterService) {
+techBookControllers.controller('CheckListController', ['$scope', '$q', 'CheckService', 'LaterService', 'SettingService',
+    function($scope, $q, CheckService, LaterService, SettingService) {
       $scope.viewName = 'check_list';
       $scope.loading  = true;
+      $scope.page     = 1;
+      var deferred    = $q.defer();
+      var prev        = deferred.promise;
 
-      CheckService.all().then(function(entries) {
-        $scope.entries = entries;
+      deferred.resolve();
+      prev = prev.then(function(res) {
+        $scope.settings = res;
+        return SettingService.load();
+      });
+      prev = prev.then(function() {
+        return CheckService.load($scope.page);
+      });
+      prev.then(function(entriesData) {
+        $scope.entries = entriesData.entries;
         $scope.loading = false;
       });
+
       $scope.remove = function(entry, index) {
         CheckService.remove(entry, index);
         entry.checked = false;
@@ -180,15 +192,27 @@ techBookControllers.controller('CheckListController', ['$scope', 'CheckService',
     }]
 );
 
-techBookControllers.controller('LaterListController', ['$scope', 'LaterService', 'CheckService',
-    function($scope, LaterService, CheckService) {
+techBookControllers.controller('LaterListController', ['$scope', '$q', 'LaterService', 'CheckService', 'SettingService',
+    function($scope, $q, LaterService, CheckService, SettingService) {
       $scope.viewName = 'later_list';
       $scope.loading  = true;
+      $scope.page     = 1;
+      var deferred    = $q.defer();
+      var prev        = deferred.promise;
 
-      LaterService.all().then(function(entries) {
-        $scope.entries = entries;
-        $scope.loading  = false;
+      deferred.resolve();
+      prev = prev.then(function() {
+        return SettingService.load();
       });
+      prev = prev.then(function(res) {
+        $scope.settings = res;
+        return LaterService.load($scope.page);
+      });
+      prev.then(function(entriesData) {
+        $scope.entries = entriesData.entries;
+        $scope.loading = false;
+      });
+
       $scope.remove = function(entry, index) {
         LaterService.remove(entry);
         entry.latered = false;
