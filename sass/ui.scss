@@ -41,8 +41,11 @@ html, body {
   #logotype {
     margin-bottom: 5px;
     padding-left: 15px;
+    padding-bottom: 2px;
     font-family: 'Alegreya Sans', sans-serif;
     font-size: 38px;
+    letter-spacing: 0.05em;
+    box-shadow: 0 1px rgba(255,255,255,0.08),0 -1px rgba(0,0,0,0.17) inset;
   }
   #page-link-list {
     li {
