@@ -167,11 +167,11 @@ techBookControllers.controller('CheckListController', ['$scope', '$q', 'CheckSer
       var prev        = deferred.promise;
 
       deferred.resolve();
-      prev = prev.then(function(res) {
-        $scope.settings = res;
+      prev = prev.then(function() {
         return SettingService.load();
       });
-      prev = prev.then(function() {
+      prev = prev.then(function(res) {
+        $scope.settings = res;
         return CheckService.load($scope.page);
       });
       prev.then(function(entriesData) {
