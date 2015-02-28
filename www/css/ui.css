@@ -93,7 +93,7 @@ html, body { height: 100%; font-family: 'Lucida Grande','Hiragino Kaku Gothic Pr
 /* line 253, ../../sass/ui.scss */
 #content .entry-list .entry .entry-footer .controll-button-container .controll-button:hover { background-color: #acacac; border-color: #acacac; color: #ffffff; }
 /* line 258, ../../sass/ui.scss */
-#content .entry-list .entry .entry-footer .controll-button-container .controll-button.check-button.active { background-color: #a4b4f3; border-color: #a4b4f3; color: #ffffff; }
+#content .entry-list .entry .entry-footer .controll-button-container .controll-button.check-button.active { background-color: #92c2f3; border-color: #92c2f3; color: #ffffff; }
 /* line 263, ../../sass/ui.scss */
 #content .entry-list .entry .entry-footer .controll-button-container .controll-button.later-button.active { background-color: #eb8692; border-color: #eb8692; color: #ffffff; }
 /* line 274, ../../sass/ui.scss */
