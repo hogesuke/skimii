@@ -118,7 +118,7 @@ angular.module('TechBookApp').
         var isToLatered = !lateredEntry.latered;
         angular.forEach(entries, function(entry) {
           if (entry.url === lateredEntry.url && entry.hotentry_date === lateredEntry.hotentry_date) {
-            entry.latered = !lateredEntry.latered;
+            entry.latered = isToLatered;
           }
         });
         if (isToLatered) {
@@ -173,7 +173,7 @@ angular.module('TechBookApp').
         var isToChecked = !checkedEntry.checked;
         angular.forEach(entries, function(entry) {
           if (entry.url === checkedEntry.url && entry.hotentry_date === checkedEntry.hotentry_date) {
-            entry.checked = !checkedEntry.checked;
+            entry.checked = isToChecked;
           }
         });
         if (isToChecked) {
