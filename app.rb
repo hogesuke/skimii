@@ -142,7 +142,7 @@ post '/user/my/check' do
   new_check.save!
 
   headers({'Content-Type' => 'application/json'})
-  User.find(1).check_entries.to_json
+  entry.to_json
 end
 
 delete '/user/my/check' do
@@ -168,7 +168,7 @@ delete '/user/my/check' do
   check.destroy
 
   headers({'Content-Type' => 'application/json'})
-  user.check_entries.to_json
+  entry.to_json
 end
 
 get '/user/my/later' do
@@ -224,23 +224,7 @@ post '/user/my/later' do
   new_later.save!
 
   headers({'Content-Type' => 'application/json'})
-  User.find(1).later_entries.to_json
-end
-
-get '/setting' do
-  headers({'Content-Type' => 'application/json'})
-  # todo OAuthを実装したらログインユーザで絞るように修正
-  return User.find(1).setting.to_json
-end
-
-put '/setting' do
-  input = JSON.parse(request.body.read)
-
-  setting = User.find(1).setting
-  setting.update_attributes!(input)
-
-  headers({'Content-Type' => 'application/json'})
-  User.find(1).setting
+  entry.to_json
 end
 
 delete '/user/my/later' do
@@ -266,7 +250,23 @@ delete '/user/my/later' do
   later.destroy
 
   headers({'Content-Type' => 'application/json'})
-  user.later_entries.to_json
+  entry.to_json
+end
+
+get '/setting' do
+  headers({'Content-Type' => 'application/json'})
+  # todo OAuthを実装したらログインユーザで絞るように修正
+  return User.find(1).setting.to_json
+end
+
+put '/setting' do
+  input = JSON.parse(request.body.read)
+
+  setting = User.find(1).setting
+  setting.update_attributes!(input)
+
+  headers({'Content-Type' => 'application/json'})
+  User.find(1).setting
 end
 
 def get_entries(tag_name, page)
