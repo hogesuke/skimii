@@ -18,7 +18,6 @@ ActiveRecord::Base.configurations = YAML.load_file('./db/database.yml')
 ActiveRecord::Base.establish_connection('development')
 
 # todo パラメータがちゃんと渡されてるかバリデーションすること
-# todo tagは小文字変換して登録するようにすること
 
 get '/entry' do
   page    = params[:page].to_i
@@ -323,7 +322,7 @@ def get_entries(tag_name, page)
       favicon_url = $&
     end
 
-    next if not isValidItemElement(item)
+    next if not isValidItem(item)
 
     entries.push({
                    :title         => item['title'][0],
@@ -341,7 +340,7 @@ def get_entries(tag_name, page)
   return { :entries => entries, :completed => completed, :sort => sort }
 end
 
-def isValidItemElement(item)
+def isValidItem(item)
   not(
     item['title'].nil?       or
     item['link'].nil?        or
