@@ -212,9 +212,9 @@ angular.module('TechBookApp').
         return deferred.promise;
       },
       options: {
-        bookmarkCount     : [ 1, 3, 5, 10, 30, 100 ],
-        hotentryDays      : [ 1, 3, 5, 10, 30, 100 ],
-        laterDays         : [ 1, 3, 5, 10, 30, 100 ],
+        bookmarkCount     : [ 1, 2, 3, 5, 7, 10, 20, 30, 50, 100 ],
+        hotentryDays      : [ 1, 2, 3, 5, 7, 10, 20, 30, 50, 100 ],
+        laterDays         : [ 1, 2, 3, 5, 7, 10, 20, 30, 50, 100 ],
         dashboardCount    : [ 5, 10, 15, 20 ],
         sort              : [ { value: 0, label: '新着順' }, { value: 1, label: '人気順' }],
         visibleMarkedEntry: [ { value: 0, label: '一覧に表示しない' }, { value: 1, label: '一覧に表示する' }]
