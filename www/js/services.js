@@ -4,6 +4,22 @@ angular.module('TechBookApp').
       mine: []
     };
   }]).
+  factory('AuthService', ['$http', '$q', function($http, $q) {
+    return {
+      getAuthUrl: function () {
+        var deferred = $q.defer();
+        $http({
+          method: 'post',
+          url   : '/api/auth'
+        }).success(function (res) {
+          deferred.resolve(res);
+        }).error(function () {
+          deferred.reject();
+        });
+        return deferred.promise;
+      }
+    }
+  }]).
   factory('TagService', ['$http', '$q', 'Tags', function($http, $q, Tags) {
     return {
       all: function() {

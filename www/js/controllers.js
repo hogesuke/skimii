@@ -10,6 +10,16 @@ techBookControllers.controller('BaseController', ['$scope', 'TagService',
   }]
 );
 
+techBookControllers.controller('AuthController', ['$scope', 'AuthService',
+    function($scope, AuthService) {
+      $scope.getAuthUrl = function() {
+        AuthService.getAuthUrl().then(function(res) {
+          location.href = res.auth_url;
+        });
+      };
+    }]
+);
+
 techBookControllers.controller('TagController', ['$scope', 'TagService', 'officialTags', 'mineTags',
   function($scope, TagService, officialTags, mineTags) {
     var originalTags = mineTags.filter(function(tag) {

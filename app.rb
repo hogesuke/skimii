@@ -7,6 +7,9 @@ require 'net/http'
 require 'xmlsimple'
 require 'json'
 require 'active_record'
+require 'twitter_oauth'
+require 'twitter'
+require 'pp'
 require_relative './model/user'
 require_relative './model/tag'
 require_relative './model/check'
@@ -17,7 +20,79 @@ require_relative './model/setting'
 ActiveRecord::Base.configurations = YAML.load_file('./db/database.yml')
 ActiveRecord::Base.establish_connection('development')
 
+configure :production, :development do
+  enable :sessions # todo expired_atの設定
+  set :session_secret, 'super secret' # todo あとで設定ファイルに切り出し
+end
+
+configure :development do
+  set :server, 'webrick'
+end
+
+# todo content-typeの設定、これを使えないか要確認
+# todo beforeでログインチェックを行う http://www.sinatrarb.com/intro-ja.html
+before %r{^/(?!auth).*$} do
+  pp 'authでない'
+end
+
+
 # todo パラメータがちゃんと渡されてるかバリデーションすること
+
+post '/auth' do
+  client = TwitterOAuth::Client.new(
+    :consumer_key    => 'T8COETdDSizplH0kXosTu6ZOW', # todo あとで設定ファイルに切り出し
+    :consumer_secret => 'Z4EiaqtkxcVnJvnhrhFVMoTSQPGmtJ9yTy2rEJHPPvKq9yoAOS'
+  )
+  request_token = client.request_token(:oauth_callback => 'http://localhost:4567/auth/callback')
+  auth_url      = request_token.authorize_url
+
+  session[:token]  = request_token.token
+  session[:secret] = request_token.secret
+
+  headers({'Content-Type' => 'application/json'})
+  return {:auth_url => auth_url}.to_json
+end
+
+get '/auth/callback' do
+
+  oauth_client = TwitterOAuth::Client.new(
+    :consumer_key    => 'T8COETdDSizplH0kXosTu6ZOW', # todo あとで設定ファイルに切り出し
+    :consumer_secret => 'Z4EiaqtkxcVnJvnhrhFVMoTSQPGmtJ9yTy2rEJHPPvKq9yoAOS'
+  )
+
+  access_token = oauth_client.authorize(
+    session[:token],
+    session[:secret],
+    :oauth_verifier => params[:oauth_verifier]
+  )
+
+  tw_client = Twitter::REST::Client.new do |config|
+    config.consumer_key       = 'T8COETdDSizplH0kXosTu6ZOW' # todo あとで設定ファイルに切り出し
+    config.consumer_secret    = 'Z4EiaqtkxcVnJvnhrhFVMoTSQPGmtJ9yTy2rEJHPPvKq9yoAOS'
+    config.oauth_token        = access_token.token
+    config.oauth_token_secret = access_token.secret
+  end
+
+  screen_name = access_token.params[:screen_name]
+  provider_id = access_token.params[:user_id]
+
+  user = User.where(:provider_id => provider_id)
+
+  if not user.exists?
+    login_user = tw_client.user(screen_name)
+
+    user               = User.new
+    user.provider_id   = provider_id
+    user.provider_name = 'twitter'
+    user.raw_name      = screen_name
+    user.name          = login_user.name
+    user.save!
+  end
+
+  session[:user_id] = user.id
+
+  redirect('http://localhost/') # todo あとで設定ファイルに切り出し
+end
 
 get '/entry' do
   page    = params[:page].to_i
