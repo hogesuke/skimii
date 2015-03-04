@@ -244,20 +244,23 @@ delete '/user/my/check' do
 end
 
 get '/user/my/later' do
-  headers({'Content-Type' => 'application/json'})
+  if @user.nil?
+    status(401)
+    return {err_msg: '認証が必要です'}.to_json
+  end
+
   page       = params['page'].to_i
   count      = 40
-  user       = User.find(1)
-  setting    = user.setting
+  setting    = @user.setting
   date_begin = (Date.today - setting.later_days - 1).strftime("%Y-%m-%d")
 
-  # todo OAuthを実装したらログインユーザで絞るように修正
-  entries = User.find(1).later_entries.
+  entries = @user.later_entries.
     where('laters.created_datetime >= ?', date_begin).
     select('entries.*, laters.hotentry_date').
     limit(count).
     offset(count * (page - 1)).
     order('laters.created_datetime DESC')
+
   entries.each do |e|
     e.latered = true
     e.checked = false
