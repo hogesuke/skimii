@@ -30,7 +30,6 @@ configure :development do
 end
 
 # todo content-typeの設定、これを使えないか要確認
-# todo beforeでログインチェックを行う http://www.sinatrarb.com/intro-ja.html
 before %r{^/(?!auth).*$} do
   headers({'Content-Type' => 'application/json'})
 
@@ -120,10 +119,12 @@ get '/tag' do
 end
 
 get '/user/my/tag' do
-  # todo OAuthを実装したらログインユーザで絞るように修正
-  tags = User.find(1).tags
+  if @user.nil?
+    tags = Tag.where(:official => '1')
+  else
+    tags = @user.tags
+  end
 
-  headers({'Content-Type' => 'application/json'})
   tags.to_json
 end
 
