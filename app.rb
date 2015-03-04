@@ -305,28 +305,27 @@ post '/user/my/later' do
 end
 
 delete '/user/my/later' do
-  latered_entry = JSON.parse(request.body.read)
+  if @user.nil?
+    status(401)
+    return {err_msg: '認証が必要です'}.to_json
+  end
 
-  # todo OAuthを実装したらログインユーザで絞るように修正
-  user = User.find(1)
+  latered_entry = JSON.parse(request.body.read)
 
   entry = Entry.where(:url => latered_entry['url']).first
   if entry.nil? then
     status(400)
-    headers({'Content-Type' => 'application/json'})
     return {:err_msg => 'エントリーが存在しません。'}.to_json
   end
 
-  later = user.laters.where({:entry_id => entry.id, :hotentry_date => latered_entry['hotentry_date']}).first
+  later = @user.laters.where({:entry_id => entry.id, :hotentry_date => latered_entry['hotentry_date']}).first
   if later.nil? then
     status(400)
-    headers({'Content-Type' => 'application/json'})
     return {:err_msg => 'このエントリーはあとで読むとして登録されていません。'}.to_json
   end
 
   later.destroy
 
-  headers({'Content-Type' => 'application/json'})
   entry.to_json
 end
 
