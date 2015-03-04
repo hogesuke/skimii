@@ -330,9 +330,12 @@ delete '/user/my/later' do
 end
 
 get '/setting' do
-  headers({'Content-Type' => 'application/json'})
-  # todo OAuthを実装したらログインユーザで絞るように修正
-  return User.find(1).setting.to_json
+  if @user.nil?
+    status(401)
+    return {err_msg: '認証が必要です'}.to_json
+  end
+
+  return @user.setting.to_json
 end
 
 put '/setting' do
