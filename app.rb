@@ -129,7 +129,11 @@ get '/user/my/tag' do
 end
 
 post '/user/my/tag' do
-  headers({'Content-Type' => 'application/json'})
+  if @user.nil?
+    status(401)
+    return {err_msg: '認証が必要です'}.to_json
+  end
+
   params     = JSON.parse(request.body.read)
   param_tags = params['tags']
 
@@ -138,11 +142,9 @@ post '/user/my/tag' do
     return {err_msg: 'タグの登録上限数を越えています。'}.to_json
   end
 
-  # todo OAuthを実装したらログインユーザで絞るように修正
-  user = User.find(1)
-  user.tags.delete_all
+  @user.tags.delete_all
 
-  param_tags.each{|param_tag|
+  param_tags.each {|param_tag|
     if Tag.exists?(:name => param_tag['name']) then
       tag = Tag.where(:name => param_tag['name']).first
     else
@@ -152,10 +154,10 @@ post '/user/my/tag' do
       tag.save!
     end
 
-    user.tags<<tag
+    @user.tags << tag
   }
 
-  user.tags.to_json
+  @user.tags.to_json
 end
 
 delete '/user/my/tag' do
