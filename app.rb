@@ -145,7 +145,7 @@ post '/user/my/tag' do
   @user.tags.delete_all
 
   param_tags.each {|param_tag|
-    if Tag.exists?(:name => param_tag['name']) then
+    if Tag.exists?(:name => param_tag['name'])
       tag = Tag.where(:name => param_tag['name']).first
     else
       tag = Tag.new
@@ -192,14 +192,14 @@ post '/user/my/check' do
   checked_entry = JSON.parse(request.body.read)
 
   entry = Entry.where(:url => checked_entry['url']).first
-  if not entry.nil? then
-    if Check.exists?({:user_id => @user.id, :entry_id => entry.id}) then
+  if not entry.nil?
+    if Check.exists?({:user_id => @user.id, :entry_id => entry.id})
       status(400)
       return {:err_msg => 'このエントリーは既にチェック済みとして登録されています。'}.to_json
     end
   end
 
-  if entry.nil? then
+  if entry.nil?
     entry               = Entry.new
     entry.url           = checked_entry['url']
     entry.title         = checked_entry['title']
@@ -219,28 +219,27 @@ post '/user/my/check' do
 end
 
 delete '/user/my/check' do
+  if @user.nil?
+    status(401)
+    return {err_msg: '認証が必要です'}.to_json
+  end
+
   checked_entry = JSON.parse(request.body.read)
 
-  # todo OAuthを実装したらログインユーザで絞るように修正
-  user = User.find(1)
-
   entry = Entry.where(:url => checked_entry['url']).first
-  if entry == nil then
+  if entry == nil
     status(400)
-    headers({'Content-Type' => 'application/json'})
     return {:err_msg => 'エントリーが存在しません。'}.to_json
   end
 
-  check = user.checks.where({:entry_id => entry.id, :hotentry_date => checked_entry['hotentry_date']}).first
-  if check.nil? then
+  check = @user.checks.where({:entry_id => entry.id, :hotentry_date => checked_entry['hotentry_date']}).first
+  if check.nil?
     status(400)
-    headers({'Content-Type' => 'application/json'})
     return {:err_msg => 'このエントリーはチェック済みとして登録されていません。'}.to_json
   end
 
   check.destroy
 
-  headers({'Content-Type' => 'application/json'})
   entry.to_json
 end
 
