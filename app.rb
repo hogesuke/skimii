@@ -331,21 +331,22 @@ end
 
 get '/setting' do
   if @user.nil?
+    return Setting.new.to_json
+  end
+
+  @user.setting.to_json
+end
+
+put '/setting' do
+  if @user.nil?
     status(401)
     return {err_msg: '認証が必要です'}.to_json
   end
 
-  return @user.setting.to_json
-end
-
-put '/setting' do
   input = JSON.parse(request.body.read)
+  @user.setting.update_attributes!(input)
 
-  setting = User.find(1).setting
-  setting.update_attributes!(input)
-
-  headers({'Content-Type' => 'application/json'})
-  User.find(1).setting
+  @user.setting.to_json
 end
 
 def get_entries(tag_name, page)
