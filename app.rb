@@ -32,9 +32,12 @@ end
 # todo content-typeの設定、これを使えないか要確認
 # todo beforeでログインチェックを行う http://www.sinatrarb.com/intro-ja.html
 before %r{^/(?!auth).*$} do
-  pp 'authでない'
-end
+  headers({'Content-Type' => 'application/json'})
 
+  if session[:user_id]
+    @user = User.find(session[:user_id])
+  end
+end
 
 # todo パラメータがちゃんと渡されてるかバリデーションすること
 
@@ -76,9 +79,9 @@ get '/auth/callback' do
   screen_name = access_token.params[:screen_name]
   provider_id = access_token.params[:user_id]
 
-  user = User.where(:provider_id => provider_id)
+  user = User.where(:provider_id => provider_id).first
 
-  if not user.exists?
+  if user.nil?
     login_user = tw_client.user(screen_name)
 
     user               = User.new
@@ -86,6 +89,8 @@ get '/auth/callback' do
     user.provider_name = 'twitter'
     user.raw_name      = screen_name
     user.name          = login_user.name
+    setting            = Setting.new
+    user.setting       = setting
     user.save!
   end
 
@@ -95,13 +100,11 @@ get '/auth/callback' do
 end
 
 get '/entry' do
-  page    = params[:page].to_i
-  user    = User.find(1)
-  setting = user.setting
+  page = params[:page].to_i
+  tag  = params[:tag]
 
-  entries_data = get_entries(params[:tag], page)
+  entries_data = get_entries(tag, page)
 
-  headers({'Content-Type' => 'application/json'})
   return entries_data.to_json
 end
 
@@ -344,8 +347,12 @@ put '/setting' do
 end
 
 def get_entries(tag_name, page)
-  user       = User.find(1)
-  setting    = user.setting
+  if @user.nil?
+    setting = Setting.new
+  else
+    setting = @user.setting
+  end
+
   date_begin = (Date.today - setting.hotentry_days - 1).strftime("%Y-%m-%d")
   date_end   = Date.today.strftime("%Y-%m-%d")
   sort       = setting.sort == 0 ? 'recent' : 'popular'
@@ -373,8 +380,12 @@ def get_entries(tag_name, page)
     return { entries: [], completed: true }
   end
 
-  check_entries = user.check_entries.where('checks.hotentry_date >= ?', date_begin).select('url')
-  later_entries = user.later_entries.where('laters.hotentry_date >= ?', date_begin).select('url')
+  check_entries = []
+  later_entries = []
+  if not @user.nil?
+    check_entries = @user.check_entries.where('checks.hotentry_date >= ?', date_begin).select('url')
+    later_entries = @user.later_entries.where('laters.hotentry_date >= ?', date_begin).select('url')
+  end
 
   checked_urls = []
   check_entries.each do |c|
