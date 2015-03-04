@@ -270,35 +270,37 @@ get '/user/my/later' do
 end
 
 post '/user/my/later' do
+  if @user.nil?
+    status(401)
+    return {err_msg: '認証が必要です'}.to_json
+  end
+
   latered_entry = JSON.parse(request.body.read)
 
   entry = Entry.where(:url => latered_entry['url']).first
-  if entry != nil then
-    if Later.exists?({:user_id => 1, :entry_id => entry.id}) then
+  if entry != nil
+    if Later.exists?({:user_id => @user.id, :entry_id => entry.id})
       status(400)
-      headers({'Content-Type' => 'application/json'})
       return {:err_msg => 'このエントリーは既にあとで読むとして登録されています。'}.to_json
     end
   end
 
-  if entry.nil? then
-    entry = Entry.new
-    entry.url = latered_entry['url']
-    entry.title = latered_entry['title']
-    entry.description = latered_entry['description']
+  if entry.nil?
+    entry               = Entry.new
+    entry.url           = latered_entry['url']
+    entry.title         = latered_entry['title']
+    entry.description   = latered_entry['description']
     entry.thumbnail_url = latered_entry['thumbnail_url']
-    entry.favicon_url = latered_entry['favicon_url']
+    entry.favicon_url   = latered_entry['favicon_url']
     entry.save!
   end
 
-  # todo OAuthを実装したらログインユーザで絞るように修正
-  new_later = Later.new
-  new_later.user_id = 1
-  new_later.entry_id = entry.id
+  new_later               = Later.new
+  new_later.user_id       = @user.id
+  new_later.entry_id      = entry.id
   new_later.hotentry_date = latered_entry['hotentry_date']
   new_later.save!
 
-  headers({'Content-Type' => 'application/json'})
   entry.to_json
 end
 
