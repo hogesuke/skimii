@@ -160,19 +160,6 @@ post '/user/my/tag' do
   @user.tags.to_json
 end
 
-delete '/user/my/tag' do
-  params   = JSON.parse(request.body.read)
-  tag_name = params['name']
-  # todo OAuthを実装したらログインユーザで絞るように修正
-  user = User.find(1)
-
-  tag = Tag.where(:name => tag_name)
-  user.tags.destroy(tag)
-
-  headers({'Content-Type' => 'application/json'})
-  user.tags.to_json
-end
-
 get '/user/my/check' do
   headers({'Content-Type' => 'application/json'})
   page  = params['page'].to_i
