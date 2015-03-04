@@ -184,35 +184,37 @@ get '/user/my/check' do
 end
 
 post '/user/my/check' do
+  if @user.nil?
+    status(401)
+    return {err_msg: '認証が必要です'}.to_json
+  end
+
   checked_entry = JSON.parse(request.body.read)
 
   entry = Entry.where(:url => checked_entry['url']).first
   if not entry.nil? then
-    if Check.exists?({:user_id => 1, :entry_id => entry.id}) then
+    if Check.exists?({:user_id => @user.id, :entry_id => entry.id}) then
       status(400)
-      headers({'Content-Type' => 'application/json'})
       return {:err_msg => 'このエントリーは既にチェック済みとして登録されています。'}.to_json
     end
   end
 
   if entry.nil? then
-    entry = Entry.new
-    entry.url = checked_entry['url']
-    entry.title = checked_entry['title']
-    entry.description = checked_entry['description']
+    entry               = Entry.new
+    entry.url           = checked_entry['url']
+    entry.title         = checked_entry['title']
+    entry.description   = checked_entry['description']
     entry.thumbnail_url = checked_entry['thumbnail_url']
-    entry.favicon_url = checked_entry['favicon_url']
+    entry.favicon_url   = checked_entry['favicon_url']
     entry.save!
   end
 
-  # todo OAuthを実装したらログインユーザで絞るように修正
-  new_check = Check.new
-  new_check.user_id = 1
-  new_check.entry_id = entry.id
+  new_check               = Check.new
+  new_check.user_id       = @user.id
+  new_check.entry_id      = entry.id
   new_check.hotentry_date = checked_entry['hotentry_date']
   new_check.save!
 
-  headers({'Content-Type' => 'application/json'})
   entry.to_json
 end
 
