@@ -161,16 +161,20 @@ post '/user/my/tag' do
 end
 
 get '/user/my/check' do
-  headers({'Content-Type' => 'application/json'})
+  if @user.nil?
+    status(401)
+    return {err_msg: '認証が必要です'}.to_json
+  end
+
   page  = params['page'].to_i
   count = 40
 
-  # todo OAuthを実装したらログインユーザで絞るように修正
-  entries = User.find(1).check_entries.
+  entries = @user.check_entries.
     select('entries.*, checks.hotentry_date').
     limit(count).
     offset(count * (page - 1)).
     order('checks.created_datetime DESC')
+
   entries.each do |e|
     e.checked = true
     e.latered = false
