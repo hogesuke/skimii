@@ -38,8 +38,6 @@ before %r{^/(?!auth).*$} do
   end
 end
 
-# todo パラメータがちゃんと渡されてるかバリデーションすること
-
 post '/auth' do
   client = TwitterOAuth::Client.new(
     :consumer_key    => 'T8COETdDSizplH0kXosTu6ZOW', # todo あとで設定ファイルに切り出し
