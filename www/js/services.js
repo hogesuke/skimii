@@ -17,6 +17,18 @@ angular.module('TechBookApp').
           deferred.reject();
         });
         return deferred.promise;
+      },
+      getStatus: function () {
+        var deferred = $q.defer();
+        $http({
+          method: 'get',
+          url   : '/api/auth/status'
+        }).success(function (res) {
+          deferred.resolve(res);
+        }).error(function () {
+          deferred.reject();
+        });
+        return deferred.promise;
       }
     }
   }]).
