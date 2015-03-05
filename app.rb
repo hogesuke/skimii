@@ -96,6 +96,16 @@ get '/auth/callback' do
   redirect('http://localhost/') # todo あとで設定ファイルに切り出し
 end
 
+get '/auth/status' do
+  if session[:user_no]
+    status(200)
+    return {err_msg: '認証済みです'}.to_json
+  else
+    status(401)
+    return {err_msg: '未認証です'}.to_json
+  end
+end
+
 get '/entry' do
   page = params[:page].to_i
   tag  = params[:tag]
