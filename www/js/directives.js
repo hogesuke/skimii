@@ -245,13 +245,12 @@
         link: function(scope, element) {
 
           element.bind('click', function() {
-            var entries      = scope.entries;
-            var checkedEntry = entries[scope.$index];
+            var entries      = getEntries(scope);
+            var checkedEntry = getOwnEntry(scope);
 
             CheckService.toggle(entries, checkedEntry);
             if (checkedEntry.latered) {
-              checkedEntry.latered = false;
-              LaterService.remove(checkedEntry);
+              LaterService.toggle(entries, checkedEntry);
             }
           });
         }
@@ -263,13 +262,12 @@
         link: function(scope, element) {
 
           element.bind('click', function() {
-            var entries      = scope.entries;
-            var lateredEntry = entries[scope.$index];
+            var entries      = getEntries(scope);
+            var lateredEntry = getOwnEntry(scope);
 
             LaterService.toggle(entries, lateredEntry);
             if (lateredEntry.checked) {
-              lateredEntry.checked = false;
-              CheckService.remove(lateredEntry);
+              CheckService.toggle(entries, lateredEntry);
             }
           });
         }
@@ -347,5 +345,25 @@
     }
 
     scope.entries = scope.entries.concat(entriesData.entries);
+  }
+
+  function getEntries(scope) {
+    if (scope.viewName === 'dashboard') {
+      var joinedEntries = [];
+      angular.forEach(scope.allEntriesDatas, function(entriesData) {
+        joinedEntries = joinedEntries.concat(entriesData.entries);
+      });
+      return joinedEntries;
+    } else {
+      return scope.entries;
+    }
+  }
+  function getOwnEntry(scope) {
+    if (scope.viewName === 'dashboard') {
+      return scope.entriesData.entries[scope.$index];
+    } else {
+      var entries = getEntries(scope);
+      return entries[scope.$index];
+    }
   }
 })();

@@ -86,6 +86,7 @@ techBookControllers.controller('TagController', ['$scope', '$q', 'authStatus', '
 
 techBookControllers.controller('DashboardController', ['$scope', 'TagService', 'EntryService', 'LaterService', 'CheckService', 'SettingService',
     function($scope, TagService, EntryService, LaterService, CheckService, SettingService) {
+      $scope.viewName        = 'dashboard';
       $scope.allEntriesDatas = {};
 
       SettingService.load().then(function(res) {
@@ -105,28 +106,7 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
           });
         });
       });
-      $scope.toggleLater = function(lateredEntry) {
-        var joinedEntries = [];
-        angular.forEach($scope.allEntriesDatas, function(entriesData) {
-          joinedEntries = joinedEntries.concat(entriesData.entries);
-        });
-        LaterService.toggle(joinedEntries, lateredEntry);
-        if (lateredEntry.checked) {
-          // laterにマークされたのでcheckは削除
-          CheckService.toggle(joinedEntries, lateredEntry);
-        }
-      };
-      $scope.toggleCheck = function(checkedEntry) {
-        var joinedEntries = [];
-        angular.forEach($scope.allEntriesDatas, function(entriesData) {
-          joinedEntries = joinedEntries.concat(entriesData.entries);
-        });
-        CheckService.toggle(joinedEntries, checkedEntry);
-        if (checkedEntry.latered) {
-          // checkにマークされたのでlaterは削除
-          LaterService.toggle(joinedEntries, checkedEntry);
-        }
-      };
+
       $scope.convertToHatebuUrl = function(url) {
         return EntryService.convertToHatebuUrl(url);
       };
@@ -165,11 +145,11 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
 
 techBookControllers.controller('CheckListController', ['$scope', '$q', 'authStatus', 'CheckService', 'LaterService', 'SettingService',
     function($scope, $q, authStatus, CheckService, LaterService, SettingService) {
-      $scope.viewName   = 'check_list';
-      $scope.loading    = true;
-      $scope.page       = 1;
-      var deferred      = $q.defer();
-      var prev          = deferred.promise;
+      $scope.viewName = 'check_list';
+      $scope.loading  = true;
+      $scope.page     = 1;
+      var deferred    = $q.defer();
+      var prev        = deferred.promise;
 
       // todo directiveに移動させる
       if (authStatus.is_authed) {
