@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <script src="js/lib/angular.min.js"></script>
   <script src="js/lib/angular-route.min.js"></script>
-  <script src="js/lib/ui-bootstrap-0.12.0.min.js"></script>
   <script src="js/lib/jquery.min.js"></script>
   <script src="js/lib/jquery.mCustomScrollbar.concat.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/lib/ui-bootstrap-0.12.0.min.js"></script>
   <script src="js/app.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/services.js"></script>
@@ -24,5 +25,8 @@
 <body ng-controller="BaseController">
 <div id="sidebar" ng-include="'templates/sidebar.tmpl.html'"></div>
 <div id="content" ng-view></div>
+
+<!-- login-modal -->
+<div ng-include="'../parts/login_modal.part.html'"></div>
 </body>
 </html>

@@ -66,6 +66,11 @@ techBookControllers.controller('TagController', ['$scope', '$q', 'authStatus', '
 
     // タグの登録
     $scope.save = function() {
+      if (!authStatus.is_authed) {
+        $('#login-modal').modal();
+        return;
+      }
+
       var checkedTags = $scope.tags.filter(function(tag) {
         return !!tag.checked;
       });
@@ -146,28 +151,28 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
 techBookControllers.controller('CheckListController', ['$scope', '$q', 'authStatus', 'CheckService', 'LaterService', 'SettingService',
     function($scope, $q, authStatus, CheckService, LaterService, SettingService) {
       $scope.viewName = 'check_list';
-      $scope.loading  = true;
       $scope.page     = 1;
+
+      if (!authStatus.is_authed) {
+        $('#login-modal').modal();
+        return;
+      }
+
       var deferred    = $q.defer();
       var prev        = deferred.promise;
-
-      // todo directiveに移動させる
-      if (authStatus.is_authed) {
-        deferred.resolve();
-        prev = prev.then(function () {
-          return SettingService.load();
-        });
-        prev = prev.then(function (res) {
-          $scope.settings = res;
-          return CheckService.load($scope.page);
-        });
-        prev.then(function (entriesData) {
-          $scope.entries = entriesData.entries;
-          $scope.loading = false;
-        });
-      } else {
+      deferred.resolve();
+      prev = prev.then(function () {
+        $scope.loading = true;
+        return SettingService.load();
+      });
+      prev = prev.then(function (res) {
+        $scope.settings = res;
+        return CheckService.load($scope.page);
+      });
+      prev.then(function (entriesData) {
+        $scope.entries = entriesData.entries;
         $scope.loading = false;
-      }
+      });
 
       $scope.remove = function(entry, index) {
         CheckService.remove(entry, index);
@@ -180,27 +185,28 @@ techBookControllers.controller('CheckListController', ['$scope', '$q', 'authStat
 techBookControllers.controller('LaterListController', ['$scope', '$q', 'authStatus', 'LaterService', 'CheckService', 'SettingService',
     function($scope, $q, authStatus, LaterService, CheckService, SettingService) {
       $scope.viewName = 'later_list';
-      $scope.loading  = true;
       $scope.page     = 1;
+
+      if (!authStatus.is_authed) {
+        $('#login-modal').modal();
+        return;
+      }
+
       var deferred    = $q.defer();
       var prev        = deferred.promise;
-
-      if (authStatus.is_authed) {
-        deferred.resolve();
-        prev = prev.then(function () {
-          return SettingService.load();
-        });
-        prev = prev.then(function (res) {
-          $scope.settings = res;
-          return LaterService.load($scope.page);
-        });
-        prev.then(function (entriesData) {
-          $scope.entries = entriesData.entries;
-          $scope.loading = false;
-        });
-      } else {
+      deferred.resolve();
+      prev = prev.then(function () {
+        $scope.loading = true;
+        return SettingService.load();
+      });
+      prev = prev.then(function (res) {
+        $scope.settings = res;
+        return LaterService.load($scope.page);
+      });
+      prev.then(function (entriesData) {
+        $scope.entries = entriesData.entries;
         $scope.loading = false;
-      }
+      });
 
       $scope.remove = function(entry, index) {
         LaterService.remove(entry);
@@ -222,6 +228,11 @@ techBookControllers.controller('SettingController', ['$scope', 'authStatus', 'Se
       });
 
       $scope.save = function() {
+        if (!authStatus.is_authed) {
+          $('#login-modal').modal();
+          return;
+        }
+
         SettingService.save($scope.setting);
       };
 
