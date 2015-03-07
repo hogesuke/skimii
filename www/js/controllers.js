@@ -56,9 +56,9 @@ techBookControllers.controller('TagController', ['$scope', '$q', 'authStatus', '
       });
       if (!isDuplicated) {
         $scope.tags.push({
-          name: originalTag.name,
+          name    : originalTag.name,
           official: 0,
-          checked: true
+          checked : true
         })
       }
       $scope.tag.name = '';
