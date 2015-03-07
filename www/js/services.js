@@ -34,11 +34,11 @@ angular.module('TechBookApp').
   }]).
   factory('TagService', ['$http', '$q', 'Tags', function($http, $q, Tags) {
     return {
-      all: function() {
+      loadOfficial: function() {
         var deferred = $q.defer();
         $http({
           method: 'get',
-          url: '/api/tag'
+          url: '/api/tag/official'
         }).success(function (res) {
           deferred.resolve(res);
         }).error(function () {
@@ -46,7 +46,7 @@ angular.module('TechBookApp').
         });
         return deferred.promise;
       },
-      mine: function() {
+      loadMine: function() {
         var deferred = $q.defer();
         $http({
           method: 'get',

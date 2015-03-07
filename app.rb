@@ -98,11 +98,9 @@ end
 
 get '/auth/status' do
   if session[:user_no]
-    status(200)
-    return {err_msg: '認証済みです'}.to_json
+    return {is_authed: true,  msg: '認証済みです'}.to_json
   else
-    status(401)
-    return {err_msg: '未認証です'}.to_json
+    return {is_authed: false, msg: '未認証です'}.to_json
   end
 end
 
@@ -119,7 +117,7 @@ get '/user/me' do
   # todo ログインユーザ情報の取得
 end
 
-get '/tag' do
+get '/tag/official' do
   tags = Tag.where(:official => '1')
 
   headers({'Content-Type' => 'application/json'})

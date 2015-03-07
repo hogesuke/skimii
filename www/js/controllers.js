@@ -3,7 +3,7 @@ var techBookControllers = angular.module('techBookControllers', ['ui.bootstrap']
 techBookControllers.controller('BaseController', ['$scope', 'TagService',
   function($scope, TagService) {
     // todo このタグの実装要見直し
-    TagService.mine().then(function(tags) {
+    TagService.loadMine().then(function(tags) {
       TagService.setTags(tags);
       $scope.tags = TagService.getTags();
     });
@@ -20,20 +20,29 @@ techBookControllers.controller('AuthController', ['$scope', 'AuthService',
     }]
 );
 
-techBookControllers.controller('TagController', ['$scope', 'TagService', 'officialTags', 'mineTags',
-  function($scope, TagService, officialTags, mineTags) {
-    var originalTags = mineTags.filter(function(tag) {
-      return tag.official === "0";
-    });
-    $scope.tags = officialTags.concat(originalTags);
+techBookControllers.controller('TagController', ['$scope', '$q', 'authStatus', 'TagService',
+  function($scope, $q, authStatus, TagService) {
+    $scope.loading = true;
 
-    $scope.tags.forEach(function(tag) {
-      mineTags.forEach(function(mineTag) {
-        if (mineTag.name === tag.name) {
-          tag.checked = true;
-          return false;
-        }
+    $q.all([TagService.loadOfficial(), TagService.loadMine()]).then(function (res) {
+      var officialTags = res[0];
+      var mineTags     = res[1];
+
+      var originalTags = mineTags.filter(function (tag) {
+        return tag.official === "0";
       });
+      $scope.tags = officialTags.concat(originalTags);
+
+      $scope.tags.forEach(function (tag) {
+        mineTags.forEach(function (mineTag) {
+          if (mineTag.name === tag.name) {
+            tag.checked = true;
+            return false;
+          }
+        });
+      });
+    }).finally(function() {
+      $scope.loading = false;
     });
 
     // タグの追加
@@ -81,7 +90,7 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
 
       SettingService.load().then(function(res) {
         $scope.settings = res;
-        return TagService.mine();
+        return TagService.loadMine();
       }).then(function(tags) {
         angular.forEach(tags, function(tag) {
           $scope.allEntriesDatas[tag.name] = { entries: [], completed: false, loading: true };
@@ -168,26 +177,31 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
     }]
 );
 
-techBookControllers.controller('CheckListController', ['$scope', '$q', 'CheckService', 'LaterService', 'SettingService',
-    function($scope, $q, CheckService, LaterService, SettingService) {
-      $scope.viewName = 'check_list';
-      $scope.loading  = true;
-      $scope.page     = 1;
-      var deferred    = $q.defer();
-      var prev        = deferred.promise;
+techBookControllers.controller('CheckListController', ['$scope', '$q', 'authStatus', 'CheckService', 'LaterService', 'SettingService',
+    function($scope, $q, authStatus, CheckService, LaterService, SettingService) {
+      $scope.viewName   = 'check_list';
+      $scope.loading    = true;
+      $scope.page       = 1;
+      var deferred      = $q.defer();
+      var prev          = deferred.promise;
 
-      deferred.resolve();
-      prev = prev.then(function() {
-        return SettingService.load();
-      });
-      prev = prev.then(function(res) {
-        $scope.settings = res;
-        return CheckService.load($scope.page);
-      });
-      prev.then(function(entriesData) {
-        $scope.entries = entriesData.entries;
+      // todo directiveに移動させる
+      if (authStatus.isAuthed) {
+        deferred.resolve();
+        prev = prev.then(function () {
+          return SettingService.load();
+        });
+        prev = prev.then(function (res) {
+          $scope.settings = res;
+          return CheckService.load($scope.page);
+        });
+        prev.then(function (entriesData) {
+          $scope.entries = entriesData.entries;
+          $scope.loading = false;
+        });
+      } else {
         $scope.loading = false;
-      });
+      }
 
       $scope.remove = function(entry, index) {
         CheckService.remove(entry, index);
@@ -202,26 +216,30 @@ techBookControllers.controller('CheckListController', ['$scope', '$q', 'CheckSer
     }]
 );
 
-techBookControllers.controller('LaterListController', ['$scope', '$q', 'LaterService', 'CheckService', 'SettingService',
-    function($scope, $q, LaterService, CheckService, SettingService) {
+techBookControllers.controller('LaterListController', ['$scope', '$q', 'authStatus', 'LaterService', 'CheckService', 'SettingService',
+    function($scope, $q, authStatus, LaterService, CheckService, SettingService) {
       $scope.viewName = 'later_list';
       $scope.loading  = true;
       $scope.page     = 1;
       var deferred    = $q.defer();
       var prev        = deferred.promise;
 
-      deferred.resolve();
-      prev = prev.then(function() {
-        return SettingService.load();
-      });
-      prev = prev.then(function(res) {
-        $scope.settings = res;
-        return LaterService.load($scope.page);
-      });
-      prev.then(function(entriesData) {
-        $scope.entries = entriesData.entries;
+      if (authStatus.isAuthed) {
+        deferred.resolve();
+        prev = prev.then(function () {
+          return SettingService.load();
+        });
+        prev = prev.then(function (res) {
+          $scope.settings = res;
+          return LaterService.load($scope.page);
+        });
+        prev.then(function (entriesData) {
+          $scope.entries = entriesData.entries;
+          $scope.loading = false;
+        });
+      } else {
         $scope.loading = false;
-      });
+      }
 
       $scope.remove = function(entry, index) {
         LaterService.remove(entry);
@@ -241,8 +259,8 @@ techBookControllers.controller('SidebarController', ['$scope', 'TagService',
     }]
 );
 
-techBookControllers.controller('SettingController', ['$scope', 'SettingService',
-    function($scope, SettingService) {
+techBookControllers.controller('SettingController', ['$scope', 'authStatus', 'SettingService',
+    function($scope, authStatus, SettingService) {
       SettingService.load().then(function(setting) {
         $scope.setting = setting;
       });

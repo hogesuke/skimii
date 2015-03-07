@@ -13,38 +13,47 @@ techBookApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
     $routeProvider.
       when('/', {
         templateUrl: '../templates/entry_dashboard.tmpl.html',
-        controller: 'DashboardController'
+        controller : 'DashboardController'
       }).
       when('/entry/:tag', {
         templateUrl: '../templates/entry_list.tmpl.html',
-        controller: 'EntryListController'
+        controller : 'EntryListController'
       }).
       when('/check', {
         templateUrl: '../templates/check_list.tmpl.html',
-        controller: 'CheckListController'
+        controller : 'CheckListController',
+        resolve    : {
+          authStatus : function(AuthService) {
+            return AuthService.getStatus();
+          }
+        }
       }).
       when('/later', {
         templateUrl: '../templates/later_list.tmpl.html',
-        controller: 'LaterListController'
+        controller : 'LaterListController',
+        resolve    : {
+          authStatus : function(AuthService) {
+            return AuthService.getStatus();
+          }
+        }
       }).
       when('/tag', {
         templateUrl: '../templates/tag_select.tmpl.html',
-        controller: 'TagController',
-        resolve: {
-          TagService: 'TagService',
-          officialTags: function(TagService) {
-            // todo ロード中の画面表示どうしようね…
-            return TagService.all();
-          },
-          mineTags: function(TagService) {
-            // todo ロード中の画面表示どうしようね…
-            return TagService.mine();
+        controller : 'TagController',
+        resolve    : {
+          authStatus : function(AuthService) {
+            return AuthService.getStatus();
           }
         }
       }).
       when('/setting', {
         templateUrl: '../templates/setting.tmpl.html',
-        controller: 'SettingController'
+        controller : 'SettingController',
+        resolve    : {
+          authStatus : function(AuthService) {
+            return AuthService.getStatus();
+          }
+        }
       }).
       otherwise({
         redirectTo: '/'
