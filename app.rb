@@ -97,7 +97,7 @@ get '/auth/callback' do
 end
 
 get '/auth/status' do
-  if session[:user_no]
+  if session[:user_id]
     return {is_authed: true,  msg: '認証済みです'}.to_json
   else
     return {is_authed: false, msg: '未認証です'}.to_json

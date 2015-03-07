@@ -154,20 +154,6 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
         $scope.settings = res;
       });
 
-      $scope.toggleLater = function(lateredEntry) {
-        LaterService.toggle($scope.entries, lateredEntry);
-        if (lateredEntry.checked) {
-          lateredEntry.checked = false;
-          CheckService.remove(lateredEntry);
-        }
-      };
-      $scope.toggleCheck = function(checkedEntry) {
-        CheckService.toggle($scope.entries, checkedEntry);
-        if (checkedEntry.latered) {
-          checkedEntry.latered = false;
-          LaterService.remove(checkedEntry);
-        }
-      };
       $scope.convertToHatebuUrl = function(url) {
         return EntryService.convertToHatebuUrl(url);
       };
@@ -186,7 +172,7 @@ techBookControllers.controller('CheckListController', ['$scope', '$q', 'authStat
       var prev          = deferred.promise;
 
       // todo directiveに移動させる
-      if (authStatus.isAuthed) {
+      if (authStatus.is_authed) {
         deferred.resolve();
         prev = prev.then(function () {
           return SettingService.load();
@@ -208,11 +194,6 @@ techBookControllers.controller('CheckListController', ['$scope', '$q', 'authStat
         entry.checked = false;
         $('[index=' + index + ']').fadeOut(300);
       };
-
-      $scope.toggleLater = function(lateredEntry) {
-        LaterService.toggle($scope.entries, lateredEntry);
-        CheckService.toggle($scope.entries, lateredEntry);
-      };
     }]
 );
 
@@ -224,7 +205,7 @@ techBookControllers.controller('LaterListController', ['$scope', '$q', 'authStat
       var deferred    = $q.defer();
       var prev        = deferred.promise;
 
-      if (authStatus.isAuthed) {
+      if (authStatus.is_authed) {
         deferred.resolve();
         prev = prev.then(function () {
           return SettingService.load();
@@ -245,11 +226,6 @@ techBookControllers.controller('LaterListController', ['$scope', '$q', 'authStat
         LaterService.remove(entry);
         entry.latered = false;
         $('[index=' + index + ']').fadeOut(300);
-      };
-
-      $scope.toggleCheck = function(checkedEntry) {
-        CheckService.toggle($scope.entries, checkedEntry);
-        LaterService.toggle($scope.entries, checkedEntry);
       };
     }]
 );

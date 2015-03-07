@@ -239,6 +239,42 @@
         }
       };
     }]).
+    directive('checkButton', ['CheckService', 'LaterService',function (CheckService, LaterService) {
+      return {
+        restrict: 'A',
+        link: function(scope, element) {
+
+          element.bind('click', function() {
+            var entries      = scope.entries;
+            var checkedEntry = entries[scope.$index];
+
+            CheckService.toggle(entries, checkedEntry);
+            if (checkedEntry.latered) {
+              checkedEntry.latered = false;
+              LaterService.remove(checkedEntry);
+            }
+          });
+        }
+      };
+    }]).
+    directive('laterButton', ['LaterService', 'CheckService',function (LaterService, CheckService) {
+      return {
+        restrict: 'A',
+        link: function(scope, element) {
+
+          element.bind('click', function() {
+            var entries      = scope.entries;
+            var lateredEntry = entries[scope.$index];
+
+            LaterService.toggle(entries, lateredEntry);
+            if (lateredEntry.checked) {
+              lateredEntry.checked = false;
+              CheckService.remove(lateredEntry);
+            }
+          });
+        }
+      };
+    }]).
     directive('sidebarLink', function () {
       return {
         restrict: 'A',

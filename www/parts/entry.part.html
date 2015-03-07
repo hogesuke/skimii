@@ -16,10 +16,10 @@
 </div>
 <div class="entry-footer">
   <div class="controll-button-container">
-    <button class="controll-button check-button" ng-click="toggleCheck(entry)" ng-class="{ active: entry.checked }" ng-hide="viewName === 'check_list'">
+    <button class="controll-button check-button" ng-class="{ active: entry.checked }" ng-hide="viewName === 'check_list'" check-button>
       <i class="fa fa-check"></i>
     </button>
-    <button class="controll-button later-button" ng-click="toggleLater(entry)" ng-class="{ active: entry.latered }" ng-hide="viewName === 'later_list'">
+    <button class="controll-button later-button" ng-class="{ active: entry.latered }" ng-hide="viewName === 'later_list'" later-button>
       <i class="fa fa-archive"></i>
     </button>
   </div>
