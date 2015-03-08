@@ -29,7 +29,6 @@ configure :development do
   set :server, 'webrick'
 end
 
-# todo content-typeの設定、これを使えないか要確認
 before %r{^/(?!auth).*$} do
   headers({'Content-Type' => 'application/json'})
 
@@ -105,6 +104,11 @@ get '/auth/status' do
 end
 
 get '/entry' do
+  if not (valid_page?(params[:page]) and valid_tag?(params[:tag]))
+    status(400)
+    return {err_msg: 'パラメータが不正です'}.to_json
+  end
+
   page = params[:page].to_i
   tag  = params[:tag]
 
@@ -150,7 +154,7 @@ post '/user/my/tag' do
 
   @user.tags.delete_all
 
-  param_tags.each {|param_tag|
+  param_tags.each do |param_tag|
     if Tag.exists?(:name => param_tag['name'])
       tag = Tag.where(:name => param_tag['name']).first
     else
@@ -161,7 +165,7 @@ post '/user/my/tag' do
     end
 
     @user.tags << tag
-  }
+  end
 
   @user.tags.to_json
 end
@@ -172,7 +176,12 @@ get '/user/my/check' do
     return {err_msg: '認証が必要です'}.to_json
   end
 
-  page  = params['page'].to_i
+  if not valid_page?(params[:page])
+    status(400)
+    return {err_msg: 'パラメータが不正です'}.to_json
+  end
+
+  page  = params[:page].to_i
   count = 40
 
   entries = @user.check_entries.
@@ -255,7 +264,12 @@ get '/user/my/later' do
     return {err_msg: '認証が必要です'}.to_json
   end
 
-  page       = params['page'].to_i
+  if not valid_page?(params[:page])
+    status(400)
+    return {err_msg: 'パラメータが不正です'}.to_json
+  end
+
+  page       = params[:page].to_i
   count      = 40
   setting    = @user.setting
   date_begin = (Date.today - setting.later_days - 1).strftime("%Y-%m-%d")
@@ -417,7 +431,7 @@ def get_entries(tag_name, page)
       favicon_url = $&
     end
 
-    next if not isValidItem(item)
+    next if not valid_item?(item)
 
     entries.push({
                    :title         => item['title'][0],
@@ -435,7 +449,7 @@ def get_entries(tag_name, page)
   return { :entries => entries, :completed => completed, :sort => sort }
 end
 
-def isValidItem(item)
+def valid_item?(item)
   not(
     item['title'].nil?       or
     item['link'].nil?        or
@@ -443,4 +457,18 @@ def isValidItem(item)
     item['date'].nil?        or
     item['bookmarkcount'].nil?
   )
+end
+
+def valid_page?(page)
+  return false if page.nil?
+  return false if not page =~ /[0-9]+/
+  return false if page.to_i <= 0
+  true
+end
+
+def valid_tag?(tag)
+  return false if tag.nil?
+  return false if not (1 <= tag.length and tag.length <= 30)
+  return false if tag =~ /[;,\/\?:@&=\+\$#\s]/
+  true
 end
