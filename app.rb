@@ -87,7 +87,10 @@ get '/auth/callback' do
     user.name          = login_user.name
     setting            = Setting.new
     user.setting       = setting
-    user.save!
+    if not user.save
+      status(400)
+      return {err_msg: 'ユーザの登録に失敗しました'}.to_json
+    end
   end
 
   session[:user_id] = user.id
@@ -149,7 +152,7 @@ post '/user/my/tag' do
 
   if param_tags.size > 50
     status(400)
-    return {err_msg: 'タグの登録上限数を越えています。'}.to_json
+    return {err_msg: 'タグの登録上限数を越えています'}.to_json
   end
 
   @user.tags.delete_all
@@ -158,10 +161,13 @@ post '/user/my/tag' do
     if Tag.exists?(:name => param_tag['name'])
       tag = Tag.where(:name => param_tag['name']).first
     else
-      tag = Tag.new
-      tag.name = param_tag['name']
+      tag          = Tag.new
+      tag.name     = param_tag['name']
       tag.official = '0'
-      tag.save!
+      if not tag.save
+        status(400)
+        return {err_msg: 'タグの登録に失敗しました'}.to_json
+      end
     end
 
     @user.tags << tag
@@ -210,7 +216,7 @@ post '/user/my/check' do
   if not entry.nil?
     if Check.exists?({:user_id => @user.id, :entry_id => entry.id})
       status(400)
-      return {:err_msg => 'このエントリーは既にチェック済みとして登録されています。'}.to_json
+      return {:err_msg => 'このエントリーは既にチェック済みとして登録されています'}.to_json
     end
   end
 
@@ -221,7 +227,10 @@ post '/user/my/check' do
     entry.description   = checked_entry['description']
     entry.thumbnail_url = checked_entry['thumbnail_url']
     entry.favicon_url   = checked_entry['favicon_url']
-    entry.save!
+    if not entry.save
+      status(400)
+      return {:err_msg => 'エントリーの登録に失敗しました'}.to_json
+    end
   end
 
   new_check               = Check.new
@@ -312,7 +321,10 @@ post '/user/my/later' do
     entry.description   = latered_entry['description']
     entry.thumbnail_url = latered_entry['thumbnail_url']
     entry.favicon_url   = latered_entry['favicon_url']
-    entry.save!
+    if not entry.save
+      status(400)
+      return {:err_msg => 'エントリーの登録に失敗しました'}.to_json
+    end
   end
 
   new_later               = Later.new
@@ -364,7 +376,10 @@ put '/setting' do
   end
 
   input = JSON.parse(request.body.read)
-  @user.setting.update_attributes!(input)
+  if not @user.setting.update_attributes(input)
+    status(400)
+    return {err_msg: '設定の更新に失敗しました'}.to_json
+  end
 
   @user.setting.to_json
 end
