@@ -469,6 +469,6 @@ end
 def valid_tag?(tag)
   return false if tag.nil?
   return false if not (1 <= tag.length and tag.length <= 30)
-  return false if tag =~ /[;,\/\?:@&=\+\$#\s]/
+  return false if tag =~ /[;,\/\?:@&=\+\$#\s\r\n]/
   true
 end
