@@ -12,6 +12,24 @@ techBookControllers.controller('BaseController', ['$scope', 'TagService',
 
 techBookControllers.controller('AuthController', ['$scope', 'AuthService',
     function($scope, AuthService) {
+      var isAuthed = null;
+
+      AuthService.getStatus().then(function(res) {
+        isAuthed = res.is_authed;
+      });
+
+      $scope.visibleLogin = function() {
+        if (isAuthed === null) {
+          return false;
+        }
+        return !isAuthed;
+      };
+      $scope.visibleLogout = function() {
+        if (isAuthed === null) {
+          return false;
+        }
+        return isAuthed;
+      };
       $scope.login = function() {
         AuthService.getAuthUrl().then(function(res) {
           location.href = res.auth_url;

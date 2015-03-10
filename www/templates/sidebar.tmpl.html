@@ -1,10 +1,10 @@
 <div ng-controller="SidebarController">
   <div id="logotype">Skimii</div>
-  <div id="authorize" ng-controller="AuthController" ng-click="login()">
+  <div id="authorize" ng-controller="AuthController" ng-click="login()" ng-show="visibleLogin()">
     <div class="twitter-icon"><i class="fa fa-twitter"></i></div>
     <div class="auth-text">Twitterでログイン</div>
   </div>
-  <div id="logout" ng-controller="AuthController" ng-click="logout()">
+  <div id="logout" ng-controller="AuthController" ng-click="logout()" ng-show="visibleLogout()">
     <div class="auth-text">ログアウト</div>
   </div>
   <div id="page-link-list">
