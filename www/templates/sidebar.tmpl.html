@@ -1,6 +1,9 @@
 <div ng-controller="SidebarController">
   <div id="logotype">Skimii</div>
-  <div id="authorize" ng-controller="AuthController"><button ng-click="getAuthUrl()">Login</button></div>
+  <div id="authorize" ng-controller="AuthController" ng-click="getAuthUrl()">
+    <div class="twitter-icon"><i class="fa fa-twitter"></i></div>
+    <div class="auth-text">Twitterでログイン</div>
+  </div>
   <div id="page-link-list">
     <ul>
       <li sidebar-link="#/">

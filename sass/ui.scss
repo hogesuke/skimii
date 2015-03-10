@@ -34,12 +34,11 @@ html, body {
         color: #204d74;
         background-color: #ffffff;
         border-left: solid 4px #f59927;
-        border-right: solid 4px #204d74;
+        border-right: solid 2px #204d74;
       }
     }
   }
   #logotype {
-    margin-bottom: 5px;
     padding-left: 15px;
     padding-bottom: 2px;
     font-family: 'Alegreya Sans', sans-serif;
@@ -47,7 +46,30 @@ html, body {
     letter-spacing: 0.05em;
     box-shadow: 0 1px rgba(255,255,255,0.08),0 -1px rgba(0,0,0,0.17) inset;
   }
+  #authorize {
+    text-align: center;
+    margin-bottom: 10px;
+    padding: 5px 0 8px 0;
+    color: #f1f1f1;
+    border-right: solid 2px #204d74;
+    box-shadow: 0 1px rgba(255,255,255,0.08),0 -1px rgba(0,0,0,0.17) inset;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #245984;
+      border-right: solid 2px #204d74;
+    }
+
+    .twitter-icon {
+      font-size: 35px;
+    }
+    .auth-text {
+      font-size: 16px;
+    }
+  }
   #page-link-list {
+    margin-top: 5px;
+
     li {
       padding: 10px 0 10px 15px;
 
