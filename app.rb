@@ -98,6 +98,11 @@ get '/auth/callback' do
   redirect('http://localhost/') # todo あとで設定ファイルに切り出し
 end
 
+delete '/auth' do
+  session.clear
+  return {:msg => 'ログアウトしました'}.to_json
+end
+
 get '/auth/status' do
   if session[:user_id]
     return {is_authed: true,  msg: '認証済みです'}.to_json

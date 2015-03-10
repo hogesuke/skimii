@@ -1,8 +1,11 @@
 <div ng-controller="SidebarController">
   <div id="logotype">Skimii</div>
-  <div id="authorize" ng-controller="AuthController" ng-click="getAuthUrl()">
+  <div id="authorize" ng-controller="AuthController" ng-click="login()">
     <div class="twitter-icon"><i class="fa fa-twitter"></i></div>
     <div class="auth-text">Twitterでログイン</div>
+  </div>
+  <div id="logout" ng-controller="AuthController" ng-click="logout()">
+    <div class="auth-text">ログアウト</div>
   </div>
   <div id="page-link-list">
     <ul>
