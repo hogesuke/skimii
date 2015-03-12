@@ -100,21 +100,22 @@ end
 
 delete '/auth' do
   session.clear
-  return {:msg => 'ログアウトしました'}.to_json
+  return { :msg => 'ログアウトしました' }.to_json
 end
 
 get '/auth/status' do
   if session[:user_id]
-    return {is_authed: true,  msg: '認証済みです'}.to_json
+    user = User.find(session[:user_id])
+    return { is_authed: true,  raw_name: user.raw_name, msg: '認証済みです' }.to_json
   else
-    return {is_authed: false, msg: '未認証です'}.to_json
+    return { is_authed: false, msg: '未認証です' }.to_json
   end
 end
 
 get '/entry' do
   if not (valid_page?(params[:page]) and valid_tag?(params[:tag]))
     status(400)
-    return {err_msg: 'パラメータが不正です'}.to_json
+    return { err_msg: 'パラメータが不正です' }.to_json
   end
 
   page = params[:page].to_i
@@ -123,10 +124,6 @@ get '/entry' do
   entries_data = get_entries(tag, page)
 
   return entries_data.to_json
-end
-
-get '/user/me' do
-  # todo ログインユーザ情報の取得
 end
 
 get '/tag/official' do
