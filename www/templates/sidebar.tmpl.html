@@ -1,6 +1,6 @@
 <div ng-controller="SidebarController">
   <div id="logotype">Skimii</div>
-  <div id="authorize" ng-click="login()" ng-show="visibleLogin()">
+  <div id="authorize" ng-controller="AuthController" ng-click="login()" ng-show="visibleLogin()">
     <div class="twitter-icon"><i class="fa fa-twitter"></i></div>
     <div class="auth-text">Twitterでログイン</div>
   </div>
@@ -31,9 +31,9 @@
       </li>
     </ul>
   </div>
-  <div id="user-container">
-    <div><img src="http://twiticon.herokuapp.com/{{userRawName}}/bigger"></div>
-    <div>@{{userRawName}}</div>
+  <div id="user-container" ng-controller="AuthController">
+    <div id="user-icon"><img src="http://twiticon.herokuapp.com/{{userRawName}}/normal"></div>
+    <div id="user-name">@{{userRawName}}</div>
     <div id="logout" ng-controller="AuthController" ng-click="logout()">
       <div class="auth-text">ログアウト</div>
     </div>

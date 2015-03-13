@@ -84,36 +84,6 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
       $scope.viewName        = 'dashboard';
       $scope.allEntriesDatas = {};
 
-      var isAuthed = null;
-
-      AuthService.getStatus().then(function(res) {
-        isAuthed = res.is_authed;
-        $scope.userRawName = res.raw_name;
-      });
-
-      $scope.visibleLogin = function() {
-        if (isAuthed === null) {
-          return false;
-        }
-        return !isAuthed;
-      };
-      $scope.visibleUserContainer = function() {
-        if (isAuthed === null) {
-          return false;
-        }
-        return isAuthed;
-      };
-      $scope.login = function() {
-        AuthService.getAuthUrl().then(function(res) {
-          location.href = res.auth_url;
-        });
-      };
-      $scope.logout = function() {
-        AuthService.logout().then(function() {
-          location.reload();
-        });
-      };
-
       SettingService.load().then(function(res) {
         $scope.settings = res;
         return TagService.loadMine();
@@ -236,8 +206,43 @@ techBookControllers.controller('LaterListController', ['$scope', '$q', 'authStat
     }]
 );
 
-techBookControllers.controller('SidebarController', ['$scope', 'TagService',
-    function($scope, TagService) {
+techBookControllers.controller('SidebarController', ['$scope', 'AuthService', 'TagService',
+    function($scope, AuthService, TagService) {
+      var isAuthed = null;
+
+      AuthService.getStatus().then(function(res) {
+        isAuthed = res.is_authed;
+        $scope.userRawName = res.raw_name;
+      });
+
+      $scope.visibleLogin = function() {
+        if (isAuthed === null) {
+          return false;
+        }
+        return !isAuthed;
+      };
+      $scope.visibleUserContainer = function() {
+        if (isAuthed === null) {
+          return false;
+        }
+        return isAuthed;
+      };
+    }]
+);
+
+techBookControllers.controller('AuthController', ['$scope', 'AuthService',
+    function($scope, AuthService) {
+
+      $scope.login = function() {
+        AuthService.getAuthUrl().then(function(res) {
+          location.href = res.auth_url;
+        });
+      };
+      $scope.logout = function() {
+        AuthService.logout().then(function() {
+          location.reload();
+        });
+      };
     }]
 );
 
