@@ -91,6 +91,11 @@ get '/auth/callback' do
       status(400)
       return {err_msg: 'ユーザの登録に失敗しました'}.to_json
     end
+
+    official_tags = Tag.where(:official => '1')
+    official_tags.each do |tag|
+      user.tags << tag
+    end
   end
 
   session[:user_id] = user.id
