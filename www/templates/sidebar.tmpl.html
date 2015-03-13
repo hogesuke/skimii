@@ -31,11 +31,11 @@
       </li>
     </ul>
   </div>
-  <div id="user-container" ng-controller="AuthController">
+  <div id="user-container" ng-controller="AuthController" ng-show="visibleUserContainer()">
     <div id="user-icon"><img src="http://twiticon.herokuapp.com/{{userRawName}}/normal"></div>
     <div id="user-name">@{{userRawName}}</div>
     <div id="logout" ng-controller="AuthController" ng-click="logout()">
-      <div class="auth-text">ログアウト</div>
+      <div class="auth-text"><i class="fa fa-sign-out"></i></div>
     </div>
   </div>
 </div>

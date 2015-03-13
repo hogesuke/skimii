@@ -128,8 +128,11 @@
 
           setHeight($tagList);
 
-          //var observer = new MutationObserver(function() { setHeight($tagList); });
-          //observer.observe($tagList[0], {attributes : true, attributeFilter : ['style']});
+          scope.$watch(function() {
+            return scope.isAuthed;
+          }, function() {
+            setHeight($tagList);
+          });
 
           $(window).resize(function() {
             setHeight($tagList);
@@ -144,14 +147,11 @@
 
           function setHeight($tagList) {
             var sidebar_h = $('#sidebar').height();
-            var user_h    = $('#user-container').height();
+            var user_h    = scope.isAuthed ? $('#user-container').height() : 0;
             var listTop   = $tagList.offset().top;
-            console.debug('sidebar_h', sidebar_h);
-            console.debug('user_h', user_h);
-            console.debug('listTop', listTop);
-            console.debug('computed height', sidebar_h - user_h - listTop);
+            var bottomPad = 10;
 
-            $tagList.height(sidebar_h - user_h - listTop);
+            $tagList.height(sidebar_h - user_h - listTop - bottomPad);
           }
         }
       };

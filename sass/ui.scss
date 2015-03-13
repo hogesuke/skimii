@@ -79,6 +79,7 @@ html, body {
   }
   #tag-list {
     padding-left: 19px;
+    box-shadow: 0 1px rgba(255,255,255,0.08),0 -1px rgba(0,0,0,0.17) inset;
 
     #tag-list-header {
       overflow: hidden;
@@ -130,23 +131,37 @@ html, body {
     }
   }
   #user-container {
-    height: 60px;
+    height: 52px;
     padding-left: 19px;
 
-    #user-icon {
+    div {
       float: left;
+    }
+    #user-icon {
       margin-right: 10px;
+
       img {
         height: 48px;
         width: 48px;
         border-radius: 24px;
+        background-color: #ffffff;
       }
     }
     #user-name {
-      width: 160px;
+      width: 130px;
+      padding-top: 14px;
+      padding-right: 5px;
       overflow: hidden;
       white-space  : nowrap;
       text-overflow: ellipsis;
+      font-size: 15px;
+    }
+    #logout {
+      height: 48px;
+      padding: 13px 10px 0 13px;
+      font-size: 19px;
+      cursor: pointer;
+      box-shadow: -1px 0 rgba(255,255,255,0.08),1px 0 rgba(0,0,0,0.17) inset;
     }
   }
 }

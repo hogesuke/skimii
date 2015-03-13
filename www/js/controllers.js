@@ -208,24 +208,24 @@ techBookControllers.controller('LaterListController', ['$scope', '$q', 'authStat
 
 techBookControllers.controller('SidebarController', ['$scope', 'AuthService', 'TagService',
     function($scope, AuthService, TagService) {
-      var isAuthed = null;
+      $scope.isAuthed = null;
 
       AuthService.getStatus().then(function(res) {
-        isAuthed = res.is_authed;
+        $scope.isAuthed = res.is_authed;
         $scope.userRawName = res.raw_name;
       });
 
       $scope.visibleLogin = function() {
-        if (isAuthed === null) {
+        if ($scope.isAuthed === null) {
           return false;
         }
-        return !isAuthed;
+        return !$scope.isAuthed;
       };
       $scope.visibleUserContainer = function() {
-        if (isAuthed === null) {
+        if ($scope.isAuthed === null) {
           return false;
         }
-        return isAuthed;
+        return $scope.isAuthed;
       };
     }]
 );
