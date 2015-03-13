@@ -165,11 +165,13 @@ post '/user/my/tag' do
   @user.tags.delete_all
 
   param_tags.each do |param_tag|
-    if Tag.exists?(:name => param_tag['name'])
-      tag = Tag.where(:name => param_tag['name']).first
+    tag_name = param_tag['name'].downcase
+
+    if Tag.exists?(:name => tag_name)
+      tag = Tag.where(:name => tag_name).first
     else
       tag          = Tag.new
-      tag.name     = param_tag['name']
+      tag.name     = tag_name
       tag.official = '0'
       if not tag.save
         status(400)

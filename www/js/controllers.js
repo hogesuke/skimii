@@ -12,6 +12,7 @@ techBookControllers.controller('BaseController', ['$scope', 'TagService',
 
 techBookControllers.controller('TagController', ['$scope', '$q', 'authStatus', 'TagService',
   function($scope, $q, authStatus, TagService) {
+    $scope.tags    = [];
     $scope.loading = true;
 
     $q.all([TagService.loadOfficial(), TagService.loadMine()]).then(function (res) {
@@ -38,15 +39,17 @@ techBookControllers.controller('TagController', ['$scope', '$q', 'authStatus', '
     // タグの追加
     $scope.add = function(originalTag) {
       var isDuplicated = false;
+      tagName = originalTag.name.toLowerCase();
+
       $scope.tags.forEach(function(tag) {
-        if (originalTag.name == tag.name) {
+        if (tagName == tag.name) {
           isDuplicated = true;
           return false;
         }
       });
       if (!isDuplicated) {
         $scope.tags.push({
-          name    : originalTag.name,
+          name    : tagName,
           official: 0,
           checked : true
         })
