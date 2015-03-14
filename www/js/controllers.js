@@ -39,7 +39,7 @@ techBookControllers.controller('TagController', ['$scope', '$q', 'authStatus', '
     // タグの追加
     $scope.add = function(originalTag) {
       var isDuplicated = false;
-      tagName = originalTag.name.toLowerCase();
+      var tagName = originalTag.name.toLowerCase();
 
       $scope.tags.forEach(function(tag) {
         if (tagName == tag.name) {

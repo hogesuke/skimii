@@ -226,3 +226,12 @@ html, body { height: 100%; font-family: 'Lucida Grande','Hiragino Kaku Gothic Pr
 #content .mCS-dark.mCSB_scrollTools .mCSB_draggerRail { background-color: #dfdfdf; }
 /* line 612, ../../sass/ui.scss */
 #content .checkbox-primary input[type="checkbox"]:checked + label::before { background-color: #204d74; border-color: #204d74; }
+
+/* line 620, ../../sass/ui.scss */
+#login-modal .modal-body .authorize { margin-top: 10px; padding: 10px 0; background-color: #204d74; color: #ffffff; text-align: center; border-radius: 10px; cursor: pointer; }
+/* line 629, ../../sass/ui.scss */
+#login-modal .modal-body .authorize:hover { background-color: #245984; }
+/* line 632, ../../sass/ui.scss */
+#login-modal .modal-body .authorize .twitter-icon { font-size: 35px; }
+/* line 635, ../../sass/ui.scss */
+#login-modal .modal-body .authorize .auth-text { font-size: 16px; }

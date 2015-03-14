@@ -7,7 +7,10 @@
       </div>
       <div class="modal-body">
         <span>この機能をご利用いただくにはログインが必要です。</span>
-        <div id="authorize" ng-controller="AuthController"><button ng-click="getAuthUrl()">Login</button></div>
+        <div class="authorize" ng-controller="AuthController" ng-click="login()">
+          <div class="twitter-icon"><i class="fa fa-twitter"></i></div>
+          <div class="auth-text">Twitterでログイン</div>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
