@@ -3,7 +3,8 @@
 var techBookApp = angular.module('TechBookApp', [
   'ngRoute',
   'techBookControllers',
-  'techBookDirectives'
+  'techBookDirectives',
+  'ui.bootstrap'
 ]);
 
 techBookApp.config(['$routeProvider', '$httpProvider', '$locationProvider',

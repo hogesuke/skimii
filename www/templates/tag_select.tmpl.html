@@ -3,14 +3,13 @@
     <div id="view-title">タグの編集</div>
     <div id="view-description">ウォッチするタグを選択してください。</div>
   </div>
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
   <form novalidate id="add-tag-form" name="addOriginalTag" class="form-inline" ng-submit="add(tag)">
     <div class="form-group">
       <input type="text" id="input-tag-name" name="tagName" class="form-control" placeholder="追加するタグ" ng-model="tag.name" required ng-maxlength="30" ng-pattern="/^[^;,\/\?:@&=\+\$#\s]+$/">
       <input type="submit" class="btn btn-default" value="add" ng-disabled="addOriginalTag.$invalid">
-      <div class="error-msg">
-        <span ng-show="addOriginalTag.tagName.$error.maxlength">タグは30文字以内で入力してください</span>
-        <span ng-show="addOriginalTag.tagName.$error.pattern">使用できない文字が含まれています</span>
-      </div>
+      <span class="error-msg" ng-show="addOriginalTag.tagName.$error.maxlength">タグは30文字以内で入力してください</span>
+      <span class="error-msg" ng-show="addOriginalTag.tagName.$error.pattern">使用できない文字が含まれています</span>
     </div>
   </form>
   <!-- loading start -->
@@ -34,7 +33,7 @@
     </div>
     <div id="tag-submit" class="form-group">
       <input type="submit" class="btn btn-primary" value="save">
-      <span>{{msg}}</span>
+      <span class="success-msg">{{msg}}</span>
     </div>
   </form>
 </div>

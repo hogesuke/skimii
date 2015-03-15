@@ -613,6 +613,16 @@ html, body {
     background-color: #204d74;
     border-color: #204d74;
   }
+
+  .success-msg {
+    color: #0663b4;
+    padding-left: 10px;
+  }
+
+  .error-msg {
+    color: #d10000;
+    padding-left: 10px;
+  }
 }
 
 #login-modal {

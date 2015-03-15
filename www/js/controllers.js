@@ -10,9 +10,10 @@ techBookControllers.controller('BaseController', ['$scope', 'TagService',
   }]
 );
 
-techBookControllers.controller('TagController', ['$scope', '$q', 'authStatus', 'TagService',
-  function($scope, $q, authStatus, TagService) {
+techBookControllers.controller('TagController', ['$scope', '$q', '$interval', 'authStatus', 'TagService',
+  function($scope, $q, $interval, authStatus, TagService) {
     $scope.tags    = [];
+    $scope.alerts  = [];
     $scope.loading = true;
 
     $q.all([TagService.loadOfficial(), TagService.loadMine()]).then(function (res) {
@@ -59,6 +60,9 @@ techBookControllers.controller('TagController', ['$scope', '$q', 'authStatus', '
 
     // タグの登録
     $scope.save = function() {
+      $scope.msg    = '';
+      $scope.alerts = [];
+
       if (!authStatus.is_authed) {
         $('#login-modal').modal();
         return;
@@ -75,9 +79,14 @@ techBookControllers.controller('TagController', ['$scope', '$q', 'authStatus', '
       // todo 登録に失敗した場合の実装
       TagService.save(checkedTags).then(function(tags) {
         TagService.setTags(tags);
+        $scope.msg = '保存しました';
       }, function(res) {
-        $scope.msg = res.err_msg;
+        $scope.alerts.push({type: 'danger', msg: res.err_msg});
       });
+    };
+
+    $scope.closeAlert = function(index) {
+      $scope.alerts.splice(index, 1);
     };
   }]
 );
