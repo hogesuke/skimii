@@ -5,16 +5,6 @@
   </div>
   <div class="entry-list" ng-class="getViewSize(viewName)" entry-list entry-list-scrollbar="list">
     <div class="entry" ng-repeat="entry in entries" ng-show="::visibleEntry(entry)" ng-include="'../parts/entry.part.html'" entry-repeat></div>
-    <!-- loading start -->
-    <div class="loading" ng-show="loading">
-      <div class="spinner">
-        <div class="rect1"></div>
-        <div class="rect2"></div>
-        <div class="rect3"></div>
-        <div class="rect4"></div>
-        <div class="rect5"></div>
-      </div>
-    </div>
-    <!-- loading end -->
+    <div ng-include="'../parts/loading.part.html'" ng-show="loading"></div>
   </div>
 </div>

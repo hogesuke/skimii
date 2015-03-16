@@ -3,6 +3,7 @@
     <div id="view-title">設定</div>
     <div id="view-description">エントリの表示に関する設定を行えます。</div>
   </div>
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
   <form class="form-horizontal" ng-submit="save()">
     <div class="form-group">
       <label class="col-sm-4 col-md-4 control-label">ブックマーク数の閾値</label>
@@ -60,8 +61,12 @@
     </div>
     <div class="form-group">
       <div class="col-sm-4 col-sm-offset-4 col-md-3 col-md-offset-4">
-        <input type="submit" class="form-control btn btn-primary" value="save">
+        <input type="submit" class="form-control btn btn-primary" value="save" ng-disabled="saving">
+      </div>
+      <div class="col-sm-4 col-md-5">
+        <span class="text-primary">{{msg}}</span>
       </div>
     </div>
   </form>
+  <div ng-include="'../parts/loading.part.html'" ng-show="saving"></div>
 </div>

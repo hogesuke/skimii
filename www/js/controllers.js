@@ -15,6 +15,7 @@ techBookControllers.controller('TagController', ['$scope', '$q', '$interval', 'a
     $scope.tags    = [];
     $scope.alerts  = [];
     $scope.loading = true;
+    $scope.saving  = false;
 
     $q.all([TagService.loadOfficial(), TagService.loadMine()]).then(function (res) {
       var officialTags = res[0];
@@ -37,7 +38,6 @@ techBookControllers.controller('TagController', ['$scope', '$q', '$interval', 'a
       $scope.loading = false;
     });
 
-    // タグの追加
     $scope.add = function(originalTag) {
       var isDuplicated = false;
       var tagName = originalTag.name.toLowerCase();
@@ -58,7 +58,6 @@ techBookControllers.controller('TagController', ['$scope', '$q', '$interval', 'a
       $scope.tag.name = '';
     };
 
-    // タグの登録
     $scope.save = function() {
       $scope.msg    = '';
       $scope.alerts = [];
@@ -75,16 +74,18 @@ techBookControllers.controller('TagController', ['$scope', '$q', '$interval', 'a
         $scope.msg = "タグの登録上限数を越えています。";
         return;
       }
-      // todo save中の表示・save後の表示
-      // todo 登録に失敗した場合の実装
+
+      $scope.saving = true;
+
       TagService.save(checkedTags).then(function(tags) {
         TagService.setTags(tags);
         $scope.msg = '保存しました';
-      }, function(res) {
-        $scope.alerts.push({type: 'danger', msg: res.err_msg});
+      }, function() {
+        $scope.alerts.push({type: 'danger', msg: '保存に失敗しました。しばらくしてからやり直してください。'});
+      }).finally(function() {
+        $scope.saving = false;
       });
     };
-
     $scope.closeAlert = function(index) {
       $scope.alerts.splice(index, 1);
     };
@@ -260,17 +261,35 @@ techBookControllers.controller('AuthController', ['$scope', 'AuthService',
 
 techBookControllers.controller('SettingController', ['$scope', 'authStatus', 'SettingService',
     function($scope, authStatus, SettingService) {
+      $scope.msg    = '';
+      $scope.alerts = [];
+      $scope.saving = false;
+
       SettingService.load().then(function(setting) {
         $scope.setting = setting;
       });
 
       $scope.save = function() {
+        $scope.msg    = '';
+        $scope.alerts = [];
+
         if (!authStatus.is_authed) {
           $('#login-modal').modal();
           return;
         }
 
-        SettingService.save($scope.setting);
+        $scope.saving = true;
+
+        SettingService.save($scope.setting).then(function() {
+          $scope.msg = '保存しました';
+        }, function() {
+          $scope.alerts.push({type: 'danger', msg: '保存に失敗しました。しばらくしてからやり直してください。'});
+        }).finally(function() {
+          $scope.saving = false;
+        });
+      };
+      $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
       };
 
       $scope.options = SettingService.options;

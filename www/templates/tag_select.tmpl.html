@@ -8,21 +8,11 @@
     <div class="form-group">
       <input type="text" id="input-tag-name" name="tagName" class="form-control" placeholder="追加するタグ" ng-model="tag.name" required ng-maxlength="30" ng-pattern="/^[^;,\/\?:@&=\+\$#\s]+$/">
       <input type="submit" class="btn btn-default" value="add" ng-disabled="addOriginalTag.$invalid">
-      <span class="error-msg" ng-show="addOriginalTag.tagName.$error.maxlength">タグは30文字以内で入力してください</span>
-      <span class="error-msg" ng-show="addOriginalTag.tagName.$error.pattern">使用できない文字が含まれています</span>
+      <span class="text-danger text-msg" ng-show="addOriginalTag.tagName.$error.maxlength">タグは30文字以内で入力してください</span>
+      <span class="text-danger text-msg" ng-show="addOriginalTag.tagName.$error.pattern">使用できない文字が含まれています</span>
     </div>
   </form>
-  <!-- loading start -->
-  <div class="loading" ng-show="loading">
-    <div class="spinner">
-      <div class="rect1"></div>
-      <div class="rect2"></div>
-      <div class="rect3"></div>
-      <div class="rect4"></div>
-      <div class="rect5"></div>
-    </div>
-  </div>
-  <!-- loading end -->
+  <div ng-include="'../parts/loading.part.html'" ng-show="loading"></div>
   <form novalidate name="selectTags" ng-submit="save()">
     <div id="tag-select-list" class="form-group">
       <div class="tag checkbox checkbox-circle checkbox-primary" ng-repeat="tag in tags" ng-class="{ active: tag.checked }" tag-option>
@@ -32,8 +22,9 @@
       </div>
     </div>
     <div id="tag-submit" class="form-group">
-      <input type="submit" class="btn btn-primary" value="save">
-      <span class="success-msg">{{msg}}</span>
+      <input type="submit" class="btn btn-primary" value="save" ng-disabled="saving">
+      <span class="text-primary text-msg">{{msg}}</span>
+      <div ng-include="'../parts/loading.part.html'" ng-show="saving"></div>
     </div>
   </form>
 </div>

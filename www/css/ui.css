@@ -227,15 +227,13 @@ html, body { height: 100%; font-family: 'Lucida Grande','Hiragino Kaku Gothic Pr
 /* line 612, ../../sass/ui.scss */
 #content .checkbox-primary input[type="checkbox"]:checked + label::before { background-color: #204d74; border-color: #204d74; }
 /* line 617, ../../sass/ui.scss */
-#content .success-msg { color: #0663b4; padding-left: 10px; }
-/* line 622, ../../sass/ui.scss */
-#content .error-msg { color: #d10000; padding-left: 10px; }
+#content .text-msg { padding-left: 10px; }
 
-/* line 630, ../../sass/ui.scss */
+/* line 624, ../../sass/ui.scss */
 #login-modal .modal-body .authorize { margin-top: 10px; padding: 10px 0; background-color: #204d74; color: #ffffff; text-align: center; border-radius: 10px; cursor: pointer; }
-/* line 639, ../../sass/ui.scss */
+/* line 633, ../../sass/ui.scss */
 #login-modal .modal-body .authorize:hover { background-color: #245984; }
-/* line 642, ../../sass/ui.scss */
+/* line 636, ../../sass/ui.scss */
 #login-modal .modal-body .authorize .twitter-icon { font-size: 35px; }
-/* line 645, ../../sass/ui.scss */
+/* line 639, ../../sass/ui.scss */
 #login-modal .modal-body .authorize .auth-text { font-size: 16px; }
