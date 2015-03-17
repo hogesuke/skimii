@@ -107,7 +107,8 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
             entriesData.loading = false;
             entriesData.page    = 1;
             entriesData.entries = entriesData.entries.filter(function(entry) {
-              return !entry.checked && !entry.latered;
+              if ($scope.settings.visible_marked == 0) { return !entry.checked && !entry.latered; }
+              return true;
             }).slice(0, $scope.settings.dashboard_count);
 
             $scope.allEntriesDatas[tag.name] = entriesData;
@@ -118,9 +119,9 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
       $scope.convertToHatebuUrl = function(url) {
         return EntryService.convertToHatebuUrl(url);
       };
-      $scope.visibleEntry = function(entry) {
-        return $scope.settings.visible_marked == 1 || (!entry.checked && !entry.latered);
-      };
+      $scope.isEmpty = function(entriesData) {
+        return !entriesData.loading && entriesData.entries.length <= 0;
+      }
     }]
 );
 
