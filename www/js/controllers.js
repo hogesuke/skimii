@@ -118,10 +118,13 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
         var visibleEntryCount = entriesData.visibleEntryCount;
         var limitCount        = $scope.settings.dashboard_count;
 
+        if (index === 0) {
+          entriesData.visibleEntryCount = 0;
+        }
         if (limitCount <= visibleEntryCount) {
           return false;
         }
-        if ($scope.settings.visible_marked == 0) {
+        if ($scope.settings.visible_marked === 0) {
           if (entry.checked || entry.latered) {
             return false;
           }

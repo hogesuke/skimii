@@ -324,12 +324,7 @@
   }
   function setEntries(type, scope, entriesData) {
     if (type === 'dashboard') {
-      var limitCount      = scope.settings.dashboard_count;
-      var filteredEntries = entriesData.entries.filter(function(entry) {
-        return !entry.checked && !entry.latered;
-      });
-
-      scope.entriesData.entries = scope.entriesData.entries.concat(filteredEntries).slice(0, limitCount);
+      scope.entriesData.entries = scope.entriesData.entries.concat(entriesData.entries);
       return;
     }
 
