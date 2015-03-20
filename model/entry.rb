@@ -7,8 +7,8 @@ class Entry < ActiveRecord::Base
   validates :url,           presence: true,  length: { in: 1..1024 }
   validates :title,         presence: true,  length: { in: 1..256 }
   validates :description,   presence: false, length: { in: 1..512 }
-  validates :thumbnail_url, presence: false, length: { in: 1..1024 }, format: { with: /\Ahttp:\/\/cdn-ak\.b\.st-hatena\.com\/entryimage\/[0-9\-]+\.jpg\z/ }
-  validates :favicon_url,   presence: false, length: { in: 1..1024 }, format: { with: /\Ahttp:\/\/cdn-ak\.favicon\.st-hatena\.com\/\?url=.+?"\z/ }
+  validates :thumbnail_url, presence: false, length: { in: 1..1024 }, format: { with: /\Ahttp:\/\/cdn-ak\.b\.st-hatena\.com\/entryimage\/[0-9\-]+\.jpg\z/ }, unless: :thumbnail_url_empty?
+  validates :favicon_url,   presence: false, length: { in: 1..1024 }, format: { with: /\Ahttp:\/\/cdn-ak\.favicon\.st-hatena\.com\/\?url=.+?"\z/ }, unless: :favicon_url_empty?
 
   attr_accessor :checked
   attr_accessor :latered
@@ -23,5 +23,13 @@ class Entry < ActiveRecord::Base
 
   def get_latered
     self.latered
+  end
+
+  def thumbnail_url_empty?
+    self.thumbnail_url.empty?
+  end
+
+  def favicon_url_empty?
+    self.favicon_url.empty?
   end
 end
