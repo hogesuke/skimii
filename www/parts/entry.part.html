@@ -1,18 +1,18 @@
 <div class="hotentry-date" ng-show="entry.visibleDate">
-  <span>{{entry.hotentry_date}}</span>
+  <span>{{::entry.hotentry_date}}</span>
 </div>
-<button class="remove-button" ng-click="remove(entry, $index)" ng-show="isRemovable()">
+<button class="remove-button" ng-click="remove(entry, $index)" ng-show="::isRemovable()">
   <i class="fa fa-remove"></i>
 </button>
 <div class="entry-thumbnail" ng-if="entry.thumbnail_url">
-  <img src="{{entry.thumbnail_url}}" class="thumbnail">
+  <img src="{{::entry.thumbnail_url}}" class="thumbnail">
 </div>
 <div class="entry-header" ng-class="{'visible-thumbnail': entry.thumbnail_url}">
-  <img src="{{entry.favicon_url}}" class="favicon" ng-if="entry.favicon_url">
-  <a ng-href="{{entry.url}}" class="title" target="_blank">{{entry.title}}</a>
+  <img src="{{::entry.favicon_url}}" class="favicon" ng-if="entry.favicon_url">
+  <a ng-href="{{::entry.url}}" class="title" target="_blank">{{::entry.title}}</a>
 </div>
 <div class="entry-body" ng-class="{'visible-thumbnail': entry.thumbnail_url}">
-  <div class="description">{{entry.description}}</div>
+  <div class="description">{{::entry.description}}</div>
 </div>
 <div class="entry-footer">
   <div class="controll-button-container">
@@ -24,6 +24,6 @@
     </button>
   </div>
   <div class="bookmarkcount" ng-show="entry.bookmarkcount !== undefined">
-    <a target="_blank" ng-href="{{convertToHatebuUrl(entry.url)}}">{{entry.bookmarkcount}}</a>
+    <a target="_blank" ng-href="{{::convertToHatebuUrl(entry.url)}}">{{::entry.bookmarkcount}}</a>
   </div>
 </div>
