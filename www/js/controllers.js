@@ -170,8 +170,12 @@ techBookControllers.controller('CheckListController', ['$scope', '$q', 'authStat
       $scope.page     = 1;
       $scope.alerts   = [];
 
+      $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+      };
+
       if (!authStatus.is_authed) {
-        $('#login-modal').modal();
+        $scope.alerts.push({type: 'info', msg: 'この機能をご利用いただくにはログインが必要です。'});
         return;
       }
 
@@ -199,9 +203,6 @@ techBookControllers.controller('CheckListController', ['$scope', '$q', 'authStat
         entry.checked = false;
         $('[index=' + index + ']').fadeOut(300);
       };
-      $scope.closeAlert = function(index) {
-        $scope.alerts.splice(index, 1);
-      };
     }]
 );
 
@@ -211,8 +212,12 @@ techBookControllers.controller('LaterListController', ['$scope', '$q', 'authStat
       $scope.page     = 1;
       $scope.alerts   = [];
 
+      $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+      };
+
       if (!authStatus.is_authed) {
-        $('#login-modal').modal();
+        $scope.alerts.push({type: 'info', msg: 'この機能をご利用いただくにはログインが必要です。'});
         return;
       }
 
@@ -239,9 +244,6 @@ techBookControllers.controller('LaterListController', ['$scope', '$q', 'authStat
         LaterService.remove(entry);
         entry.latered = false;
         $('[index=' + index + ']').fadeOut(300);
-      };
-      $scope.closeAlert = function(index) {
-        $scope.alerts.splice(index, 1);
       };
     }]
 );
