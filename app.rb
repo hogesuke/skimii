@@ -215,8 +215,8 @@ end
 
 post '/user/my/check' do
   if @user.nil?
-    status(401)
-    return {err_msg: '認証が必要です'}.to_json
+    status(200)
+    return {msg: '未認証のため登録されません'}.to_json
   end
 
   checked_entry = JSON.parse(request.body.read)
@@ -253,8 +253,8 @@ end
 
 delete '/user/my/check' do
   if @user.nil?
-    status(401)
-    return {err_msg: '認証が必要です'}.to_json
+    status(200)
+    return {msg: '未認証のため削除されません'}.to_json
   end
 
   checked_entry = JSON.parse(request.body.read)
@@ -309,8 +309,8 @@ end
 
 post '/user/my/later' do
   if @user.nil?
-    status(401)
-    return {err_msg: '認証が必要です'}.to_json
+    status(200)
+    return {msg: '未認証のため登録されません'}.to_json
   end
 
   latered_entry = JSON.parse(request.body.read)
@@ -347,8 +347,8 @@ end
 
 delete '/user/my/later' do
   if @user.nil?
-    status(401)
-    return {err_msg: '認証が必要です'}.to_json
+    status(200)
+    return {msg: '未認証のため削除されません'}.to_json
   end
 
   latered_entry = JSON.parse(request.body.read)
