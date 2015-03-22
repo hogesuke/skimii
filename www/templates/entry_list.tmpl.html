@@ -3,6 +3,7 @@
     <div ng-include="'../parts/entry_list_controll.part.html'"></div>
     <div class="tag-name">{{::tag}}</div>
   </div>
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
   <div class="entry-list" ng-class="getViewSize(viewName)" entry-list entry-list-scrollbar="list">
     <div class="entry" ng-repeat="entry in entries" ng-show="::visibleEntry(entry)" ng-include="'../parts/entry.part.html'" entry-repeat></div>
     <div ng-include="'../parts/loading.part.html'" ng-show="loading"></div>

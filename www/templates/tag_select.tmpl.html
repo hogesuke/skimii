@@ -22,7 +22,7 @@
       </div>
     </div>
     <div id="tag-submit" class="form-group">
-      <input type="submit" class="btn btn-primary" value="save" ng-disabled="saving">
+      <input type="submit" class="btn btn-primary" value="save" ng-disabled="saving || onError">
       <span class="text-primary text-msg">{{msg}}</span>
       <div ng-include="'../parts/loading.part.html'" ng-show="saving"></div>
     </div>

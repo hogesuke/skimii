@@ -16,6 +16,7 @@ techBookControllers.controller('TagController', ['$scope', '$q', '$interval', 'a
     $scope.alerts  = [];
     $scope.loading = true;
     $scope.saving  = false;
+    $scope.onError = false;
 
     $q.all([TagService.loadOfficial(), TagService.loadMine()]).then(function (res) {
       var officialTags = res[0];
@@ -34,6 +35,9 @@ techBookControllers.controller('TagController', ['$scope', '$q', '$interval', 'a
           }
         });
       });
+    }, function() {
+      $scope.alerts.push({type: 'danger', msg: 'タグの取得に失敗しました。しばらくしてからページを更新し直してください。'});
+      $scope.onError = true;
     }).finally(function() {
       $scope.loading = false;
     });
@@ -96,6 +100,7 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
     function($scope, TagService, EntryService, LaterService, CheckService, SettingService) {
       $scope.viewName        = 'dashboard';
       $scope.allEntriesDatas = {};
+      $scope.alerts          = [];
 
       SettingService.load().then(function(res) {
         $scope.settings = res;
@@ -114,6 +119,8 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
             $scope.allEntriesDatas[tag.name] = entriesData;
           });
         });
+      }, function() {
+        $scope.alerts.push({type: 'danger', msg: 'ページの取得に失敗しました。しばらくしてからページを更新し直してください。'});
       });
 
       $scope.convertToHatebuUrl = function(url) {
@@ -121,7 +128,10 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
       };
       $scope.isEmpty = function(entriesData) {
         return !entriesData.loading && entriesData.entries.length <= 0;
-      }
+      };
+      $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+      };
     }]
 );
 
@@ -132,15 +142,14 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
       $scope.tag      = $routeParams.tag;
       $scope.page     = 0;
       $scope.settings = null;
-      var deferred = $q.defer();
-      var prev     = deferred.promise;
+      $scope.alerts   = [];
+      $scope.onError  = false;
 
-      deferred.resolve();
-      prev = prev.then(function() {
-        return SettingService.load();
-      });
-      prev.then(function(res) {
+      SettingService.load().then(function(res) {
         $scope.settings = res;
+      }, function() {
+        $scope.alerts.push({type: 'danger', msg: 'ページの取得に失敗しました。しばらくしてからページを更新し直してください。'});
+        $scope.onError = true;
       });
 
       $scope.convertToHatebuUrl = function(url) {
@@ -149,6 +158,9 @@ techBookControllers.controller('EntryListController', ['$scope', '$routeParams',
       $scope.visibleEntry = function(entry) {
         return $scope.settings.visible_marked == 1 || (!entry.checked && !entry.latered);
       };
+      $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+      };
     }]
 );
 
@@ -156,6 +168,7 @@ techBookControllers.controller('CheckListController', ['$scope', '$q', 'authStat
     function($scope, $q, authStatus, CheckService, LaterService, SettingService) {
       $scope.viewName = 'check_list';
       $scope.page     = 1;
+      $scope.alerts   = [];
 
       if (!authStatus.is_authed) {
         $('#login-modal').modal();
@@ -175,6 +188,9 @@ techBookControllers.controller('CheckListController', ['$scope', '$q', 'authStat
       });
       prev.then(function (entriesData) {
         $scope.entries = entriesData.entries;
+      }, function() {
+        $scope.alerts.push({type: 'danger', msg: 'ページの取得に失敗しました。しばらくしてからページを更新し直してください。'});
+      }).finally(function() {
         $scope.loading = false;
       });
 
@@ -183,6 +199,9 @@ techBookControllers.controller('CheckListController', ['$scope', '$q', 'authStat
         entry.checked = false;
         $('[index=' + index + ']').fadeOut(300);
       };
+      $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+      };
     }]
 );
 
@@ -190,6 +209,7 @@ techBookControllers.controller('LaterListController', ['$scope', '$q', 'authStat
     function($scope, $q, authStatus, LaterService, CheckService, SettingService) {
       $scope.viewName = 'later_list';
       $scope.page     = 1;
+      $scope.alerts   = [];
 
       if (!authStatus.is_authed) {
         $('#login-modal').modal();
@@ -209,6 +229,9 @@ techBookControllers.controller('LaterListController', ['$scope', '$q', 'authStat
       });
       prev.then(function (entriesData) {
         $scope.entries = entriesData.entries;
+      }, function() {
+        $scope.alerts.push({type: 'danger', msg: 'ページの取得に失敗しました。しばらくしてからページを更新し直してください。'});
+      }).finally(function() {
         $scope.loading = false;
       });
 
@@ -217,16 +240,21 @@ techBookControllers.controller('LaterListController', ['$scope', '$q', 'authStat
         entry.latered = false;
         $('[index=' + index + ']').fadeOut(300);
       };
+      $scope.closeAlert = function(index) {
+        $scope.alerts.splice(index, 1);
+      };
     }]
 );
 
-techBookControllers.controller('SidebarController', ['$scope', 'AuthService', 'TagService',
-    function($scope, AuthService, TagService) {
+techBookControllers.controller('SidebarController', ['$scope', 'AuthService',
+    function($scope, AuthService) {
       $scope.isAuthed = null;
 
       AuthService.getStatus().then(function(res) {
         $scope.isAuthed = res.is_authed;
         $scope.userRawName = res.raw_name;
+      }, function() {
+        $scope.isAuthed = false;
       });
 
       $scope.visibleLogin = function() {
@@ -262,12 +290,17 @@ techBookControllers.controller('AuthController', ['$scope', 'AuthService',
 
 techBookControllers.controller('SettingController', ['$scope', 'authStatus', 'SettingService',
     function($scope, authStatus, SettingService) {
-      $scope.msg    = '';
-      $scope.alerts = [];
-      $scope.saving = false;
+      $scope.msg     = '';
+      $scope.alerts  = [];
+      $scope.saving  = false;
+      $scope.alerts  = [];
+      $scope.onError = false;
 
       SettingService.load().then(function(setting) {
         $scope.setting = setting;
+      }, function() {
+        $scope.alerts.push({type: 'danger', msg: 'ページの取得に失敗しました。しばらくしてからページを更新し直してください。'});
+        $scope.onError = true;
       });
 
       $scope.save = function() {

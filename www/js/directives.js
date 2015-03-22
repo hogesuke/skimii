@@ -160,7 +160,6 @@
       return {
         restrict: 'A',
         link: function(scope, element) {
-          console.debug('directive dashboardEntryList socope', scope);
           var $entryList = $(element[0]);
           var $container = $entryList.parents('.mCSB_container');
 
@@ -221,7 +220,6 @@
             $timeout(function() {
               if (!isFullCount()) {
                 var targetScope = scope.$parent.$parent;
-                console.debug('targetScope', targetScope);
                 load('dashboard', targetScope, targetScope.tag, ++targetScope.entriesData.page, EntryService);
               }
             }, 500);
@@ -244,7 +242,17 @@
       return {
         restrict: 'A',
         link: function(scope) {
-          load('list', scope, $routeParams.tag, ++scope.page, EntryService);
+
+          var watcher = scope.$watch(function() {
+            return scope.settings;
+          }, function() {
+            if (!scope.settings) {
+              return;
+            }
+
+            watcher(); // clear watch
+            load('list', scope, $routeParams.tag, ++scope.page, EntryService);
+          });
         }
       };
     }]).
