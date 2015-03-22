@@ -1,7 +1,7 @@
 <div id="entryboard" entry-board>
   <div id="entry-list-header">
     <div ng-include="'../parts/entry_list_controll.part.html'"></div>
-    <div class="tag-name">{{tag}}</div>
+    <div class="tag-name">{{::tag}}</div>
   </div>
   <div class="entry-list" ng-class="getViewSize(viewName)" entry-list entry-list-scrollbar="list">
     <div class="entry" ng-repeat="entry in entries" ng-show="::visibleEntry(entry)" ng-include="'../parts/entry.part.html'" entry-repeat></div>

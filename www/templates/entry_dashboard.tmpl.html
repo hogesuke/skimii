@@ -1,9 +1,9 @@
 <div id="dashboard" dashboard-scrollbar>
   <div class="entry-list small" ng-repeat="(tag, entriesData) in allEntriesDatas" dashboard-entry-list>
-    <div class="tag-name">{{tag}}</div>
-    <div class="entry" ng-repeat="entry in entriesData.entries" ng-show="::visibleEntry(entriesData, $index)" ng-include="'../parts/entry.part.html'" dashboard-entry-repeat></div>
+    <div class="tag-name">{{::tag}}</div>
+    <div class="entry" ng-repeat="entry in entriesData.entries" ng-include="'../parts/entry.part.html'" dashboard-entry-repeat></div>
     <div class="show-more" ng-show="!entriesData.loading && !isEmpty(entriesData)">
-      <a href="#/entry/{{tag}}">もっと見る</a>
+      <a ng-href="#/entry/{{::tag}}">もっと見る</a>
     </div>
     <div class="empty-msg" ng-show="isEmpty(entriesData)">表示できるエントリはありません</div>
     <div ng-include="'../parts/loading.part.html'" ng-show="entriesData.loading"></div>

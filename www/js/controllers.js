@@ -106,39 +106,22 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
           EntryService.load(tag.name, 1).then(function(entriesData) {
             entriesData.loading = false;
             entriesData.page    = 1;
-            entriesData.visibleEntryCount = 0;
+            entriesData.entries = entriesData.entries.filter(function(entry) {
+              if ($scope.settings.visible_marked === 0) { return !entry.checked && !entry.latered; }
+              return true;
+            }).slice(0, $scope.settings.dashboard_count);
 
             $scope.allEntriesDatas[tag.name] = entriesData;
           });
         });
       });
 
-      $scope.visibleEntry = function(entriesData, index) {
-        var entry             = entriesData.entries[index];
-        var visibleEntryCount = entriesData.visibleEntryCount;
-        var limitCount        = $scope.settings.dashboard_count;
-
-        if (index === 0) {
-          entriesData.visibleEntryCount = 0;
-        }
-        if (limitCount <= visibleEntryCount) {
-          return false;
-        }
-        if ($scope.settings.visible_marked === 0) {
-          if (entry.checked || entry.latered) {
-            return false;
-          }
-        }
-
-        entriesData.visibleEntryCount++;
-        return true;
-      };
-      $scope.isEmpty = function(entriesData) {
-        return !entriesData.loading && entriesData.entries.length <= 0;
-      };
       $scope.convertToHatebuUrl = function(url) {
         return EntryService.convertToHatebuUrl(url);
       };
+      $scope.isEmpty = function(entriesData) {
+        return !entriesData.loading && entriesData.entries.length <= 0;
+      }
     }]
 );
 

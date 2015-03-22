@@ -156,10 +156,11 @@
         }
       };
     }).
-    directive('dashboardEntryList', function () {
+    directive('dashboardEntryList', ['EntryService', function (EntryService) {
       return {
         restrict: 'A',
         link: function(scope, element) {
+          console.debug('directive dashboardEntryList socope', scope);
           var $entryList = $(element[0]);
           var $container = $entryList.parents('.mCSB_container');
 
@@ -167,6 +168,15 @@
 
           $(window).resize(function() {
             setWidthAndHeight($entryList, $container);
+          });
+
+          // 1件も表示できるentryがなかった場合に次ページを取得しに行く
+          scope.$watch(function() {
+            return scope.entriesData.loading;
+          }, function(loading) {
+            if (loading === false && isEmpty()) {
+              load('dashboard', scope, scope.tag, ++scope.entriesData.page, EntryService);
+            }
           });
 
           function setWidthAndHeight($entryList, $container) {
@@ -191,9 +201,18 @@
               $entryList.width(container_w / 3 - lefPad_w);
             }
           }
+
+          function isEmpty() {
+            var $entries       = $(element).children('.entry');
+            var visibleEntries = $entries.filter(function(i, entry) {
+              return $(entry).css('display') !== 'none';
+            });
+
+            return visibleEntries.size() === 0;
+          }
         }
       };
-    }).
+    }]).
     directive('dashboardEntryRepeat', ['$routeParams', '$timeout','EntryService', function ($routeParams, $timeout, EntryService) {
       return {
         restrict: 'A',
@@ -202,6 +221,7 @@
             $timeout(function() {
               if (!isFullCount()) {
                 var targetScope = scope.$parent.$parent;
+                console.debug('targetScope', targetScope);
                 load('dashboard', targetScope, targetScope.tag, ++targetScope.entriesData.page, EntryService);
               }
             }, 500);
@@ -324,7 +344,12 @@
   }
   function setEntries(type, scope, entriesData) {
     if (type === 'dashboard') {
-      scope.entriesData.entries = scope.entriesData.entries.concat(entriesData.entries);
+      var limitCount      = scope.settings.dashboard_count;
+      var filteredEntries = entriesData.entries.filter(function(entry) {
+        return scope.settings.visible_marked === 1 || (!entry.checked && !entry.latered);
+      });
+
+      scope.entriesData.entries = scope.entriesData.entries.concat(filteredEntries).slice(0, limitCount);
       return;
     }
 
