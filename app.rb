@@ -88,8 +88,7 @@ get '/auth/callback' do
     setting            = Setting.new
     user.setting       = setting
     if not user.save
-      status(400)
-      return {err_msg: 'ユーザの登録に失敗しました'}.to_json
+      redirect('http://localhost/#/500') # todo あとで設定ファイルに切り出し
     end
 
     official_tags = Tag.where(:official => '1')

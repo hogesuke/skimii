@@ -56,6 +56,9 @@ techBookApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
           }
         }
       }).
+      when('/500', {
+        templateUrl: '../templates/500.tmpl.html'
+      }).
       otherwise({
         redirectTo: '/'
       });
