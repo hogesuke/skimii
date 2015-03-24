@@ -413,78 +413,81 @@ html, body {
     max-width: 950px;
 
     .entry {
-      min-height: 150px;
       padding-bottom: 5px;
 
       .hotentry-date {
         margin: 15px 0 30px 0;
         font-size: 16px;
       }
-      .remove-button {
-        width: 20px;
-        height: 20px;
-        font-size: 13px;
-      }
-      .entry-thumbnail {
-        float: right;
+      .entry-container {
+        min-height: 150px;
 
-        .thumbnail {
-          width: 130px;
-          height: 100px;
-        }
-      }
-      .entry-header {
-        position: relative;
-        margin-bottom: 6px;
-        margin-right: 30px;
-        font-size: 15px;
-
-        &.visible-thumbnail {
-          margin-right: 140px;
-        }
-        .title {
-          padding-left: 23px;
-        }
-      }
-      .entry-body {
-
-        &.visible-thumbnail {
-          margin-right: 140px;
-        }
-        .description {
-          margin-bottom: 40px;
-          color: gray;
+        .remove-button {
+          width: 20px;
+          height: 20px;
           font-size: 13px;
         }
-      }
-      .entry-footer {
-        position: absolute;
-        bottom: 0;
-        margin-bottom: 8px;
-        overflow: hidden;
+        .entry-thumbnail {
+          float: right;
 
-        .bookmarkcount {
-          float: left;
-          margin-top: 8px;
-          padding: 0 7px 1px 7px;
-          border: solid 1px #dfdfdf;
-          border-radius: 5px;
-
-          a {
-            font-size: 14px;
-            color: #204d74;
-
-            &::after {
-              content: " users";
-              font-size: 11px;
-            }
+          .thumbnail {
+            width: 130px;
+            height: 100px;
           }
         }
-        .controll-button-container {
-          .controll-button {
-            height: 32px;
-            width: 32px;
-            border-radius: 16px;
+        .entry-header {
+          position: relative;
+          margin-bottom: 6px;
+          margin-right: 30px;
+          font-size: 15px;
+
+          &.visible-thumbnail {
+            margin-right: 140px;
+          }
+          .title {
+            padding-left: 23px;
+          }
+        }
+        .entry-body {
+
+          &.visible-thumbnail {
+            margin-right: 140px;
+          }
+          .description {
+            margin-bottom: 40px;
+            color: gray;
+            font-size: 13px;
+          }
+        }
+        .entry-footer {
+          position: absolute;
+          bottom: 0;
+          margin-bottom: 8px;
+          overflow: hidden;
+
+          .bookmarkcount {
+            float: left;
+            margin-top: 8px;
+            padding: 0 7px 1px 7px;
+            border: solid 1px #dfdfdf;
+            border-radius: 5px;
+
+            a {
+              font-size: 14px;
+              color: #204d74;
+
+              &::after {
+                content: " users";
+                font-size: 11px;
+              }
+            }
+          }
+          .controll-button-container {
+            .controll-button {
+              height: 32px;
+              width: 32px;
+              border-radius: 16px;
+            }
           }
         }
       }

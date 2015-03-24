@@ -1,29 +1,31 @@
 <div class="hotentry-date" ng-show="::entry.visibleDate">
   <span>{{::entry.hotentry_date}}</span>
 </div>
-<button class="remove-button" ng-click="remove(entry, $index)" ng-show="::isRemovable()">
-  <i class="fa fa-remove"></i>
-</button>
-<div class="entry-thumbnail" ng-if="::entry.thumbnail_url">
-  <img ng-src="{{::entry.thumbnail_url}}" class="thumbnail">
-</div>
-<div class="entry-header" ng-class="::{'visible-thumbnail': entry.thumbnail_url}">
-  <img ng-src="{{::entry.favicon_url}}" class="favicon" ng-if="entry.favicon_url">
-  <a ng-href="{{::entry.url}}" class="title" target="_blank">{{::entry.title}}</a>
-</div>
-<div class="entry-body" ng-class="::{'visible-thumbnail': entry.thumbnail_url}">
-  <div class="description">{{::entry.description}}</div>
-</div>
-<div class="entry-footer">
-  <div class="controll-button-container">
-    <button class="controll-button check-button" ng-class="{ active: entry.checked }" ng-hide="viewName === 'check_list'" check-button>
-      <i class="fa fa-check"></i>
-    </button>
-    <button class="controll-button later-button" ng-class="{ active: entry.latered }" ng-hide="viewName === 'later_list'" later-button>
-      <i class="fa fa-archive"></i>
-    </button>
+<div class="entry-container">
+  <button class="remove-button" ng-click="remove(entry, $index)" ng-show="::isRemovable()">
+    <i class="fa fa-remove"></i>
+  </button>
+  <div class="entry-thumbnail" ng-if="::entry.thumbnail_url">
+    <img ng-src="{{::entry.thumbnail_url}}" class="thumbnail">
   </div>
-  <div class="bookmarkcount" ng-show="entry.bookmarkcount !== undefined">
-    <a target="_blank" ng-href="{{::convertToHatebuUrl(entry.url)}}">{{::entry.bookmarkcount}}</a>
+  <div class="entry-header" ng-class="::{'visible-thumbnail': entry.thumbnail_url}">
+    <img ng-src="{{::entry.favicon_url}}" class="favicon" ng-if="entry.favicon_url">
+    <a ng-href="{{::entry.url}}" class="title" target="_blank">{{::entry.title}}</a>
+  </div>
+  <div class="entry-body" ng-class="::{'visible-thumbnail': entry.thumbnail_url}">
+    <div class="description">{{::entry.description}}</div>
+  </div>
+  <div class="entry-footer">
+    <div class="controll-button-container">
+      <button class="controll-button check-button" ng-class="{ active: entry.checked }" ng-hide="viewName === 'check_list'" check-button>
+        <i class="fa fa-check"></i>
+      </button>
+      <button class="controll-button later-button" ng-class="{ active: entry.latered }" ng-hide="viewName === 'later_list'" later-button>
+        <i class="fa fa-archive"></i>
+      </button>
+    </div>
+    <div class="bookmarkcount" ng-show="entry.bookmarkcount !== undefined">
+      <a target="_blank" ng-href="{{::convertToHatebuUrl(entry.url)}}">{{::entry.bookmarkcount}}</a>
+    </div>
   </div>
 </div>
