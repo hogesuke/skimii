@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS settings (
 
 CREATE TABLE IF NOT EXISTS tags (
   id INT NOT NULL AUTO_INCREMENT,
-  name NVARCHAR(32) UNIQUE,
+  name VARCHAR(32) UNIQUE,
   official CHAR(1), -- 0: ユーザ 1: 公式
   created_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
@@ -40,11 +40,11 @@ CREATE TABLE IF NOT EXISTS tags_users (
 
 CREATE TABLE IF NOT EXISTS entries (
   id INT NOT NULL AUTO_INCREMENT,
-  url NVARCHAR(1024) NOT NULL,
-  title NVARCHAR(256),
-  description NVARCHAR(512),
-  thumbnail_url NVARCHAR(1024),
-  favicon_url NVARCHAR(1024),
+  url VARCHAR(1024) NOT NULL,
+  title VARCHAR(256),
+  description VARCHAR(512),
+  thumbnail_url VARCHAR(1024),
+  favicon_url VARCHAR(1024),
   created_datetime TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );
