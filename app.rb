@@ -71,8 +71,6 @@ get '/auth/callback' do
     :consumer_key    => settings.consumer_key,
     :consumer_secret => settings.consumer_secret
   )
-  pp session[:token]
-  pp session[:token_secret]
 
   access_token = oauth_client.authorize(
     session[:token],
