@@ -1,0 +1,8 @@
+consumer_key: your-consuer-key
+consumer_secret: your-consumer-secret
+session_secret: secret
+base_url: http://localhost/
+callback_url: http://localhost:4567/auth/callback
+hash:
+  home: /
+  server_error: /500

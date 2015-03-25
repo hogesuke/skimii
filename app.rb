@@ -9,6 +9,7 @@ require 'json'
 require 'active_record'
 require 'twitter_oauth'
 require 'twitter'
+require 'yaml'
 require 'pp'
 require_relative './model/user'
 require_relative './model/tag'
@@ -17,12 +18,24 @@ require_relative './model/later'
 require_relative './model/entry'
 require_relative './model/setting'
 
-ActiveRecord::Base.configurations = YAML.load_file('./db/database.yml')
+ActiveRecord::Base.configurations = YAML.load_file(File.join(__dir__, './db/database.yml'))
 ActiveRecord::Base.establish_connection('development')
 
 configure :production, :development do
-  enable :sessions # todo expired_atの設定
-  set :session_secret, 'super secret' # todo あとで設定ファイルに切り出し
+  config = YAML.load_file(File.join(__dir__, './config/config.yml'))
+
+  base_url = config['base_url']
+  set :home_url,         base_url + '#' + config['hash']['home']
+  set :server_error_url, base_url + '#' + config['hash']['server_error']
+  set :callback_url,     config['callback_url']
+
+  set :consumer_key,     config['consumer_key']
+  set :consumer_secret,  config['consumer_secret']
+
+  use Rack::Session::Cookie,
+      :key          => 'rack.session',
+      :expire_after => 60 * 60 * 24 * 30, # 30days
+      :secret       => config['session_secret']
 end
 
 configure :development do
@@ -39,14 +52,14 @@ end
 
 post '/auth' do
   client = TwitterOAuth::Client.new(
-    :consumer_key    => 'T8COETdDSizplH0kXosTu6ZOW', # todo あとで設定ファイルに切り出し
-    :consumer_secret => 'Z4EiaqtkxcVnJvnhrhFVMoTSQPGmtJ9yTy2rEJHPPvKq9yoAOS'
+    :consumer_key    => settings.consumer_key,
+    :consumer_secret => settings.consumer_secret
   )
-  request_token = client.request_token(:oauth_callback => 'http://localhost:4567/auth/callback')
+  request_token = client.request_token(:oauth_callback => settings.callback_url)
   auth_url      = request_token.authorize_url
 
   session[:token]  = request_token.token
-  session[:secret] = request_token.secret
+  session[:token_secret] = request_token.secret
 
   headers({'Content-Type' => 'application/json'})
   return {:auth_url => auth_url}.to_json
@@ -55,19 +68,21 @@ end
 get '/auth/callback' do
 
   oauth_client = TwitterOAuth::Client.new(
-    :consumer_key    => 'T8COETdDSizplH0kXosTu6ZOW', # todo あとで設定ファイルに切り出し
-    :consumer_secret => 'Z4EiaqtkxcVnJvnhrhFVMoTSQPGmtJ9yTy2rEJHPPvKq9yoAOS'
+    :consumer_key    => settings.consumer_key,
+    :consumer_secret => settings.consumer_secret
   )
+  pp session[:token]
+  pp session[:token_secret]
 
   access_token = oauth_client.authorize(
     session[:token],
-    session[:secret],
+    session[:token_secret],
     :oauth_verifier => params[:oauth_verifier]
   )
 
   tw_client = Twitter::REST::Client.new do |config|
-    config.consumer_key       = 'T8COETdDSizplH0kXosTu6ZOW' # todo あとで設定ファイルに切り出し
-    config.consumer_secret    = 'Z4EiaqtkxcVnJvnhrhFVMoTSQPGmtJ9yTy2rEJHPPvKq9yoAOS'
+    config.consumer_key       = settings.consumer_key
+    config.consumer_secret    = settings.consumer_secret
     config.oauth_token        = access_token.token
     config.oauth_token_secret = access_token.secret
   end
@@ -88,7 +103,7 @@ get '/auth/callback' do
     setting            = Setting.new
     user.setting       = setting
     if not user.save
-      redirect('http://localhost/#/500') # todo あとで設定ファイルに切り出し
+      redirect(settings.server_error_url)
     end
 
     official_tags = Tag.where(:official => '1')
@@ -99,7 +114,7 @@ get '/auth/callback' do
 
   session[:user_id] = user.id
 
-  redirect('http://localhost/') # todo あとで設定ファイルに切り出し
+  redirect(settings.home_url)
 end
 
 delete '/auth' do
