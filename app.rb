@@ -18,7 +18,7 @@ require_relative './model/entry'
 require_relative './model/setting'
 
 ActiveRecord::Base.configurations = YAML.load_file(File.join(__dir__, './db/database.yml'))
-ActiveRecord::Base.establish_connection('development')
+ActiveRecord::Base.establish_connection(settings.environment)
 
 configure :production, :development do
   config = YAML.load_file(File.join(__dir__, './config/config.yml'))

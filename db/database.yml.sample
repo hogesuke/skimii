@@ -1,0 +1,15 @@
+development:
+  adapter: mysql2
+  database: sample_db
+  host: localhost
+  username: sample_user
+  password: sample_password
+  encoding: utf8
+
+production:
+  adapter: mysql2
+  database: sample_db
+  host: localhost
+  username: sample_user
+  password: sample_password
+  encoding: utf8
