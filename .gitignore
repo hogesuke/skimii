@@ -87,3 +87,4 @@ build/
 
 # config
 /config/config.yml
+/db/database.yml
