@@ -2,7 +2,6 @@
 
 require 'sinatra'
 require 'sinatra/reloader'
-require 'sinatra/activerecord' # todo こいつの使い方をちゃんと調べる
 require 'net/http'
 require 'xmlsimple'
 require 'json'
