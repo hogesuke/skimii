@@ -322,6 +322,24 @@ get '/user/my/later' do
   return { :entries => entries, :completed => entries.empty?, :sort => 'recent' }.to_json
 end
 
+get '/user/my/later/count' do
+  if @user.nil?
+    status(401)
+    return {err_msg: '認証が必要です'}.to_json
+  end
+
+  setting    = @user.setting
+  date_begin = (Date.today - setting.later_days - 1).strftime("%Y-%m-%d")
+
+  count = @user.later_entries.
+    where('laters.created_datetime >= ?', date_begin).
+    count('entries.id')
+
+  pp 'count'
+  pp count
+  return { :count => count }.to_json
+end
+
 post '/user/my/later' do
   if @user.nil?
     status(200)

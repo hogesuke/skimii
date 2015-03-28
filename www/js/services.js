@@ -116,11 +116,24 @@ angular.module('TechBookApp').
   }]).
   factory('LaterService', ['$http', '$q', function($http, $q) {
     return {
+      later: { count: 0 },
       load: function(page) {
         var deferred = $q.defer();
         $http({
           method: 'get',
           url: '/api/user/my/later?page=' + page
+        }).success(function (res) {
+          deferred.resolve(res);
+        }).error(function () {
+          deferred.reject();
+        });
+        return deferred.promise;
+      },
+      count: function() {
+        var deferred = $q.defer();
+        $http({
+          method: 'get',
+          url: '/api/user/my/later/count'
         }).success(function (res) {
           deferred.resolve(res);
         }).error(function () {
@@ -149,7 +162,7 @@ angular.module('TechBookApp').
           data: entry
         }).success(function (res) {
           deferred.resolve(res);
-        }).error(function () {
+        }.bind(this)).error(function () {
           deferred.reject();
         });
         return deferred.promise;
@@ -159,8 +172,9 @@ angular.module('TechBookApp').
         angular.forEach(entries, function(entry) {
           if (entry.url === lateredEntry.url && entry.hotentry_date === lateredEntry.hotentry_date) {
             entry.latered = isToLatered;
+            this.later.count = isToLatered ? this.later.count + 1 : this.later.count - 1;
           }
-        });
+        }.bind(this));
         if (isToLatered) {
           this.save(lateredEntry);
         } else {

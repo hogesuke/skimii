@@ -241,22 +241,29 @@ techBookControllers.controller('LaterListController', ['$scope', '$q', 'authStat
       });
 
       $scope.remove = function(entry, index) {
-        LaterService.remove(entry);
+        LaterService.remove(entry).then(function() {
+          LaterService.later.count--;
+        });
         entry.latered = false;
         $('[index=' + index + ']').fadeOut(300);
       };
     }]
 );
 
-techBookControllers.controller('SidebarController', ['$scope', 'AuthService',
-    function($scope, AuthService) {
+techBookControllers.controller('SidebarController', ['$scope', 'AuthService', 'LaterService',
+    function($scope, AuthService, LaterService) {
       $scope.isAuthed = null;
+      $scope.later    = LaterService.later;
 
       AuthService.getStatus().then(function(res) {
         $scope.isAuthed = res.is_authed;
         $scope.userRawName = res.raw_name;
+
+        return LaterService.count();
       }, function() {
         $scope.isAuthed = false;
+      }).then(function(res) {
+        LaterService.later.count = res.count;
       });
 
       $scope.visibleLogin = function() {
