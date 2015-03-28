@@ -335,8 +335,6 @@ get '/user/my/later/count' do
     where('laters.created_datetime >= ?', date_begin).
     count('entries.id')
 
-  pp 'count'
-  pp count
   return { :count => count }.to_json
 end
 
