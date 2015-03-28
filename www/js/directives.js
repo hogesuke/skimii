@@ -202,12 +202,7 @@
           }
 
           function isEmpty() {
-            var $entries       = $(element).children('.entry');
-            var visibleEntries = $entries.filter(function(i, entry) {
-              return $(entry).css('display') !== 'none';
-            });
-
-            return visibleEntries.size() === 0;
+            return scope.entriesData.entries.length === 0;
           }
         }
       };
