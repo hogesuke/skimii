@@ -78,11 +78,10 @@ html, body {
 
     li {
       padding: 10px 0 10px 15px;
-
-      a {
-        display: block;
-        height: 100%;
-      }
+    }
+    a {
+      color: #ffffff;
+      text-decoration: none;
     }
   }
   #tag-list {
