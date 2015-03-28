@@ -49,6 +49,10 @@ before %r{^/(?!auth).*$} do
   end
 end
 
+after do
+  ActiveRecord::Base.connection.close
+end
+
 post '/auth' do
   client = TwitterOAuth::Client.new(
     :consumer_key    => settings.consumer_key,

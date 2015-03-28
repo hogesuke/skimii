@@ -173,7 +173,7 @@
           scope.$watch(function() {
             return scope.entriesData.loading;
           }, function(loading) {
-            if (loading === false && isEmpty()) {
+            if (loading === false && !scope.entriesData.completed && isEmpty()) {
               load('dashboard', scope, scope.tag, ++scope.entriesData.page, EntryService);
             }
           });
