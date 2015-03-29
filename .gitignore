@@ -91,3 +91,6 @@ build/
 
 # sass
 .sass-cache
+
+# log
+/log/
