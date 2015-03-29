@@ -159,7 +159,7 @@ html, body { height: 100%; font-family: 'Lucida Grande','Hiragino Kaku Gothic Pr
 /* line 425, ../../sass/ui.scss */
 #content .entry-list.large .entry .hotentry-date { margin: 15px 0 30px 0; font-size: 16px; }
 /* line 429, ../../sass/ui.scss */
-#content .entry-list.large .entry .entry-container { min-height: 150px; }
+#content .entry-list.large .entry .entry-container { min-height: 120px; }
 /* line 432, ../../sass/ui.scss */
 #content .entry-list.large .entry .entry-container .remove-button { width: 20px; height: 20px; font-size: 13px; }
 /* line 437, ../../sass/ui.scss */
