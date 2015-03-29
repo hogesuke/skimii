@@ -4,6 +4,9 @@
     <div class="twitter-icon"><i class="fa fa-twitter"></i></div>
     <div class="auth-text">Twitterでログイン</div>
   </div>
+  <div id="auth-notice" ng-show="visibleLogin()">
+    <a ng-href="#/agreement">利用規約</a>・<a ng-href="#/privacy-policy">プライバシーポリシー</a>
+  </div>
   <div id="page-link-list">
     <ul>
       <li sidebar-link="#/">

@@ -56,6 +56,12 @@ techBookApp.config(['$routeProvider', '$httpProvider', '$locationProvider',
           }
         }
       }).
+      when('/privacy-policy', {
+        templateUrl: '../templates/privacy_policy.tmpl.html'
+      }).
+      when('/agreement', {
+        templateUrl: '../templates/agreement.tmpl.html'
+      }).
       when('/500', {
         templateUrl: '../templates/500.tmpl.html'
       }).
