@@ -12,3 +12,7 @@ gem 'twitter', '~> 5.14.0'
 group :development do
   gem 'compass', '~> 1.0.1'
 end
+
+group :production do
+  gem 'unicorn', '~> 4.8.3'
+end
