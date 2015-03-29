@@ -35,6 +35,8 @@ configure :production, :development do
       :key          => 'rack.session',
       :expire_after => 60 * 60 * 24 * 30, # 30days
       :secret       => config['session_secret']
+
+  set :protection, :except => [:json_csrf]
 end
 
 configure :development do
