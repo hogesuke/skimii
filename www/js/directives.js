@@ -160,14 +160,12 @@
       return {
         restrict: 'A',
         link: function(scope, element) {
-          console.debug('coco1');
           $(element[0]).mCustomScrollbar({
             theme        : 'dark',
             scrollInertia: 100,
             mouseWheel   : { scrollAmount: 100 },
             advanced     : { updateOnImageLoad: false }
           });
-          console.debug('coco2');
         }
       };
     }).
