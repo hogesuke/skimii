@@ -101,7 +101,7 @@ angular.module('TechBookApp').
         var deferred = $q.defer();
         $http({
           method: 'get',
-          url: '/api/entry?page=' + page + '&tag=' + tag
+          url: '/api/entry?page=' + page + '&tag=' + encodeURIComponent(tag)
         }).success(function (res) {
           deferred.resolve(res);
         }).error(function () {
