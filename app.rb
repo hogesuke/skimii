@@ -86,8 +86,8 @@ get '/auth/callback' do
   tw_client = Twitter::REST::Client.new do |config|
     config.consumer_key       = settings.consumer_key
     config.consumer_secret    = settings.consumer_secret
-    config.oauth_token        = access_token.token
-    config.oauth_token_secret = access_token.secret
+    config.access_token       = access_token.token
+    config.access_token_secret = access_token.secret
   end
 
   screen_name = access_token.params[:screen_name]
