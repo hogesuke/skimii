@@ -42,6 +42,7 @@ GEM
     http_parser.rb (0.6.0)
     i18n (0.6.11)
     json (1.8.1)
+    kgio (2.9.3)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
     mime-types (2.4.3)
@@ -56,6 +57,7 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    raindrops (0.13.0)
     rb-fsevent (0.9.4)
     rb-inotify (0.9.5)
       ffi (>= 0.5.0)
@@ -91,6 +93,10 @@ GEM
       oauth (>= 0.4.7)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    unicorn (4.8.3)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
     xml-simple (1.1.4)
 
 PLATFORMS
@@ -106,4 +112,5 @@ DEPENDENCIES
   sinatra-contrib (~> 1.4.2)
   twitter (~> 5.14.0)
   twitter_oauth (~> 0.4.94)
+  unicorn (~> 4.8.3)
   xml-simple (~> 1.1.4)

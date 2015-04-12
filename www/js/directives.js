@@ -59,7 +59,7 @@
             $el.mCustomScrollbar({
               theme        : 'dark',
               scrollInertia: 100,
-              mouseWheel   : { scrollAmount: 100 },
+              mouseWheel   : { scrollAmount: 10, normalizeDelta: false },
               advanced     : { updateOnImageLoad: false },
               callbacks    : {
                 onInit: function() {
@@ -114,7 +114,7 @@
           $(element[0]).mCustomScrollbar({
             theme        : 'dark',
             scrollInertia: 100,
-            mouseWheel   : { scrollAmount: 100 },
+            mouseWheel   : { scrollAmount: 10, normalizeDelta: false },
             advanced     : { updateOnImageLoad: false }
           });
         }
@@ -141,7 +141,7 @@
           $tagList.mCustomScrollbar({
             theme        : 'light',
             scrollInertia: 100,
-            mouseWheel   : { scrollAmount: 75 },
+            mouseWheel   : { scrollAmount: 10, normalizeDelta: false },
             advanced     : { updateOnImageLoad: false }
           });
 
@@ -163,7 +163,7 @@
           $(element[0]).mCustomScrollbar({
             theme        : 'dark',
             scrollInertia: 100,
-            mouseWheel   : { scrollAmount: 100 },
+            mouseWheel   : { scrollAmount: 10, normalizeDelta: false },
             advanced     : { updateOnImageLoad: false }
           });
         }
