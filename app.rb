@@ -447,7 +447,7 @@ def get_entries(tag_name, page)
                     "users=#{setting.bookmark_threshold}&" +
                     "of=#{count * (page - 1)}" +
                     "&mode=rss"))
-  req = Net::HTTP::Get.new(url.path + '?' + url.query)
+  req = Net::HTTP::Get.new(url.path + '?' + url.query, { 'User-Agent' => 'Mozilla/5.0' })
   res = Net::HTTP.start(url.host, url.port) {|http|
     http.request(req)
   }
