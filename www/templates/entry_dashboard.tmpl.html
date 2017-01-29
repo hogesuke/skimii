@@ -1,4 +1,4 @@
-<div id="dashboard" dashboard-scrollbar>
+<div id="dashboard">
   <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
   <div class="entry-list small" ng-repeat="(tag, entriesData) in allEntriesDatas" dashboard-entry-list>
     <div class="tag-name">{{::tag}}</div>
