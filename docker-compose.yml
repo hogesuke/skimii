@@ -1,0 +1,6 @@
+nginx:
+  build: ./docker/nginx
+  volumes:
+    - ./:/root/skimii
+  ports:
+    - "4444:80"

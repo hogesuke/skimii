@@ -59,7 +59,6 @@ crashlytics-build.properties
 /spec/reports/
 /test/tmp/
 /test/version_tmp/
-/tmp/
 
 ## Specific to RubyMotion:
 .dat*
@@ -92,5 +91,8 @@ build/
 # sass
 .sass-cache
 
+# pid
+tmp/pids/*.pid
+
 # log
-/log/
+log/*.log
