@@ -200,7 +200,8 @@ html, body {
 
   // todo 幅を極端に狭めたときの表示
   #dashboard {
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
     height: 100%;
     padding: 20px 5px 20px 30px;
 
@@ -235,8 +236,9 @@ html, body {
     }
   }
   #entryboard {
+    overflow-x: hidden;
+    overflow-y: scroll;
     height: 100%;
-    overflow: hidden;
     padding: 20px 5px 30px 30px;
 
     .tag-name {
