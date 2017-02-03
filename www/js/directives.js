@@ -281,6 +281,7 @@
       });
 
       scope.entriesData.entries = scope.entriesData.entries.concat(filteredEntries).slice(0, limitCount);
+      scope.entriesData.completed = entriesData.completed;
       return;
     }
 
