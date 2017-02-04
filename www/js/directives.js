@@ -108,24 +108,31 @@
 
           function setWidthAndHeight($entryList, $container) {
             // for width variables
-            var adjustment_w = $container.css('margin-right') === '0px' ? 15 : 0;
-            var container_w  = $container.width() - adjustment_w;
-            var lefPad_w     = 20;
+            var container_w  = $container.width() - 16;
             // for height variables
             var count        = scope.settings.dashboard_count;
-            var entry_h      = 101;
-            var listHeader_h = $entryList.children('.tag-name').height();
-            var list_h       = entry_h * (count + 1) + listHeader_h;
+            var entry_h      = 100;
+            var moreButton_h = 55;
+            var listHeader_h = $entryList.children('.tag-name').outerHeight(true);
+            var list_h       = entry_h * count + moreButton_h + listHeader_h;
 
             $entryList.height(list_h);
 
-            if (container_w < 800) {
-              $entryList.width(container_w - lefPad_w);
+            var paddingWidth = parseInt($entryList.css('padding-left')) + parseInt($entryList.css('padding-right'));
+            var marginWidth  = parseInt($entryList.css('margin-left')) + parseInt($entryList.css('margin-right'));
+            var borderWidth  = parseInt($entryList.css('border-left-width')) + parseInt($entryList.css('border-left-width'));
+            var excludeWidth = paddingWidth + marginWidth + borderWidth;
+
+            if (container_w < 450) {
+              $entryList.width(450 - excludeWidth);
+              $entryList.css({height: ''});
+            } else if (container_w < 800) {
+              $entryList.width(container_w - excludeWidth);
               $entryList.css({height: ''});
             } else if (container_w < 1200) {
-              $entryList.width(container_w / 2 - lefPad_w);
+              $entryList.width((container_w - excludeWidth * 2) / 2);
             } else {
-              $entryList.width(container_w / 3 - lefPad_w);
+              $entryList.width((container_w - excludeWidth * 3) / 3);
             }
           }
 

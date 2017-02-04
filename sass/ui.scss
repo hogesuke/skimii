@@ -203,14 +203,12 @@ html, body {
     overflow-x: hidden;
     overflow-y: scroll;
     height: 100%;
-    padding: 20px 5px 20px 30px;
+    padding: 20px 0 20px 30px;
 
     .tag-name {
       margin-bottom: 20px;
-      padding: 4px 0 4px 15px;
-      background-color: #26608d;
-      font-size: 19px;
-      color: #ffffff;
+      font-size: 24px;
+      color: #26608d;
     }
     .show-more {
       margin-bottom: 15px;
@@ -218,8 +216,10 @@ html, body {
       font-size: 14px;
     }
     .entry-list.small {
-      box-sizing: content-box;
-      padding-right: 20px;
+      box-sizing: border-box;
+      margin-right: 20px;
+      margin-bottom: 10px;
+      padding: 10px 20px;
 
       .show-more a {
         padding: 10px 0;
@@ -288,7 +288,6 @@ html, body {
     .entry {
       position: relative;
       margin-bottom: 15px;
-      border-bottom: solid 1px #dfdfdf;
       overflow: hidden;
 
       .hotentry-date {
@@ -319,7 +318,7 @@ html, body {
       .entry-footer {
         .controll-button-container {
           float: left;
-          margin-right: 15px;
+          margin-right: 5px;
 
           .controll-button {
             margin-right: 5px;
@@ -364,7 +363,7 @@ html, body {
         margin-right: 20px;
 
         &.visible-thumbnail {
-          margin-right: 100px;
+          margin-right: 105px;
         }
         .title {
           width: 100%;
@@ -387,6 +386,9 @@ html, body {
           width: 95px;
           height: 74px;
           margin-bottom: 0;
+          padding: 0;
+          border: none;
+          border-radius: 0;
         }
       }
       .entry-body {
@@ -402,9 +404,7 @@ html, body {
           a {
             position: absolute;
             bottom: 10px;
-            padding: 0 5px;
-            border: solid 1px #dfdfdf;
-            border-radius: 3px;
+            padding: 0 5px 5px;
             font-size: 13px;
             color: #204D74;
 
@@ -487,8 +487,6 @@ html, body {
             float: left;
             margin-top: 8px;
             padding: 0 7px 1px 7px;
-            border: solid 1px #dfdfdf;
-            border-radius: 5px;
 
             a {
               font-size: 14px;
