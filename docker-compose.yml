@@ -4,3 +4,8 @@ nginx:
     - ./:/root/skimii
   ports:
     - "4444:80"
+
+unicorn:
+  build: ./docker/unicorn
+  volumes:
+    - ./:/home/unicorn/skimii

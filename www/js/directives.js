@@ -109,6 +109,11 @@
           function setWidthAndHeight($entryList, $container) {
             // for width variables
             var container_w  = $container.width() - 16;
+            var paddingWidth = parseInt($entryList.css('padding-left')) + parseInt($entryList.css('padding-right'));
+            var marginWidth  = parseInt($entryList.css('margin-left')) + parseInt($entryList.css('margin-right'));
+            var borderWidth  = parseInt($entryList.css('border-left-width')) + parseInt($entryList.css('border-left-width'));
+            var excludeWidth = paddingWidth + marginWidth + borderWidth;
+
             // for height variables
             var count        = scope.settings.dashboard_count;
             var entry_h      = 100;
@@ -117,11 +122,6 @@
             var list_h       = entry_h * count + moreButton_h + listHeader_h;
 
             $entryList.height(list_h);
-
-            var paddingWidth = parseInt($entryList.css('padding-left')) + parseInt($entryList.css('padding-right'));
-            var marginWidth  = parseInt($entryList.css('margin-left')) + parseInt($entryList.css('margin-right'));
-            var borderWidth  = parseInt($entryList.css('border-left-width')) + parseInt($entryList.css('border-left-width'));
-            var excludeWidth = paddingWidth + marginWidth + borderWidth;
 
             if (container_w < 450) {
               $entryList.width(450 - excludeWidth);
