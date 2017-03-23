@@ -294,11 +294,13 @@
 
   function getEntries(scope) {
     if (scope.viewName === 'dashboard') {
-      var joinedEntries = [];
-      angular.forEach(scope.allEntriesDatas, function(entriesData) {
-        joinedEntries = joinedEntries.concat(entriesData.entries);
-      });
-      return joinedEntries;
+      // todo 全タグを横断するように要修正
+      // var joinedEntries = [];
+      // angular.forEach(scope.allEntriesDatas, function(entriesData) {
+      //   joinedEntries = joinedEntries.concat(entriesData.entries);
+      // });
+      // return joinedEntries;
+      return scope.entriesData.entries;
     } else {
       return scope.entries;
     }
