@@ -97,12 +97,15 @@
             setWidthAndHeight($entryList, $container);
           });
 
-          // 1件も表示できるentryがなかった場合に次ページを取得しに行く
+          scope.entriesData = { entries: [], page: 1, completed: false, loading: true, hasMore: false };
+          load('dashboard', scope, scope.tag.name, 1, EntryService);
+
+          // 次ページの取得
           scope.$watch(function() {
             return scope.entriesData.loading;
           }, function(loading) {
-            if (loading === false && !scope.entriesData.completed && isEmpty()) {
-              load('dashboard', scope, scope.tag, ++scope.entriesData.page, EntryService);
+            if (loading === false && !scope.entriesData.completed && !isReachedLimit()) {
+              load('dashboard', scope, scope.tag.name, ++scope.entriesData.page, EntryService);
             }
           });
 
@@ -136,34 +139,8 @@
             }
           }
 
-          function isEmpty() {
-            return scope.entriesData.entries.length === 0;
-          }
-        }
-      };
-    }]).
-    directive('dashboardEntryRepeat', ['$routeParams', '$timeout','EntryService', function ($routeParams, $timeout, EntryService) {
-      return {
-        restrict: 'A',
-        link: function(scope, element) {
-          if (scope.$last) {
-            $timeout(function() {
-              if (!isFullCount()) {
-                var targetScope = scope.$parent.$parent;
-                load('dashboard', targetScope, targetScope.tag, ++targetScope.entriesData.page, EntryService);
-              }
-            }, 500);
-          }
-
-          function isFullCount() {
-            var $entry         = $(element);
-            var $entries       = $entry.parent('.entry-list').children('.entry');
-            var limitCount     = scope.settings.dashboard_count;
-            var visibleEntries = $entries.filter(function(i, entry) {
-              return $(entry).css('display') !== 'none';
-            });
-
-            return visibleEntries.size() >= limitCount;
+          function isReachedLimit() {
+            return scope.settings.dashboard_count <= scope.entriesData.entries.length;
           }
         }
       };
@@ -287,8 +264,9 @@
         return scope.settings.visible_marked === 1 || (!entry.checked && !entry.latered);
       });
 
-      scope.entriesData.entries = scope.entriesData.entries.concat(filteredEntries).slice(0, limitCount);
+      scope.entriesData.entries   = scope.entriesData.entries.concat(filteredEntries).slice(0, limitCount);
       scope.entriesData.completed = entriesData.completed;
+      scope.entriesData.hasMore   = scope.settings.dashboard_count <= filteredEntries.length;
       return;
     }
 
