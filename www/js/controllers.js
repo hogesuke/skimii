@@ -101,33 +101,19 @@ techBookControllers.controller('DashboardController', ['$scope', 'TagService', '
       $scope.viewName        = 'dashboard';
       $scope.allEntriesDatas = {};
       $scope.alerts          = [];
+      $scope.tags            = {};
 
       SettingService.load().then(function(res) {
         $scope.settings = res;
         return TagService.loadMine();
       }).then(function(tags) {
-        angular.forEach(tags, function(tag) {
-          $scope.allEntriesDatas[tag.name] = { entries: [], completed: false, loading: true };
-          EntryService.load(tag.name, 1).then(function(entriesData) {
-            entriesData.loading = false;
-            entriesData.page    = 1;
-            entriesData.entries = entriesData.entries.filter(function(entry) {
-              if ($scope.settings.visible_marked === 0) { return !entry.checked && !entry.latered; }
-              return true;
-            }).slice(0, $scope.settings.dashboard_count);
-
-            $scope.allEntriesDatas[tag.name] = entriesData;
-          });
-        });
+        $scope.tags = tags;
       }, function() {
         $scope.alerts.push({type: 'danger', msg: 'ページの取得に失敗しました。しばらくしてからページを更新し直してください。'});
       });
 
       $scope.convertToHatebuUrl = function(url) {
         return EntryService.convertToHatebuUrl(url);
-      };
-      $scope.isEmpty = function(entriesData) {
-        return !entriesData.loading && entriesData.entries.length <= 0;
       };
       $scope.closeAlert = function(index) {
         $scope.alerts.splice(index, 1);

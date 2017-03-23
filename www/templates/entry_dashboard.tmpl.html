@@ -1,10 +1,10 @@
 <div id="dashboard">
   <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
-  <div class="entry-list small" ng-repeat="(tag, entriesData) in allEntriesDatas" dashboard-entry-list>
-    <div class="tag-name">{{::tag}}</div>
-    <div class="entry" ng-repeat="entry in entriesData.entries" ng-include="'../parts/entry.part.html'" dashboard-entry-repeat></div>
-    <div class="show-more" ng-show="!entriesData.loading && !isEmpty(entriesData)">
-      <a ng-href="#/entry/{{::tag}}">もっと見る</a>
+  <div class="entry-list small" ng-repeat="tag in tags" dashboard-entry-list>
+    <div class="tag-name">{{::tag.name}}</div>
+    <div class="entry" ng-repeat="entry in entriesData.entries" ng-include="'../parts/entry.part.html'"></div>
+    <div class="show-more" ng-show="!entriesData.loading && entriesData.hasMore">
+      <a ng-href="#/entry/{{::tag.name}}">もっと見る</a>
     </div>
     <div class="empty-msg" ng-show="isEmpty(entriesData)">表示できるエントリはありません</div>
     <div ng-include="'../parts/loading.part.html'" ng-show="entriesData.loading"></div>
