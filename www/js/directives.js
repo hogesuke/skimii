@@ -109,6 +109,16 @@
             }
           });
 
+          scope.isEmpty = function () {
+            if (!scope.entriesData.completed) { return false; }
+
+            var visibleEntries = scope.entriesData.entries.filter(function (entry) {
+              return !entry.checked && !entry.latered;
+            });
+
+            return visibleEntries.length === 0;
+          };
+
           function setWidthAndHeight($entryList, $container) {
             // for width variables
             var container_w  = $container.width() - 16;

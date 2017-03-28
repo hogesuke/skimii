@@ -6,7 +6,7 @@
     <div class="show-more" ng-show="!entriesData.loading && entriesData.hasMore">
       <a ng-href="#/entry/{{::tag.name}}">もっと見る</a>
     </div>
-    <div class="empty-msg" ng-show="isEmpty(entriesData)">表示できるエントリはありません</div>
+    <div class="empty-msg" ng-show="isEmpty()">表示できるエントリはありません</div>
     <div ng-include="'../parts/loading.part.html'" ng-show="entriesData.loading"></div>
   </div>
 </div>
