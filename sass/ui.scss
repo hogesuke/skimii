@@ -3,6 +3,10 @@ html, body {
   font-family: 'Lucida Grande','Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
 }
 
+a {
+  color: #2873a3;
+}
+
 #header {
   height: 45px;
   background-color: #204d74;
@@ -15,7 +19,7 @@ html, body {
   padding-top: 5px;
   position: absolute;
   overflow: hidden;
-  background-color: #204d74;
+  background-color: #333333;
   color: #ffffff;
   font-size: 16px;
 
@@ -32,13 +36,13 @@ html, body {
       }
       &.active {
         color: #ffffff;
-        background-color: #2975a5;
+        background-color: rgba(255, 255, 255, 0.2);
       }
       .later-count {
         padding: 0 8px;
         background-color: #ffffff;
         border-radius: 10px;
-        color: #204d74;
+        color: #333;
         font-size: 12px;
         vertical-align: middle;
       }
@@ -94,7 +98,7 @@ html, body {
     }
   }
   #tag-list {
-    padding-left: 19px;
+    padding: 0 0 10px 19px;
     box-shadow: 0 1px rgba(255,255,255,0.08),0 -1px rgba(0,0,0,0.17) inset;
 
     #tag-list-header {
@@ -112,7 +116,7 @@ html, body {
         background-color: #ffffff;
         border-radius: 20px;
         font-size: 11px;
-        color: #204d74;
+        color: #333;
         box-sizing: border-box;
 
         &.active {
@@ -204,11 +208,14 @@ html, body {
     overflow-y: scroll;
     height: 100%;
     padding: 20px 0 20px 30px;
+    background-color: #555;
 
     .tag-name {
       margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: solid 1px #ddd;
       font-size: 24px;
-      color: #26608d;
+      color: #333;
     }
     .show-more {
       margin-bottom: 15px;
@@ -218,8 +225,9 @@ html, body {
     .entry-list.small {
       box-sizing: border-box;
       margin-right: 20px;
-      margin-bottom: 10px;
+      margin-bottom: 20px;
       padding: 10px 20px;
+      background-color: #ffffff;
 
       .show-more a {
         padding: 10px 0;
@@ -537,8 +545,8 @@ html, body {
 
         &.active {
           color: #ffffff;
-          border: solid 1px #38729b;
-          background-color: #38729b;
+          border: solid 1px #333;
+          background-color: #333;
         }
         .tag-option {
           position: relative;
@@ -584,7 +592,7 @@ html, body {
       font-size: 10px;
     }
     .spinner > div {
-      background-color: #a0b9d8;
+      background-color: rgba(0, 0, 0, 0.3);
       height: 100%;
       width: 6px;
       display: inline-block;
@@ -640,8 +648,8 @@ html, body {
   }
 
   .checkbox-primary input[type="checkbox"]:checked + label::before {
-    background-color: #78b1d1;
-    border-color: #78b1d1;
+    background-color: #aaa;
+    border-color: #aaa;
   }
 
   .text-msg {
