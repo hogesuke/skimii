@@ -125,7 +125,7 @@
             // for height variables
             var count        = scope.settings.dashboard_count;
             var entry_h      = 100;
-            var moreButton_h = 55;
+            var moreButton_h = 60;
             var listHeader_h = $entryList.children('.tag-name').outerHeight(true);
             var list_h       = entry_h * count + moreButton_h + listHeader_h;
 

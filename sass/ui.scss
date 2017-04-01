@@ -212,30 +212,33 @@ a {
 
     .tag-name {
       margin-bottom: 20px;
-      padding-bottom: 10px;
+      padding: 14px 20px;
       border-bottom: solid 1px #ddd;
-      font-size: 24px;
+      font-size: 20px;
       color: #333;
     }
     .show-more {
-      margin-bottom: 15px;
       text-align: center;
       font-size: 14px;
+      border-top: solid 1px #ddd;
+
+      &:hover {
+        background-color: rgba(71, 136, 216, 0.2);
+      }
     }
     .entry-list.small {
       box-sizing: border-box;
       margin-right: 20px;
       margin-bottom: 20px;
-      padding: 10px 20px;
       background-color: #ffffff;
 
       .show-more a {
-        padding: 10px 0;
+        padding: 20px 0;
         display: block;
       }
     }
     .empty-msg {
-      margin-bottom: 30px;
+      padding: 10px 0 30px 0;
       text-align: center;
       color: #b2b2b2;
     }
@@ -296,6 +299,7 @@ a {
     .entry {
       position: relative;
       margin-bottom: 15px;
+      padding: 0 20px;
       overflow: hidden;
 
       .hotentry-date {
