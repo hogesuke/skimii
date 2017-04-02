@@ -244,12 +244,8 @@ techBookControllers.controller('HeaderController', ['$scope', 'AuthService', 'La
     AuthService.getStatus().then(function(res) {
       $scope.isAuthed = res.is_authed;
       $scope.userRawName = res.raw_name;
-
-      return LaterService.count();
     }, function() {
       $scope.isAuthed = false;
-    }).then(function(res) {
-      LaterService.later.count = res.count;
     });
 
     $scope.visibleLogin = function() {
@@ -269,7 +265,19 @@ techBookControllers.controller('HeaderController', ['$scope', 'AuthService', 'La
 
 techBookControllers.controller('SidebarController', ['$scope', 'AuthService', 'LaterService',
     function($scope, AuthService, LaterService) {
-      // todo 必要なければcontrollerを消す
+      $scope.isAuthed = null;
+      $scope.later    = LaterService.later;
+
+      AuthService.getStatus().then(function(res) {
+        $scope.isAuthed = res.is_authed;
+        $scope.userRawName = res.raw_name;
+
+        return LaterService.count();
+      }, function() {
+        $scope.isAuthed = false;
+      }).then(function(res) {
+        LaterService.later.count = res.count;
+      });
     }]
 );
 
