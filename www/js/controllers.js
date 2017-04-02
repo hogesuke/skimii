@@ -236,34 +236,40 @@ techBookControllers.controller('LaterListController', ['$scope', '$q', 'authStat
     }]
 );
 
+techBookControllers.controller('HeaderController', ['$scope', 'AuthService', 'LaterService',
+  function($scope, AuthService, LaterService) {
+    $scope.isAuthed = null;
+    $scope.later    = LaterService.later;
+
+    AuthService.getStatus().then(function(res) {
+      $scope.isAuthed = res.is_authed;
+      $scope.userRawName = res.raw_name;
+
+      return LaterService.count();
+    }, function() {
+      $scope.isAuthed = false;
+    }).then(function(res) {
+      LaterService.later.count = res.count;
+    });
+
+    $scope.visibleLogin = function() {
+      if ($scope.isAuthed === null) {
+        return false;
+      }
+      return !$scope.isAuthed;
+    };
+    $scope.visibleUserContainer = function() {
+      if ($scope.isAuthed === null) {
+        return false;
+      }
+      return $scope.isAuthed;
+    };
+  }]
+);
+
 techBookControllers.controller('SidebarController', ['$scope', 'AuthService', 'LaterService',
     function($scope, AuthService, LaterService) {
-      $scope.isAuthed = null;
-      $scope.later    = LaterService.later;
-
-      AuthService.getStatus().then(function(res) {
-        $scope.isAuthed = res.is_authed;
-        $scope.userRawName = res.raw_name;
-
-        return LaterService.count();
-      }, function() {
-        $scope.isAuthed = false;
-      }).then(function(res) {
-        LaterService.later.count = res.count;
-      });
-
-      $scope.visibleLogin = function() {
-        if ($scope.isAuthed === null) {
-          return false;
-        }
-        return !$scope.isAuthed;
-      };
-      $scope.visibleUserContainer = function() {
-        if ($scope.isAuthed === null) {
-          return false;
-        }
-        return $scope.isAuthed;
-      };
+      // todo 必要なければcontrollerを消す
     }]
 );
 

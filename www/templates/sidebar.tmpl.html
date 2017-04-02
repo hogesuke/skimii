@@ -1,50 +1,29 @@
 <div ng-controller="SidebarController">
-  <div id="logotype">Skimii</div>
-  <div id="authorize" ng-controller="AuthController" ng-click="login()" ng-show="visibleLogin()">
-    <div class="twitter-icon"><i class="fa fa-twitter"></i></div>
-    <div class="auth-text">Twitterでログイン</div>
-  </div>
-  <div id="auth-notice" ng-show="visibleLogin()">
-    <a ng-href="#/agreement">利用規約</a>・<a ng-href="#/privacy-policy">プライバシーポリシー</a>
-  </div>
   <div id="page-link-list">
-    <ul>
-      <li sidebar-link="#/">
-        <span><i class="fa fa-tachometer"></i> ダッシュボード</span>
-      </li>
-      <li sidebar-link="#/check">
-        <span><i class="fa fa-check"></i> もう読んだ</span>
-      </li>
-      <li sidebar-link="#/later">
-        <span><i class="fa fa-archive"></i> あとで読む</span>
-        <span class="later-count">{{later.count}}</span>
-      </li>
-      <li sidebar-link="#/setting">
-        <span><i class="fa fa-cog"></i> 設定</span>
-      </li>
-      <a href="http://goo.gl/forms/8GOWS2OaA1" target="_blank">
-        <li>
-          <span><i class="fa fa-send"></i> フィードバック</span>
-        </li>
-      </a>
-    </ul>
-  </div>
-  <div id="tag-list">
-    <div id="tag-list-header">
-      <div><i class="fa fa-tags"></i> タグ</div>
-      <div id="tag-edit-link" sidebar-link="#/tag"><i class="fa fa-pencil"></i> edit</div>
-    </div>
-    <ul tag-list-scrollbar>
-      <li ng-repeat="tag in tags.mine" sidebar-link="{{'#/entry/' + tag.encoded}}">
-        <span>{{tag.name}}</span>
-      </li>
-    </ul>
-  </div>
-  <div id="user-container" ng-controller="AuthController" ng-show="visibleUserContainer()">
-    <div id="user-icon"><img src="http://twiticon.herokuapp.com/{{userRawName}}/normal"></div>
-    <div id="user-name">@{{userRawName}}</div>
-    <div id="logout" ng-controller="AuthController" ng-click="logout()">
-      <div class="auth-text"><i class="fa fa-sign-out"></i></div>
-    </div>
+    <a class="menu-item" sidebar-link="#/">
+      <i class="fa fa-tachometer"></i>
+      <div class="item-label">ダッシュボード</div>
+    </a>
+    <a class="menu-item" sidebar-link="#/check">
+      <i class="fa fa-check"></i>
+      <div class="item-label">読んだ</div>
+    </a>
+    <a class="menu-item" sidebar-link="#/later">
+      <i class="fa fa-archive"></i>
+      <div class="later-count">{{later.count}}</div>
+      <div class="item-label">あとで</div>
+    </a>
+    <a class="menu-item" sidebar-link="#/tag">
+      <i class="fa fa-tags"></i>
+      <div class="item-label">タグ</div>
+    </a>
+    <a class="menu-item" sidebar-link="#/setting">
+      <i class="fa fa-cog"></i>
+      <div class="item-label">設定</div>
+    </a>
+    <a class="menu-item" href="http://goo.gl/forms/8GOWS2OaA1" target="_blank">
+      <i class="fa fa-send"></i>
+      <div class="item-label">フィードバック</div>
+    </a>
   </div>
 </div>

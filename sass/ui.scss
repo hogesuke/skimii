@@ -8,89 +8,128 @@ a {
 }
 
 #header {
-  height: 45px;
-  background-color: #204d74;
-}
-
-#sidebar {
-  width: 250px;
-  height: 100%;
-  min-height: 100%;
-  padding-top: 5px;
-  position: absolute;
-  overflow: hidden;
+  height: 50px;
   background-color: #333333;
   color: #ffffff;
-  font-size: 16px;
 
-  ul {
-    padding-left: 0;
-    list-style-type: none;
-
-    li {
-      border-left: solid 4px transparent;
-      cursor: pointer;
-
-      &:hover {
-        border-left: solid 4px #ffffff;
-      }
-      &.active {
-        color: #ffffff;
-        background-color: rgba(255, 255, 255, 0.2);
-      }
-      .later-count {
-        padding: 0 8px;
-        background-color: #ffffff;
-        border-radius: 10px;
-        color: #333;
-        font-size: 12px;
-        vertical-align: middle;
-      }
-    }
-  }
   #logotype {
-    padding-left: 15px;
-    padding-bottom: 2px;
+    float: left;
+    margin: 5px 0 0 5px;
     font-family: 'Alegreya Sans', sans-serif;
-    font-size: 38px;
+    font-size: 30px;
     letter-spacing: 0.05em;
-    box-shadow: 0 1px rgba(255,255,255,0.08),0 -1px rgba(0,0,0,0.17) inset;
   }
+
   #authorize {
-    text-align: center;
-    margin-bottom: 10px;
-    padding: 5px 0 8px 0;
-    color: #f1f1f1;
-    border-right: solid 2px #204d74;
-    box-shadow: 0 1px rgba(255,255,255,0.08),0 -1px rgba(0,0,0,0.17) inset;
-    cursor: pointer;
-
-    &:hover {
-      background-color: #245984;
-      border-right: solid 2px #204d74;
-    }
-
-    .twitter-icon {
-      font-size: 35px;
-    }
-    .auth-text {
-      font-size: 16px;
-    }
-  }
-  #auth-notice {
-    margin-bottom: 10px;
-    font-size: 12px;
-    text-align: center;
+    float: right;
+    padding: 5px 10px 0 0;
 
     a {
       color: #ffffff;
     }
+    .login-link {
+      cursor: pointer;
+
+      .twitter-icon {
+        font-size: 16px;
+      }
+      .auth-text {
+        font-size: 14px;
+        color: #ffffff;
+      }
+    }
+    .auth-notice {
+      font-size: 10px;
+      text-align: center;
+    }
+  }
+
+  #user-container {
+    float: right;
+    height: 45px;
+    padding-left: 19px;
+
+    div {
+      float: left;
+    }
+    #user-icon {
+      margin-right: 10px;
+
+      img {
+        height: 48px;
+        width: 48px;
+        border-radius: 24px;
+        background-color: #ffffff;
+      }
+    }
+    #user-name {
+      width: 130px;
+      padding-top: 14px;
+      padding-right: 5px;
+      overflow: hidden;
+      white-space  : nowrap;
+      text-overflow: ellipsis;
+      font-size: 15px;
+    }
+    #logout {
+      height: 48px;
+      padding: 13px 10px 0 13px;
+      font-size: 19px;
+      cursor: pointer;
+    }
+  }
+}
+
+#sidebar {
+  width: 90px;
+  height: calc(100% - 50px);
+  position: absolute;
+  overflow: hidden;
+  background-color: #333333;
+  color: #ffffff;
+
+  .menu-item {
+    position: relative;
+    display: block;
+    padding: 10px 5px;
+    cursor: pointer;
+
+    i {
+      display: block;
+      height: 18px;
+      width: 18px;
+      margin: 0 auto;
+      font-size: 18px;
+    }
+
+    .item-label {
+      padding-top: 5px;
+      text-align: center;
+      font-size: 10px;
+    }
+
+    &:hover {
+      width: 100%;
+    }
+    &.active {
+      color: #ffffff;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    .later-count {
+      position: absolute;
+      top: 5px;
+      right: 24px;
+      margin-left: 5px;
+      padding: 1px 5px;
+      background-color: #e20c0d;
+      border-radius: 50%;
+      font-size: 8px;
+      vertical-align: middle;
+    }
   }
   #page-link-list {
-    margin-top: 5px;
 
     li {
-      padding: 10px 0 10px 15px;
     }
     a {
       color: #ffffff;
@@ -150,45 +189,11 @@ a {
       margin-right: 20px;
     }
   }
-  #user-container {
-    height: 52px;
-    padding-left: 19px;
-
-    div {
-      float: left;
-    }
-    #user-icon {
-      margin-right: 10px;
-
-      img {
-        height: 48px;
-        width: 48px;
-        border-radius: 24px;
-        background-color: #ffffff;
-      }
-    }
-    #user-name {
-      width: 130px;
-      padding-top: 14px;
-      padding-right: 5px;
-      overflow: hidden;
-      white-space  : nowrap;
-      text-overflow: ellipsis;
-      font-size: 15px;
-    }
-    #logout {
-      height: 48px;
-      padding: 13px 10px 0 13px;
-      font-size: 19px;
-      cursor: pointer;
-      box-shadow: -1px 0 rgba(255,255,255,0.08),1px 0 rgba(0,0,0,0.17) inset;
-    }
-  }
 }
 
 #content {
-  height: 100%;
-  padding-left: 250px;
+  height: calc(100% - 50px);
+  padding-left: 90px;
 
   #view-header {
     margin-bottom: 20px;
@@ -207,7 +212,7 @@ a {
     overflow-x: hidden;
     overflow-y: scroll;
     height: 100%;
-    padding: 20px 0 20px 30px;
+    padding: 30px 0 0 30px;
     background-color: #555;
 
     .tag-name {
