@@ -1,0 +1,19 @@
+<div ng-controller="HeaderController">
+  <div id="logotype">Skimii</div>
+  <div id="authorize" ng-controller="AuthController" ng-click="login()" ng-show="visibleLogin()">
+    <a class="login-link">
+      <span class="twitter-icon"><i class="fa fa-twitter"></i></span>
+      <span class="auth-text">Twitterでログイン</span>
+    </a>
+    <div class="auth-notice">
+      <a ng-href="#/agreement">利用規約</a>・<a ng-href="#/privacy-policy">プライバシーポリシー</a>
+    </div>
+  </div>
+  <div id="user-container" ng-controller="AuthController" ng-show="visibleUserContainer()">
+    <div id="user-icon"><img src="http://twiticon.herokuapp.com/{{userRawName}}/normal"></div>
+    <div id="user-name">@{{userRawName}}</div>
+    <div id="logout" ng-controller="AuthController" ng-click="logout()">
+      <div class="auth-text"><i class="fa fa-sign-out"></i></div>
+    </div>
+  </div>
+</div>
